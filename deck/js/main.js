@@ -3,6 +3,7 @@ import RevealNotes from 'reveal.js/plugin/notes/notes';
 
 import 'reveal.js/dist/reset.css';
 import 'reveal.js/dist/reveal.css';
+import '../css/redhat-theme.css';
 
 const deck = new Reveal({
   hash: true,

@@ -1,0 +1,672 @@
+/* ==========================================================================
+   Red Hat branded theme for Reveal.js
+   Implements 9 layout types, color system, typography, and diagram helpers.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties
+   -------------------------------------------------------------------------- */
+
+:root {
+  /* Red Hat color tokens */
+  --rh-red-50: #ee0000;
+  --rh-red-60: #a60000;
+  --rh-red-70: #5f0000;
+  --rh-black: #000000;
+  --rh-gray-80: #292929;
+  --rh-gray-60: #4d4d4d;
+  --rh-gray-20: #e0e0e0;
+  --rh-white: #ffffff;
+  --rh-teal-50: #37a3a3;
+
+  /* Reveal.js theme overrides */
+  --r-background-color: var(--rh-white);
+  --r-main-font: 'Red Hat Text', 'Segoe UI', system-ui, sans-serif;
+  --r-main-font-size: 28px;
+  --r-main-color: var(--rh-black);
+  --r-heading-font: 'Red Hat Display', 'Segoe UI', system-ui, sans-serif;
+  --r-heading-color: var(--rh-black);
+  --r-heading-font-weight: 700;
+  --r-heading-text-transform: none;
+  --r-heading-line-height: 1.15;
+  --r-heading1-size: 2.4em;
+  --r-heading2-size: 1.6em;
+  --r-heading3-size: 1.2em;
+  --r-link-color: var(--rh-red-50);
+  --r-selection-background-color: var(--rh-teal-50);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base slide reset
+   -------------------------------------------------------------------------- */
+
+.reveal .slides section {
+  text-align: left;
+  padding: 40px 60px;
+  box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   3. Layout type classes
+   -------------------------------------------------------------------------- */
+
+/* --- 3a. title-red -------------------------------------------------------- */
+
+.reveal .slides section.title-red {
+  background-color: var(--rh-red-50);
+  color: var(--rh-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.reveal .slides section.title-red h1 {
+  color: var(--rh-white);
+  font-size: 2.2em;
+  margin-bottom: 0.3em;
+}
+
+.reveal .slides section.title-red .subtitle {
+  font-weight: 300;
+  font-size: 1.2em;
+  margin-bottom: 0.6em;
+  color: var(--rh-white);
+}
+
+.reveal .slides section.title-red .presenter {
+  font-size: 0.8em;
+  opacity: 0.9;
+  color: var(--rh-white);
+}
+
+/* --- 3b. title-dark ------------------------------------------------------- */
+
+.reveal .slides section.title-dark {
+  background-color: var(--rh-gray-80);
+  color: var(--rh-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.reveal .slides section.title-dark h1 {
+  color: var(--rh-white);
+  font-size: 2.2em;
+  margin-bottom: 0.3em;
+}
+
+.reveal .slides section.title-dark .subtitle {
+  font-weight: 300;
+  font-size: 1.2em;
+  margin-bottom: 0.6em;
+  color: var(--rh-white);
+}
+
+.reveal .slides section.title-dark .presenter {
+  font-size: 0.8em;
+  opacity: 0.9;
+  color: var(--rh-white);
+}
+
+/* --- 3c. divider-red ------------------------------------------------------ */
+
+.reveal .slides section.divider-red {
+  background-color: var(--rh-red-50);
+  color: var(--rh-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.reveal .slides section.divider-red h2 {
+  color: var(--rh-white);
+  font-size: 2.4em;
+  font-weight: 900;
+}
+
+/* --- 3d. divider-dark ----------------------------------------------------- */
+
+.reveal .slides section.divider-dark {
+  background-color: var(--rh-gray-80);
+  color: var(--rh-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.reveal .slides section.divider-dark h2 {
+  color: var(--rh-white);
+  font-size: 2.4em;
+  font-weight: 900;
+  border-left: 6px solid var(--rh-red-50);
+  padding-left: 24px;
+}
+
+/* --- 3e. content-light ---------------------------------------------------- */
+
+.reveal .slides section.content-light {
+  background-color: var(--rh-white);
+  color: var(--rh-black);
+  position: relative;
+}
+
+.reveal .slides section.content-light::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 4px;
+  height: 80px;
+  background-color: var(--rh-red-50);
+}
+
+.reveal .slides section.content-light .section-marker {
+  color: var(--rh-red-50);
+  text-transform: uppercase;
+  font-size: 0.65em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3em;
+}
+
+.reveal .slides section.content-light h2 {
+  color: var(--rh-black);
+  margin-bottom: 0.5em;
+}
+
+.reveal .slides section.content-light ul {
+  list-style: disc;
+  padding-left: 1.4em;
+  line-height: 1.6;
+}
+
+.reveal .slides section.content-light ul li {
+  margin-bottom: 0.3em;
+}
+
+/* --- 3f. content-dark ----------------------------------------------------- */
+
+.reveal .slides section.content-dark {
+  background-color: var(--rh-gray-80);
+  color: var(--rh-gray-20);
+  position: relative;
+}
+
+.reveal .slides section.content-dark::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 4px;
+  height: 80px;
+  background-color: var(--rh-red-50);
+}
+
+.reveal .slides section.content-dark .section-marker {
+  color: var(--rh-red-50);
+  text-transform: uppercase;
+  font-size: 0.65em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3em;
+}
+
+.reveal .slides section.content-dark h2 {
+  color: var(--rh-white);
+  margin-bottom: 0.5em;
+}
+
+.reveal .slides section.content-dark ul {
+  list-style: disc;
+  padding-left: 1.4em;
+  line-height: 1.6;
+  color: var(--rh-gray-20);
+}
+
+.reveal .slides section.content-dark ul li {
+  margin-bottom: 0.3em;
+}
+
+/* --- 3g. agenda ----------------------------------------------------------- */
+
+.reveal .slides section.agenda {
+  display: grid;
+  grid-template-columns: 38% 58%;
+  gap: 4%;
+  align-items: start;
+  background-color: var(--rh-white);
+  color: var(--rh-black);
+}
+
+.reveal .slides section.agenda h2 {
+  color: var(--rh-red-50);
+  font-size: 2em;
+  font-weight: 900;
+}
+
+.reveal .slides section.agenda .agenda-list {
+  font-size: 0.95em;
+  line-height: 1.7;
+}
+
+.reveal .slides section.agenda .agenda-list ol {
+  padding-left: 1.4em;
+}
+
+.reveal .slides section.agenda .agenda-list ol li {
+  margin-bottom: 0.4em;
+}
+
+/* --- 3h. split ------------------------------------------------------------ */
+
+.reveal .slides section.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background-color: var(--rh-white);
+  color: var(--rh-black);
+}
+
+.reveal .slides section.split .split-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reveal .slides section.split .split-text h2 {
+  margin-bottom: 0.4em;
+}
+
+.reveal .slides section.split .split-text p {
+  line-height: 1.6;
+}
+
+.reveal .slides section.split-reverse {
+  direction: rtl;
+}
+
+.reveal .slides section.split-reverse > * {
+  direction: ltr;
+}
+
+/* --- 3i. thank-you -------------------------------------------------------- */
+
+.reveal .slides section.thank-you {
+  background-color: var(--rh-red-50);
+  color: var(--rh-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.reveal .slides section.thank-you h2 {
+  color: var(--rh-white);
+  font-size: 2.8em;
+  font-weight: 900;
+  margin-bottom: 0.4em;
+}
+
+.reveal .slides section.thank-you .boilerplate {
+  font-size: 0.7em;
+  opacity: 0.85;
+  max-width: 600px;
+  line-height: 1.5;
+  margin-bottom: 0.8em;
+}
+
+.reveal .slides section.thank-you .social-links {
+  font-size: 0.8em;
+  opacity: 0.9;
+}
+
+.reveal .slides section.thank-you .social-links a {
+  color: var(--rh-white);
+  text-decoration: underline;
+  margin: 0 0.5em;
+}
+
+/* --------------------------------------------------------------------------
+   4. Persistent element: Red Hat logo placeholder
+   -------------------------------------------------------------------------- */
+
+.rh-logo {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  width: 110px;
+  height: auto;
+  font-family: var(--r-heading-font);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+/* Color variants for different backgrounds */
+.rh-logo.logo-light {
+  color: var(--rh-white);
+}
+
+.rh-logo.logo-dark {
+  color: var(--rh-black);
+}
+
+.rh-logo.logo-red {
+  color: var(--rh-red-50);
+}
+
+/* --------------------------------------------------------------------------
+   5. Utility classes
+   -------------------------------------------------------------------------- */
+
+.text-red {
+  color: var(--rh-red-50);
+}
+
+.text-teal {
+  color: var(--rh-teal-50);
+}
+
+.text-muted {
+  color: var(--rh-gray-60);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-small {
+  font-size: 0.75em;
+}
+
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 0.5em; }
+.mt-2 { margin-top: 1em; }
+.mt-3 { margin-top: 1.5em; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.5em; }
+.mb-2 { margin-bottom: 1em; }
+.mb-3 { margin-bottom: 1.5em; }
+
+/* --------------------------------------------------------------------------
+   6. Diagram helpers
+   -------------------------------------------------------------------------- */
+
+/* --- 6a. maturity-grid ---------------------------------------------------- */
+
+.maturity-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.maturity-grid .stage {
+  background-color: var(--rh-gray-20);
+  border-radius: 8px;
+  padding: 20px 16px;
+  text-align: center;
+}
+
+.maturity-grid .stage h3 {
+  color: var(--rh-red-50);
+  font-size: 1em;
+  margin-bottom: 0.4em;
+}
+
+.maturity-grid .stage .method {
+  font-size: 0.8em;
+  font-weight: 500;
+  margin-bottom: 0.2em;
+}
+
+.maturity-grid .stage .time {
+  font-size: 0.7em;
+  color: var(--rh-gray-60);
+}
+
+/* --- 6b. maturity-arrow --------------------------------------------------- */
+
+.maturity-arrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 0.7em;
+  color: var(--rh-gray-60);
+  position: relative;
+}
+
+.maturity-arrow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    var(--rh-gray-20),
+    var(--rh-red-50)
+  );
+  z-index: 0;
+}
+
+.maturity-arrow span {
+  position: relative;
+  z-index: 1;
+  background-color: var(--rh-white);
+  padding: 0 8px;
+}
+
+/* --- 6c. lifecycle-flow --------------------------------------------------- */
+
+.lifecycle-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+}
+
+.lifecycle-flow .phase {
+  background-color: var(--rh-gray-20);
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  text-align: center;
+  min-width: 100px;
+}
+
+.lifecycle-flow .phase.active {
+  background-color: var(--rh-red-50);
+  color: var(--rh-white);
+}
+
+.lifecycle-flow .arrow {
+  font-size: 1.2em;
+  color: var(--rh-gray-60);
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* --- 6d. timeline --------------------------------------------------------- */
+
+.timeline {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  padding-top: 24px;
+}
+
+.timeline::after {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 5%;
+  right: 5%;
+  height: 2px;
+  background-color: var(--rh-gray-20);
+}
+
+.timeline .event {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 140px;
+}
+
+.timeline .event::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--rh-red-50);
+  margin-bottom: 8px;
+}
+
+.timeline .event .day {
+  color: var(--rh-red-50);
+  font-weight: 700;
+  font-size: 0.8em;
+  margin-bottom: 4px;
+}
+
+.timeline .event p {
+  font-size: 0.7em;
+  line-height: 1.4;
+}
+
+/* --- 6e. tool-grid -------------------------------------------------------- */
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+.tool-grid .tool-group {
+  background-color: var(--rh-gray-20);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.tool-grid .tool-group h3 {
+  color: var(--rh-red-50);
+  font-size: 0.95em;
+  margin-bottom: 0.5em;
+}
+
+.tool-grid .tool-group ul {
+  list-style: none;
+  padding-left: 0;
+  font-size: 0.8em;
+  line-height: 1.6;
+}
+
+/* --- 6f. steps-grid ------------------------------------------------------- */
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.steps-grid .step {
+  text-align: center;
+  padding: 16px 12px;
+}
+
+.steps-grid .step .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--rh-red-50);
+  color: var(--rh-white);
+  font-weight: 700;
+  font-size: 0.9em;
+  margin-bottom: 8px;
+}
+
+.steps-grid .step p {
+  font-size: 0.8em;
+  line-height: 1.4;
+}
+
+/* --- 6g. mcp-layout ------------------------------------------------------- */
+
+.mcp-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.mcp-layout .mcp-card {
+  background-color: var(--rh-gray-20);
+  border-radius: 8px;
+  padding: 20px;
+  border-left: 4px solid var(--rh-red-50);
+}
+
+.mcp-layout .mcp-card h3 {
+  font-size: 0.95em;
+  margin-bottom: 0.4em;
+}
+
+.mcp-layout .mcp-card p {
+  font-size: 0.8em;
+  line-height: 1.5;
+  color: var(--rh-gray-60);
+}
+
+/* --- 6h. tier-stack ------------------------------------------------------- */
+
+.tier-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.tier-stack .tier {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 16px;
+  align-items: center;
+  background-color: var(--rh-gray-20);
+  border-radius: 6px;
+  padding: 14px 20px;
+}
+
+.tier-stack .tier .tier-label {
+  font-weight: 700;
+  font-size: 0.85em;
+  color: var(--rh-red-50);
+}
+
+.tier-stack .tier .tier-desc {
+  font-size: 0.8em;
+  line-height: 1.4;
+}
