@@ -101,19 +101,13 @@ Note: ADT is one install — `adt --version` shows all tools with compatible ver
 
 ## The maturity path
 
-<div class="mermaid">
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ee0000', 'primaryTextColor': '#fff', 'lineColor': '#a3a3a3', 'secondaryColor': '#f0f0f0'}}}%%
-graph LR
-    A[Crawl\npip / uv\n~30 min] --> B[Walk\nRPM\n~15 min]
-    B --> C[Run\nDev Container\n~10 min]
-    C --> D[Fly\nDev Spaces\n~5 min]
-    style A fill:#f0f0f0,stroke:#ee0000,stroke-width:3px,color:#151515
-    style B fill:#f0f0f0,stroke:#ee0000,stroke-width:3px,color:#151515
-    style C fill:#f0f0f0,stroke:#ee0000,stroke-width:3px,color:#151515
-    style D fill:#ee0000,stroke:#a60000,stroke-width:3px,color:#fff
+<div class="maturity-grid">
+<div class="stage"><h3>Crawl</h3><p class="method">pip / uv</p><p class="time">~30 min</p><p class="consistency">Low consistency</p></div>
+<div class="stage"><h3>Walk</h3><p class="method">RPM</p><p class="time">~15 min</p><p class="consistency">Medium consistency</p></div>
+<div class="stage"><h3>Run</h3><p class="method">Dev Container</p><p class="time">~10 min</p><p class="consistency">High consistency</p></div>
+<div class="stage"><h3>Fly</h3><p class="method">Dev Spaces</p><p class="time">~5 min</p><p class="consistency">Highest consistency</p></div>
 </div>
-
-<p style="display:flex;justify-content:space-between;font-size:0.68em;color:#a3a3a3;margin-top:8px;"><span>← Less governed</span><span>More governed →</span></p>
+<div class="maturity-arrow"><span>← Less governed</span><span>More governed →</span></div>
 
 </div>
 
@@ -133,13 +127,12 @@ Note: Most customers are somewhere between Crawl and Walk. The container-based m
 
 ## The content lifecycle
 
-<div class="mermaid">
-%%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#ee0000', 'primaryTextColor': '#fff'}}}%%
-graph LR
-    Create --> Test --> Deploy
-    style Create fill:#ee0000,stroke:#a60000,color:#fff,stroke-width:2px
-    style Test fill:#ee0000,stroke:#a60000,color:#fff,stroke-width:2px
-    style Deploy fill:#ee0000,stroke:#a60000,color:#fff,stroke-width:2px
+<div class="lifecycle-flow">
+<div class="phase active">Create</div>
+<span class="arrow">→</span>
+<div class="phase active">Test</div>
+<span class="arrow">→</span>
+<div class="phase active">Deploy</div>
 </div>
 
 <div class="two-col">

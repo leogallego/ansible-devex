@@ -1048,3 +1048,41 @@
   color: var(--rh-gray-60);
   margin: 4px 0;
 }
+
+/* ══ 22. Mermaid diagram overrides ═════════════════════════════ */
+
+.reveal .slides section .mermaid {
+  margin: 20px auto;
+  width: 100%;
+}
+
+.reveal .slides section .mermaid svg {
+  max-width: 100% !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 200px;
+}
+
+.mermaid .timeline-title {
+  font-family: var(--r-heading-font) !important;
+  font-size: 1.2em !important;
+  font-weight: 700 !important;
+}
+
+.mermaid .node rect,
+.mermaid .node polygon {
+  rx: 8px;
+  ry: 8px;
+}
+
+.mermaid .flowchart-link {
+  stroke: var(--rh-gray-40) !important;
+}
+
+.mermaid .edgeLabel {
+  font-family: var(--r-main-font) !important;
+}
+
+.mermaid text {
+  font-family: var(--r-main-font) !important;
+}
