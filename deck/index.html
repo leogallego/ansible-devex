@@ -12,109 +12,232 @@
   <div class="reveal">
     <div class="slides">
 
-      <!-- 1. title-red -->
+      <!-- Slide 1 — Title -->
       <section class="title-red">
-        <h1>Ansible Developer Experience</h1>
-        <p class="subtitle">From Individual Setup to Enterprise Workspaces</p>
-        <p class="presenter">Jane Doe &mdash; Senior Platform Engineer, Red Hat</p>
+        <h1>The Ansible Developer Experience</h1>
+        <p class="subtitle">From individual setup to enterprise workspace</p>
+        <p class="presenter">Presenter Name &mdash; Title</p>
         <div class="rh-logo logo-light">Red Hat</div>
+        <aside class="notes">Set context: this is about the journey every automation team goes through.</aside>
       </section>
 
-      <!-- 2. title-dark -->
-      <section class="title-dark">
-        <h1>Development Workspaces</h1>
-        <p class="subtitle">Browser-based environments with zero local dependencies</p>
-        <div class="rh-logo logo-light">Red Hat</div>
-      </section>
-
-      <!-- 3. divider-red -->
-      <section class="divider-red">
-        <h2>Getting Started</h2>
-        <div class="rh-logo logo-light">Red Hat</div>
-      </section>
-
-      <!-- 4. divider-dark -->
-      <section class="divider-dark">
-        <h2>Tiered Image Strategy</h2>
-        <div class="rh-logo logo-light">Red Hat</div>
-      </section>
-
-      <!-- 5. content-light -->
+      <!-- Slide 2 — Onboarding problem -->
       <section class="content-light">
-        <p class="section-marker">Development Tools</p>
-        <h2>Ansible Development Tools (ADT)</h2>
-        <ul>
-          <li>ansible-creator &mdash; scaffold roles and collections</li>
-          <li>ansible-lint &mdash; best-practice rule enforcement</li>
-          <li>molecule &mdash; role testing framework</li>
-          <li>ansible-navigator &mdash; TUI for playbook execution</li>
-          <li>ansible-builder &mdash; build execution environments</li>
-        </ul>
-        <div class="rh-logo logo-red">Red Hat</div>
-      </section>
-
-      <!-- 6. content-dark -->
-      <section class="content-dark">
-        <p class="section-marker">AI Integration</p>
-        <h2>MCP Server Capabilities</h2>
-        <ul>
-          <li>Expose ADT tools to AI assistants</li>
-          <li>Lint, scaffold, navigate, and build via MCP</li>
-          <li>AAP gateway endpoint integration</li>
-          <li>Job management and inventory queries</li>
-        </ul>
-        <div class="rh-logo logo-light">Red Hat</div>
-      </section>
-
-      <!-- 7. agenda -->
-      <section class="agenda">
-        <h2>Agenda</h2>
-        <div class="agenda-list">
-          <ol>
-            <li>The developer journey today</li>
-            <li>Ansible Development Tools overview</li>
-            <li>Installation maturity path</li>
-            <li>Dev Spaces and workspaces</li>
-            <li>Tiered image layering strategy</li>
-            <li>AI-assisted development</li>
-          </ol>
-        </div>
-        <div class="rh-logo logo-red">Red Hat</div>
-      </section>
-
-      <!-- 8. split -->
-      <section class="split">
-        <div class="split-visual">
-          <div style="width: 280px; height: 200px; background: var(--rh-gray-20);
-            border-radius: 8px; display: flex; align-items: center;
-            justify-content: center; color: var(--rh-gray-60);
-            font-size: 0.8em;">
-            Diagram placeholder
+        <p class="section-marker">The Challenge</p>
+        <h2>The onboarding problem</h2>
+        <div class="timeline">
+          <div class="event">
+            <span class="day">Day 1</span>
+            <p>Kick-off &amp; paperwork</p>
+          </div>
+          <div class="event">
+            <span class="day">Day 10</span>
+            <p>Laptop arrives</p>
+          </div>
+          <div class="event">
+            <span class="day">Day 20</span>
+            <p>IDE &amp; tools installed</p>
+          </div>
+          <div class="event">
+            <span class="day">Day 30</span>
+            <p>Git access granted</p>
+          </div>
+          <div class="event">
+            <span class="day">Day 60</span>
+            <p>Still waiting for Linux / sudo</p>
           </div>
         </div>
-        <div class="split-text">
-          <h2>Content Lifecycle</h2>
-          <p>
-            Authors create content locally, validate with ADT, push to SCM,
-            and deploy through AAP &mdash; a governed pipeline from laptop
-            to production.
-          </p>
-        </div>
+        <p class="text-muted text-small mt-2">Months before writing a single playbook</p>
         <div class="rh-logo logo-red">Red Hat</div>
+        <aside class="notes">Adjust these numbers to your customer — regulated industries skew higher, cloud-native shops lower. The point isn't the exact days, it's that none of them are 5 minutes.</aside>
       </section>
 
-      <!-- 9. thank-you -->
-      <section class="thank-you">
-        <h2>Thank you</h2>
-        <p class="boilerplate">
-          Red Hat is the world's leading provider of enterprise
-          open source software solutions.
-        </p>
-        <p class="social-links">
-          <a href="#">linkedin.com/in/example</a>
-          <a href="#">github.com/example</a>
-        </p>
+      <!-- Slide 3 — Thesis divider -->
+      <section class="divider-red">
+        <h2>What if it took 5 minutes?</h2>
         <div class="rh-logo logo-light">Red Hat</div>
+        <aside class="notes">Pause for effect. This is the thesis of the talk.</aside>
+      </section>
+
+      <!-- Slide 4 — ADT tools + Module A (vertical group) -->
+      <section>
+
+        <!-- Core slide 4 -->
+        <section class="content-light">
+          <p class="section-marker">The Toolchain</p>
+          <h2>Ansible Development Tools</h2>
+          <div class="tool-grid">
+            <div class="tool-group">
+              <h3>Create</h3>
+              <ul>
+                <li>ansible-creator</li>
+                <li>ade</li>
+              </ul>
+            </div>
+            <div class="tool-group">
+              <h3>Test</h3>
+              <ul>
+                <li>molecule</li>
+                <li>ansible-lint</li>
+                <li>pytest-ansible</li>
+                <li>tox-ansible</li>
+              </ul>
+            </div>
+            <div class="tool-group">
+              <h3>Deploy</h3>
+              <ul>
+                <li>ansible-builder</li>
+                <li>ansible-navigator</li>
+                <li>ansible-sign</li>
+              </ul>
+            </div>
+          </div>
+          <div class="rh-logo logo-red">Red Hat</div>
+          <aside class="notes">ADT is one install — `adt --version` shows all tools with compatible versions. No more dependency conflicts.</aside>
+        </section>
+
+        <!-- Module A entry -->
+        <section class="divider-red">
+          <h2>ADT Tools in Detail</h2>
+          <div class="rh-logo logo-light">Red Hat</div>
+        </section>
+
+        <!-- Module A slide 1 — ansible-creator -->
+        <section class="content-light">
+          <p class="section-marker">Module A &mdash; ADT Deep Dive</p>
+          <h2>ansible-creator</h2>
+          <ul>
+            <li>Scaffold collections, playbooks, devcontainers, EE templates</li>
+            <li>Opinionated project structure out of the box</li>
+            <li>Consistent starting point for every automation project</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module A slide 2 — ansible-lint -->
+        <section class="content-light">
+          <p class="section-marker">Module A &mdash; ADT Deep Dive</p>
+          <h2>ansible-lint</h2>
+          <ul>
+            <li>Opinionated profiles: min &rarr; basic &rarr; moderate &rarr; safety &rarr; shared &rarr; production</li>
+            <li>Auto-fix with <code>--fix</code> for common violations</li>
+            <li>CI integration: exit codes, SARIF output, GitHub Actions</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module A slide 3 — molecule -->
+        <section class="content-light">
+          <p class="section-marker">Module A &mdash; ADT Deep Dive</p>
+          <h2>molecule</h2>
+          <ul>
+            <li>Multi-scenario testing with shared state</li>
+            <li>Collection-aware: test roles in collection context</li>
+            <li>Pluggable drivers: Podman, Docker, delegated, cloud</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+      </section>
+
+      <!-- Slide 5 — Maturity path -->
+      <section class="content-light">
+        <p class="section-marker">The Journey</p>
+        <h2>The maturity path</h2>
+        <div class="maturity-grid">
+          <div class="stage">
+            <h3>Crawl</h3>
+            <p class="method">pip / uv</p>
+            <p class="time">~30 min</p>
+            <p class="text-small text-muted">Low consistency</p>
+          </div>
+          <div class="stage">
+            <h3>Walk</h3>
+            <p class="method">RPM</p>
+            <p class="time">~15 min</p>
+            <p class="text-small text-muted">Medium consistency</p>
+          </div>
+          <div class="stage">
+            <h3>Run</h3>
+            <p class="method">Dev Container</p>
+            <p class="time">~10 min</p>
+            <p class="text-small text-muted">High consistency</p>
+          </div>
+          <div class="stage">
+            <h3>Fly</h3>
+            <p class="method">Dev Spaces</p>
+            <p class="time">~5 min</p>
+            <p class="text-small text-muted">Highest consistency</p>
+          </div>
+        </div>
+        <div class="maturity-arrow">
+          <span>&larr; Less governed</span>
+          <span>More governed &rarr;</span>
+        </div>
+        <div class="rh-logo logo-red">Red Hat</div>
+        <aside class="notes">Most customers are somewhere between Crawl and Walk. The container-based methods are the target.</aside>
+      </section>
+
+      <!-- Slide 6 — Content lifecycle + Module D (vertical group) -->
+      <section>
+
+        <!-- Core slide 6 -->
+        <section class="content-light">
+          <p class="section-marker">The Workflow</p>
+          <h2>The content lifecycle</h2>
+          <div class="lifecycle-flow">
+            <div class="phase active">Create</div>
+            <span class="arrow">&rarr;</span>
+            <div class="phase active">Test</div>
+            <span class="arrow">&rarr;</span>
+            <div class="phase active">Deploy</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 1.2em;">
+            <div>
+              <h3 class="text-red">Inner loop (developer)</h3>
+              <p>Write &rarr; Lint &rarr; Test &rarr; Iterate</p>
+              <p>Fast feedback, local or container</p>
+            </div>
+            <div>
+              <h3 class="text-red">Outer loop (CI/CD)</h3>
+              <p>PR &rarr; GitHub Actions &rarr; Controller sync</p>
+              <p>Automated gates, compliance scanning</p>
+            </div>
+          </div>
+          <div class="rh-logo logo-red">Red Hat</div>
+          <aside class="notes">Two loops: the inner loop is your developer's daily experience, the outer loop is what happens when they push.</aside>
+        </section>
+
+        <!-- Module D entry -->
+        <section class="divider-dark">
+          <h2>CI/CD Integration</h2>
+          <div class="rh-logo logo-light">Red Hat</div>
+        </section>
+
+        <!-- Module D slide 1 — The outer loop -->
+        <section class="content-light">
+          <p class="section-marker">Module D &mdash; CI/CD</p>
+          <h2>The outer loop</h2>
+          <ul>
+            <li>GitHub Actions: molecule CI, ansible-lint, compliance scanning</li>
+            <li>Automated PR gates enforce quality before merge</li>
+            <li>Controller sync deploys approved content to AAP</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module D slide 2 — Development observability -->
+        <section class="content-light">
+          <p class="section-marker">Module D &mdash; CI/CD</p>
+          <h2>Development observability</h2>
+          <ul>
+            <li>Grafana dashboards for workflow metrics</li>
+            <li>Track: build times, lint violations, test coverage trends</li>
+            <li>Data-driven improvement across teams</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
       </section>
 
     </div>
