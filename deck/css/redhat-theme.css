@@ -1,38 +1,43 @@
-/* Red Hat Ansible Automation Platform — reveal.js theme */
+/* Red Hat Ansible Automation Platform — reveal.js theme
+   Faithfully reproduces the official 2025 presentation template. */
+
+/* ══ 1. Design tokens ═══════════════════════════════════════════ */
 
 :root {
   --rh-red-50: #ee0000;
   --rh-red-60: #a60000;
   --rh-red-70: #5f0000;
-  --rh-black: #000000;
+  --rh-black: #151515;
   --rh-gray-80: #292929;
   --rh-gray-60: #4d4d4d;
+  --rh-gray-40: #a3a3a3;
   --rh-gray-20: #e0e0e0;
+  --rh-gray-10: #f0f0f0;
   --rh-white: #ffffff;
   --rh-teal-50: #37a3a3;
 
   --r-background-color: var(--rh-white);
   --r-main-font: 'Red Hat Text', system-ui, -apple-system, sans-serif;
-  --r-main-font-size: 28px;
+  --r-main-font-size: 24px;
   --r-main-color: var(--rh-black);
   --r-heading-font: 'Red Hat Display', system-ui, -apple-system, sans-serif;
   --r-heading-color: var(--rh-black);
-  --r-heading-font-weight: 700;
+  --r-heading-font-weight: 500;
   --r-heading-text-transform: none;
-  --r-heading-line-height: 1.15;
-  --r-heading1-size: 2.4em;
-  --r-heading2-size: 1.6em;
+  --r-heading-line-height: 1.1;
+  --r-heading1-size: 2.8em;
+  --r-heading2-size: 2em;
   --r-heading3-size: 1.2em;
   --r-link-color: var(--rh-red-50);
   --r-link-color-hover: var(--rh-red-60);
-  --r-selection-background-color: rgba(238, 0, 0, 0.2);
+  --r-selection-background-color: rgba(238, 0, 0, 0.15);
 }
 
-/* ── Base slide ────────────────────────────────────── */
+/* ══ 2. Base slide structure ════════════════════════════════════ */
 
 .reveal .slides section {
   text-align: left;
-  padding: 50px 60px 50px 70px;
+  padding: 0;
   box-sizing: border-box;
   height: 100%;
   width: 100%;
@@ -44,202 +49,516 @@
   text-align: left;
 }
 
-/* ── Title slide (red bg) ──────────────────────────── */
+/* hide reveal.js default progress / controls styling that clashes */
+.reveal .progress { height: 3px; }
+
+/* ── Slide inner wrapper ───────────────────────────────────────
+   Every slide uses .slide-body for content + .slide-footer for the
+   persistent bottom strip. This gives us the template's structure. */
+
+.slide-body {
+  padding: 40px 70px 20px 70px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  position: relative;
+}
+
+.slide-footer {
+  height: 50px;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex-shrink: 0;
+  background: var(--rh-white);
+}
+
+.slide-footer .footer-version {
+  font-size: 11px;
+  color: var(--rh-gray-40);
+  font-family: var(--r-main-font);
+}
+
+.slide-footer .footer-logo {
+  height: 22px;
+  width: auto;
+}
+
+/* ── Accent bar + section marker ──────────────────────────────── */
+
+.accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 70px;
+  background: var(--rh-red-50);
+}
+
+.section-marker {
+  font-family: var(--r-main-font);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--rh-red-50);
+  margin: 0 0 24px 0;
+  padding-left: 12px;
+}
+
+/* ══ 3. TITLE SLIDE — red background ═══════════════════════════ */
 
 .reveal .slides section.title-red {
-  color: var(--rh-white);
   display: flex !important;
   flex-direction: column;
-  justify-content: center;
-  padding: 60px 80px;
-}
-
-.reveal .slides section.title-red h1 {
   color: var(--rh-white);
-  font-size: 2.2em;
-  margin-bottom: 0.2em;
 }
 
-.reveal .slides section.title-red .subtitle {
+.title-red .slide-body {
+  padding: 50px 80px 20px 80px;
+  justify-content: center;
+}
+
+.title-red .product-logo {
+  height: 50px;
+  width: auto;
+  margin-bottom: 30px;
+  filter: brightness(0) invert(1);
+}
+
+.title-red h1 {
+  color: var(--rh-white);
+  font-size: 2.6em;
+  font-weight: 500;
+  margin: 0 0 16px 0;
+  line-height: 1.05;
+  max-width: 80%;
+}
+
+.title-red .subtitle {
   font-family: var(--r-main-font);
-  font-size: 1.1em;
+  font-size: 1.15em;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 1.5em;
+  color: var(--rh-white);
+  margin: 0 0 40px 0;
 }
 
-.reveal .slides section.title-red .presenter {
+.title-red .presenter {
   font-family: var(--r-main-font);
-  font-size: 0.8em;
-  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.85em;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
 }
 
-/* ── Title slide (dark bg) ─────────────────────────── */
+/* ══ 4. TITLE SLIDE — dark background ══════════════════════════ */
 
 .reveal .slides section.title-dark {
-  color: var(--rh-white);
   display: flex !important;
   flex-direction: column;
-  justify-content: center;
-  padding: 60px 80px;
-}
-
-.reveal .slides section.title-dark h1 {
   color: var(--rh-white);
-  font-size: 2.2em;
-  margin-bottom: 0.2em;
 }
 
-.reveal .slides section.title-dark .subtitle {
+.title-dark .slide-body {
+  padding: 50px 80px 20px 80px;
+  justify-content: center;
+}
+
+.title-dark .product-logo {
+  height: 50px;
+  width: auto;
+  margin-bottom: 30px;
+  filter: brightness(0) invert(1);
+}
+
+.title-dark h1 {
+  color: var(--rh-white);
+  font-size: 2.6em;
+  font-weight: 500;
+  margin: 0 0 16px 0;
+  line-height: 1.05;
+  max-width: 80%;
+}
+
+.title-dark .subtitle {
   font-family: var(--r-main-font);
-  font-size: 1.1em;
+  font-size: 1.15em;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 1.5em;
+  color: rgba(255,255,255,0.8);
+  margin: 0 0 40px 0;
 }
 
-/* ── Section divider (red) ─────────────────────────── */
+.title-dark .slide-footer {
+  background: var(--rh-white);
+}
+
+/* ══ 5. DIVIDER — red background ═══════════════════════════════ */
 
 .reveal .slides section.divider-red {
-  color: var(--rh-white);
   display: flex !important;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 60px 80px;
-}
-
-.reveal .slides section.divider-red h2 {
   color: var(--rh-white);
-  font-size: 2.4em;
-  text-align: center;
-  font-weight: 900;
 }
 
-/* ── Section divider (dark) ────────────────────────── */
+.divider-red .slide-body {
+  justify-content: center;
+  padding: 60px 80px 20px 80px;
+}
+
+.divider-red .section-marker {
+  color: rgba(255,255,255,0.8);
+}
+
+.divider-red .accent-bar {
+  background: rgba(255,255,255,0.4);
+}
+
+.divider-red h2 {
+  color: var(--rh-white);
+  font-size: 2.8em;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+  text-align: center;
+}
+
+/* ══ 6. DIVIDER — white background ═════════════════════════════ */
+
+.reveal .slides section.divider-light {
+  display: flex !important;
+  flex-direction: column;
+  color: var(--rh-black);
+}
+
+.divider-light .slide-body {
+  justify-content: center;
+  padding: 40px 80px 20px 70px;
+}
+
+.divider-light h2 {
+  color: var(--rh-red-50);
+  font-size: 2.8em;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0 0 16px 0;
+}
+
+.divider-light .subhead {
+  color: var(--rh-red-50);
+  font-size: 1.1em;
+  font-weight: 300;
+  margin: 0;
+}
+
+/* ══ 7. DIVIDER — dark background ══════════════════════════════ */
 
 .reveal .slides section.divider-dark {
-  color: var(--rh-white);
   display: flex !important;
   flex-direction: column;
-  justify-content: center;
-  padding: 60px 80px;
-}
-
-.reveal .slides section.divider-dark h2 {
   color: var(--rh-white);
-  font-size: 2.4em;
-  font-weight: 900;
-  border-left: 6px solid var(--rh-red-50);
-  padding-left: 24px;
 }
 
-/* ── Content slide (light) ─────────────────────────── */
+.divider-dark .slide-body {
+  justify-content: center;
+  padding: 40px 80px 20px 70px;
+}
+
+.divider-dark .section-marker {
+  color: var(--rh-red-50);
+}
+
+.divider-dark h2 {
+  color: var(--rh-white);
+  font-size: 2.8em;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+}
+
+/* ══ 8. CONTENT SLIDE — light ══════════════════════════════════ */
 
 .reveal .slides section.content-light {
+  display: flex !important;
+  flex-direction: column;
   color: var(--rh-black);
 }
 
-.reveal .slides section.content-light .accent-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 80px;
-  background-color: var(--rh-red-50);
+.content-light .slide-body {
+  padding: 40px 80px 20px 70px;
 }
 
-.reveal .slides section.content-light .section-marker {
-  font-family: var(--r-main-font);
-  font-size: 0.65em;
+.content-light h2 {
+  color: var(--rh-black);
+  font-size: 1.8em;
   font-weight: 500;
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+
+.content-light .content-subtitle {
+  text-align: center;
   color: var(--rh-red-50);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.3em;
+  font-size: 0.9em;
+  margin: 0 0 24px 0;
 }
 
-.reveal .slides section.content-light h2 {
-  color: var(--rh-black);
-  margin-top: 0.1em;
-}
-
-.reveal .slides section.content-light ul {
-  font-size: 0.85em;
+.content-light p {
+  font-size: 0.88em;
   line-height: 1.6;
   color: var(--rh-gray-60);
+  margin: 0 0 16px 0;
 }
 
-.reveal .slides section.content-light li {
-  margin-bottom: 0.4em;
+.content-light ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
 }
 
-/* ── Content slide (dark) ──────────────────────────── */
+.content-light ul li {
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: var(--rh-black);
+  padding: 6px 0 6px 28px;
+  position: relative;
+}
+
+.content-light ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--rh-black);
+  font-size: 1.1em;
+}
+
+/* ══ 9. CONTENT SLIDE — dark ═══════════════════════════════════ */
 
 .reveal .slides section.content-dark {
+  display: flex !important;
+  flex-direction: column;
   color: var(--rh-white);
 }
 
-.reveal .slides section.content-dark .accent-bar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 80px;
-  background-color: var(--rh-red-50);
+.content-dark .slide-body {
+  padding: 40px 80px 20px 70px;
 }
 
-.reveal .slides section.content-dark .section-marker {
-  font-family: var(--r-main-font);
-  font-size: 0.65em;
-  font-weight: 500;
+.content-dark .slide-footer {
+  background: transparent;
+}
+
+.content-dark .slide-footer .footer-version {
+  color: rgba(255,255,255,0.4);
+}
+
+.content-dark .section-marker {
   color: var(--rh-red-50);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 0.3em;
 }
 
-.reveal .slides section.content-dark h2 {
+.content-dark h2 {
   color: var(--rh-white);
-  margin-top: 0.1em;
+  font-size: 1.8em;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  text-align: center;
 }
 
-.reveal .slides section.content-dark ul {
-  font-size: 0.85em;
-  line-height: 1.6;
+.content-dark ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+}
+
+.content-dark ul li {
+  font-size: 0.88em;
+  line-height: 1.5;
+  color: var(--rh-gray-20);
+  padding: 6px 0 6px 28px;
+  position: relative;
+}
+
+.content-dark ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
   color: var(--rh-gray-20);
 }
 
-/* ── Agenda / list slide ───────────────────────────── */
+/* ══ 10. AGENDA SLIDE ══════════════════════════════════════════ */
 
 .reveal .slides section.agenda {
+  display: flex !important;
+  flex-direction: column;
+  color: var(--rh-black);
+}
+
+.agenda .slide-body {
   display: grid !important;
-  grid-template-columns: 38% 58%;
-  gap: 4%;
-  align-items: start;
+  grid-template-columns: 42% 1fr;
+  gap: 40px;
+  align-items: center;
+  align-content: center;
+  padding: 40px 80px 20px 70px;
+}
+
+.agenda h2 {
+  color: var(--rh-red-50);
+  font-size: 2.4em;
+  font-weight: 500;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.agenda .agenda-list {
+  font-size: 0.92em;
+}
+
+.agenda .agenda-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.agenda .agenda-list ul li {
+  padding: 8px 0 8px 28px;
+  position: relative;
+  font-weight: 500;
+  color: var(--rh-black);
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.agenda .agenda-list ul li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--rh-black);
+  font-size: 1.1em;
+}
+
+.agenda .agenda-list ul li .detail {
+  font-weight: 400;
+  color: var(--rh-red-50);
+  display: block;
+  font-size: 0.85em;
+}
+
+/* Dark agenda variant */
+.agenda-dark .slide-body {
+  display: grid !important;
+  grid-template-columns: 42% 1fr;
+  gap: 40px;
+  align-items: center;
   align-content: center;
 }
 
-.reveal .slides section.agenda h2 {
+.agenda-dark h2 {
+  color: var(--rh-white);
+  font-size: 2.4em;
+  font-weight: 500;
+}
+
+.agenda-dark .agenda-list ul li {
+  color: var(--rh-white);
+}
+
+.agenda-dark .agenda-list ul li::before {
+  color: var(--rh-white);
+}
+
+.agenda-dark .agenda-list ul li .detail {
+  color: var(--rh-gray-20);
+}
+
+.agenda-dark .slide-footer {
+  background: transparent;
+}
+
+/* ══ 11. THANK YOU SLIDE ═══════════════════════════════════════ */
+
+.reveal .slides section.thank-you {
+  display: flex !important;
+  flex-direction: column;
+  color: var(--rh-white);
+}
+
+.thank-you .slide-body {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  align-content: center;
+  padding: 60px 80px 20px 80px;
+}
+
+.thank-you .thank-left h2 {
+  color: var(--rh-white);
+  font-size: 2.8em;
+  font-weight: 300;
+  margin: 0 0 30px 0;
+}
+
+.thank-you .thank-left .boilerplate {
+  font-size: 0.78em;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.thank-you .thank-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.thank-you .social-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.82em;
+  color: var(--rh-white);
+}
+
+.thank-you .social-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--rh-white);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
   color: var(--rh-red-50);
-  font-size: 2em;
-  font-weight: 900;
-  align-self: start;
+  font-size: 14px;
+  flex-shrink: 0;
 }
 
-.reveal .slides section.agenda .agenda-list {
-  font-size: 0.85em;
-  line-height: 1.7;
+/* light thank-you variant */
+.thank-you-light .thank-left h2 {
+  color: var(--rh-red-50);
 }
 
-.reveal .slides section.agenda .agenda-list li {
-  margin-bottom: 0.5em;
+.thank-you-light .thank-left .boilerplate {
+  color: var(--rh-black);
 }
 
-/* ── Split layout ──────────────────────────────────── */
+.thank-you-light .social-item {
+  color: var(--rh-black);
+}
+
+.thank-you-light .social-icon {
+  background: var(--rh-black);
+  color: var(--rh-white);
+}
+
+/* ══ 12. SPLIT LAYOUT ══════════════════════════════════════════ */
 
 .reveal .slides section.split {
+  display: flex !important;
+  flex-direction: column;
+}
+
+.split .slide-body {
   display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -247,112 +566,59 @@
   align-content: center;
 }
 
-.reveal .slides section.split.split-reverse {
-  direction: rtl;
-}
-
-.reveal .slides section.split.split-reverse > * {
-  direction: ltr;
-}
-
-.reveal .slides section.split .split-visual {
+.split .split-visual {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.reveal .slides section.split .split-text h2 {
+.split .split-visual img {
+  max-width: 100%;
+  max-height: 400px;
+}
+
+.split .split-text h2 {
   margin-top: 0;
+  color: var(--rh-red-50);
+  font-size: 2em;
 }
 
-/* ── Thank you slide ───────────────────────────────── */
-
-.reveal .slides section.thank-you {
-  color: var(--rh-white);
-  display: flex !important;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 60px 80px;
-}
-
-.reveal .slides section.thank-you h2 {
-  color: var(--rh-white);
-  font-size: 2.8em;
-  font-weight: 900;
-  text-align: center;
-  margin-bottom: 0.5em;
-}
-
-.reveal .slides section.thank-you .boilerplate {
-  font-family: var(--r-main-font);
-  font-size: 0.7em;
-  color: rgba(255, 255, 255, 0.85);
+.split .split-text p {
+  font-size: 0.88em;
   line-height: 1.6;
-  max-width: 700px;
-}
-
-.reveal .slides section.thank-you .social-links {
-  margin-top: 1em;
-  font-size: 0.65em;
-  color: rgba(255, 255, 255, 0.75);
-}
-
-/* ── Persistent elements ───────────────────────────── */
-
-.reveal .slides section .rh-logo {
-  position: absolute;
-  bottom: 20px;
-  right: 30px;
-  font-family: var(--r-heading-font);
-  font-size: 14px;
-  font-weight: 700;
-  pointer-events: none;
-}
-
-.rh-logo.logo-light {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.rh-logo.logo-red {
-  color: var(--rh-gray-60);
-}
-
-.rh-logo.logo-dark {
   color: var(--rh-black);
 }
 
-/* ── Utility classes ───────────────────────────────── */
+/* ══ 13. Utility classes ═══════════════════════════════════════ */
 
 .text-red { color: var(--rh-red-50) !important; }
 .text-teal { color: var(--rh-teal-50) !important; }
 .text-muted { color: var(--rh-gray-60) !important; }
-.text-center { text-align: center; }
+.text-center { text-align: center !important; }
 .text-small { font-size: 0.75em; }
-.mt-0 { margin-top: 0; }
+.mt-0 { margin-top: 0 !important; }
 .mt-1 { margin-top: 0.5em; }
 .mt-2 { margin-top: 1em; }
-.mb-0 { margin-bottom: 0; }
+.mb-0 { margin-bottom: 0 !important; }
 .mb-1 { margin-bottom: 0.5em; }
 
-/* ── Diagram: timeline ─────────────────────────────── */
+/* ══ 14. Diagram: Timeline ═════════════════════════════════════ */
 
 .timeline {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   position: relative;
-  margin-top: 1.5em;
-  padding-top: 10px;
+  margin: 30px 0 20px;
+  padding-top: 20px;
 }
 
 .timeline::after {
   content: '';
   position: absolute;
-  top: 17px;
-  left: 5%;
-  right: 5%;
+  top: 27px;
+  left: 8%;
+  right: 8%;
   height: 3px;
   background: var(--rh-gray-20);
 }
@@ -362,15 +628,13 @@
   text-align: center;
   position: relative;
   z-index: 1;
-  padding-top: 30px;
-  font-size: 0.7em;
-  line-height: 1.4;
+  padding-top: 24px;
 }
 
 .timeline .event::before {
   content: '';
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   width: 14px;
@@ -380,113 +644,137 @@
 }
 
 .timeline .event .day {
+  display: block;
   font-family: var(--r-heading-font);
   font-weight: 700;
-  font-size: 1.3em;
+  font-size: 1.1em;
   color: var(--rh-red-50);
-  display: block;
-  margin-bottom: 0.2em;
+  margin-bottom: 4px;
 }
 
-/* ── Diagram: tool grid ────────────────────────────── */
+.timeline .event .label {
+  display: block;
+  font-size: 0.72em;
+  line-height: 1.4;
+  color: var(--rh-gray-60);
+}
+
+.timeline .event:last-child .label {
+  color: var(--rh-red-50);
+  font-weight: 500;
+}
+
+/* ══ 15. Diagram: Tool grid ════════════════════════════════════ */
 
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin-top: 1em;
+  margin: 20px 0;
 }
 
 .tool-grid .tool-group {
-  background: var(--rh-gray-20);
+  background: var(--rh-gray-10);
   border-radius: 8px;
-  padding: 20px 16px;
+  padding: 24px 20px;
+  border-top: 3px solid var(--rh-red-50);
 }
 
 .tool-grid .tool-group h3 {
   text-align: center;
   color: var(--rh-red-50);
-  font-size: 0.85em;
-  margin: 0 0 0.5em 0;
+  font-size: 0.8em;
+  margin: 0 0 12px 0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
 }
 
 .tool-grid .tool-group ul {
   list-style: none !important;
   padding: 0 !important;
   margin: 0;
-  font-size: 0.8em;
 }
 
 .tool-grid .tool-group li {
-  padding: 4px 0;
+  padding: 3px 0 !important;
+  font-size: 0.78em;
   color: var(--rh-gray-60);
   text-align: center;
 }
 
-/* ── Diagram: maturity grid ────────────────────────── */
+.tool-grid .tool-group li::before {
+  display: none !important;
+}
+
+/* ══ 16. Diagram: Maturity grid ════════════════════════════════ */
 
 .maturity-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 1em;
+  gap: 12px;
+  margin: 20px 0 8px;
 }
 
 .maturity-grid .stage {
-  background: var(--rh-gray-20);
+  background: var(--rh-gray-10);
   border-radius: 8px;
-  padding: 20px 16px;
+  padding: 24px 16px;
   text-align: center;
-  font-size: 0.75em;
-  line-height: 1.5;
+  border-top: 3px solid var(--rh-red-50);
 }
 
 .maturity-grid .stage h3 {
   text-align: center;
   color: var(--rh-red-50);
-  font-size: 1.2em;
-  margin: 0 0 0.4em 0;
+  font-size: 1.1em;
+  margin: 0 0 8px 0;
+  font-weight: 700;
 }
 
 .maturity-grid .stage .method {
+  font-size: 0.78em;
   font-weight: 500;
   color: var(--rh-black);
+  margin: 4px 0;
 }
 
 .maturity-grid .stage .time {
+  font-size: 0.72em;
   color: var(--rh-gray-60);
-  font-size: 0.9em;
+}
+
+.maturity-grid .stage .consistency {
+  font-size: 0.68em;
+  color: var(--rh-gray-40);
+  margin-top: 4px;
 }
 
 .maturity-arrow {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 0.5em;
-  padding: 0 20px;
-  color: var(--rh-gray-60);
-  font-size: 0.7em;
+  padding: 4px 8px;
+  font-size: 0.65em;
+  color: var(--rh-gray-40);
 }
 
-/* ── Diagram: lifecycle flow ───────────────────────── */
+/* ══ 17. Diagram: Lifecycle flow ═══════════════════════════════ */
 
 .lifecycle-flow {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-top: 1em;
-  font-size: 0.85em;
+  gap: 0;
+  margin: 20px 0;
 }
 
 .lifecycle-flow .phase {
-  background: var(--rh-gray-20);
+  background: var(--rh-gray-10);
   border-radius: 8px;
-  padding: 14px 24px;
+  padding: 16px 32px;
+  font-size: 0.88em;
   font-weight: 500;
   text-align: center;
+  min-width: 120px;
 }
 
 .lifecycle-flow .phase.active {
@@ -495,99 +783,146 @@
 }
 
 .lifecycle-flow .arrow {
-  font-size: 1.4em;
-  color: var(--rh-gray-60);
-}
-
-/* ── Diagram: steps grid ───────────────────────────── */
-
-.steps-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-top: 1em;
-}
-
-.steps-grid .step {
-  text-align: center;
-  padding: 16px;
-  font-size: 0.72em;
-  line-height: 1.5;
-}
-
-.steps-grid .step .step-number {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  border-radius: 50%;
-  background: var(--rh-red-50);
-  color: var(--rh-white);
-  font-family: var(--r-heading-font);
-  font-weight: 700;
   font-size: 1.2em;
-  margin-bottom: 0.5em;
+  color: var(--rh-gray-40);
+  padding: 0 12px;
 }
 
-.steps-grid .step h3 {
-  text-align: center;
-  font-size: 1.1em;
-  margin: 0.3em 0;
-  color: var(--rh-black);
-}
-
-/* ── Diagram: MCP layout ──────────────────────────── */
+/* ══ 18. Diagram: MCP layout ══════════════════════════════════ */
 
 .mcp-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-top: 1em;
+  gap: 20px;
+  margin: 20px 0;
 }
 
 .mcp-layout .mcp-card {
-  background: var(--rh-gray-20);
+  background: var(--rh-gray-10);
   border-radius: 8px;
-  padding: 20px;
-  font-size: 0.78em;
+  padding: 24px;
+  border-left: 4px solid var(--rh-red-50);
 }
 
 .mcp-layout .mcp-card h3 {
   color: var(--rh-red-50);
-  margin: 0 0 0.5em 0;
-  font-size: 1.1em;
+  margin: 0 0 12px 0;
+  font-size: 0.95em;
   text-align: left;
 }
 
 .mcp-layout .mcp-card ul {
   margin: 0;
-  padding-left: 1.2em;
-  line-height: 1.6;
+  padding: 0;
+  list-style: none;
 }
 
-/* ── Diagram: tier stack ──────────────────────────── */
+.mcp-layout .mcp-card li {
+  padding: 3px 0 3px 20px !important;
+  font-size: 0.78em;
+  position: relative;
+  color: var(--rh-gray-60);
+}
+
+.mcp-layout .mcp-card li::before {
+  content: '▸' !important;
+  position: absolute;
+  left: 0;
+  color: var(--rh-gray-60);
+}
+
+/* ══ 19. Diagram: Tier stack ══════════════════════════════════ */
 
 .tier-stack {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  margin-top: 1em;
+  margin: 16px 0;
 }
 
 .tier-stack .tier {
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 90px 1fr;
   gap: 16px;
   align-items: center;
-  background: var(--rh-gray-20);
+  background: var(--rh-gray-10);
   border-radius: 6px;
-  padding: 12px 16px;
-  font-size: 0.78em;
+  padding: 14px 20px;
+  border-left: 4px solid var(--rh-red-50);
 }
 
 .tier-stack .tier .tier-label {
   font-family: var(--r-heading-font);
   font-weight: 700;
   color: var(--rh-red-50);
+  font-size: 0.82em;
+}
+
+.tier-stack .tier span:last-child {
+  font-size: 0.78em;
+  color: var(--rh-gray-60);
+  line-height: 1.4;
+}
+
+/* ══ 20. Diagram: Steps grid ═════════════════════════════════ */
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.steps-list .step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.steps-list .step .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--rh-red-50);
+  color: var(--rh-white);
+  font-family: var(--r-heading-font);
+  font-weight: 700;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
+
+.steps-list .step .step-content h3 {
+  margin: 0;
   font-size: 0.95em;
+  color: var(--rh-black);
+}
+
+.steps-list .step .step-content p {
+  margin: 2px 0 0;
+  font-size: 0.75em;
+  color: var(--rh-gray-60);
+}
+
+/* ══ 21. Two-column content ══════════════════════════════════ */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.two-col h3 {
+  color: var(--rh-red-50);
+  font-size: 0.9em;
+  margin: 0 0 8px 0;
+}
+
+.two-col p {
+  font-size: 0.78em;
+  line-height: 1.5;
+  color: var(--rh-gray-60);
+  margin: 4px 0;
 }
