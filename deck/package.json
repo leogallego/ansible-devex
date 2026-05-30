@@ -9,7 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "reveal.js": "^5.2.1"
+    "chart.js": "^4.5.1",
+    "reveal.js": "^5.2.1",
+    "reveal.js-mermaid-plugin": "^11.15.0",
+    "reveal.js-plugins": "^4.6.0"
   },
   "devDependencies": {
     "vite": "^6.3.5"
