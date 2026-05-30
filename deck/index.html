@@ -240,6 +240,239 @@
 
       </section>
 
+      <!-- Slide 7 — Enterprise divider -->
+      <section class="divider-dark">
+        <h2>Scaling to the enterprise</h2>
+        <div class="rh-logo logo-light">Red Hat</div>
+        <aside class="notes">Transition: we've shown the tools, now how do you roll them out to 50 or 500 developers?</aside>
+      </section>
+
+      <!-- Slide 8 — Dev Containers -->
+      <section class="content-light">
+        <p class="section-marker">Enterprise Scale</p>
+        <h2>Dev Containers: team consistency</h2>
+        <ul>
+          <li>Same image, same tools, same config — every developer</li>
+          <li><code>.devcontainer/</code> lives in the repo, versioned with code</li>
+          <li>Works on any OS with VS Code + container runtime</li>
+          <li>Nested Podman for molecule and ansible-builder</li>
+        </ul>
+        <div class="rh-logo logo-red">Red Hat</div>
+        <aside class="notes">This is the sweet spot for most teams starting out. Zero infrastructure investment, immediate consistency.</aside>
+      </section>
+
+      <!-- Slide 9 — Dev Spaces + Module C (vertical group) -->
+      <section>
+
+        <!-- Core slide 9 -->
+        <section class="content-light">
+          <p class="section-marker">Enterprise Scale</p>
+          <h2>Dev Spaces: zero local dependencies</h2>
+          <ul>
+            <li>Browser-only — ~5 minutes to coding</li>
+            <li>Centrally governed by platform team</li>
+            <li><code>devfile.yaml</code> defines everything: tools, config, extensions</li>
+            <li>Developers just click Create — no local setup</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+          <aside class="notes">The value prop for Dev Spaces is governance + zero desktop requirements. IT loves it because nothing runs locally.</aside>
+        </section>
+
+        <!-- Module C entry -->
+        <section class="divider-dark">
+          <h2>Dev Spaces &amp; Image Customization</h2>
+          <div class="rh-logo logo-light">Red Hat</div>
+        </section>
+
+        <!-- Module C slide 1 — Tiered image strategy -->
+        <section class="content-light">
+          <p class="section-marker">Module C &mdash; Dev Spaces Deep Dive</p>
+          <h2>Tiered image strategy</h2>
+          <div class="tier-stack">
+            <div class="tier">
+              <span class="tier-label">Tier 1</span>
+              <p>Upstream base — ansible-devspaces (managed by ansible-dev-tools project)</p>
+            </div>
+            <div class="tier">
+              <span class="tier-label">Tier 2</span>
+              <p>Org/domain image — via OpenShift BuildConfig or CEKit factory</p>
+            </div>
+            <div class="tier">
+              <span class="tier-label">Tier 3</span>
+              <p>Team image — Containerfile in workspace repo, auto-rebuilds</p>
+            </div>
+            <div class="tier">
+              <span class="tier-label">Tier 4</span>
+              <p>Personal image — opt-in fork, self-service</p>
+            </div>
+          </div>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module C slide 2 — Auto-rebuild cascade -->
+        <section class="content-light">
+          <p class="section-marker">Module C &mdash; Dev Spaces Deep Dive</p>
+          <h2>Auto-rebuild cascade</h2>
+          <ul>
+            <li>OpenShift ImageStream triggers connect tiers</li>
+            <li>Upstream update &rarr; Org rebuild &rarr; Team rebuild (automatic)</li>
+            <li>Security patches flow through the chain without manual intervention</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module C slide 3 — Self-service workflow -->
+        <section class="content-light">
+          <p class="section-marker">Module C &mdash; Dev Spaces Deep Dive</p>
+          <h2>Self-service workflow</h2>
+          <ul>
+            <li>Teams request image customizations via PR to config repo</li>
+            <li>Platform team approves; rebuild is automatic</li>
+            <li>Personal tier: opt-in fork for individual experimentation</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+      </section>
+
+      <!-- Slide 10 — AI-assisted dev + Module B (vertical group) -->
+      <section>
+
+        <!-- Core slide 10 -->
+        <section class="content-light">
+          <p class="section-marker">AI-Assisted Development</p>
+          <h2>AI-assisted development</h2>
+          <div class="mcp-layout">
+            <div class="mcp-card">
+              <h3>Ansible Devtools MCP</h3>
+              <ul>
+                <li>Lint &amp; auto-fix</li>
+                <li>Scaffold projects</li>
+                <li>Navigate collections</li>
+                <li>Build execution environments</li>
+              </ul>
+            </div>
+            <div class="mcp-card">
+              <h3>AAP MCP</h3>
+              <ul>
+                <li>Job management</li>
+                <li>Inventory queries</li>
+                <li>System monitoring</li>
+                <li>Gateway endpoints</li>
+              </ul>
+            </div>
+          </div>
+          <div class="rh-logo logo-red">Red Hat</div>
+          <aside class="notes">Both MCP servers are tech preview. Works with Claude Code, VS Code Copilot Chat, Gemini, Cursor, and other MCP-compatible tools — list is illustrative, not exhaustive.</aside>
+        </section>
+
+        <!-- Module B entry -->
+        <section class="divider-dark">
+          <h2>AI-Assisted Development Deep Dive</h2>
+          <div class="rh-logo logo-light">Red Hat</div>
+        </section>
+
+        <!-- Module B slide 1 — MCP architecture -->
+        <section class="content-light">
+          <p class="section-marker">Module B &mdash; AI Deep Dive</p>
+          <h2>MCP architecture</h2>
+          <ul>
+            <li>Devtools MCP: exposes ADT toolchain to any MCP-compatible AI assistant</li>
+            <li>AAP MCP: connects to AAP 2.6.4+ gateway for job, inventory, and monitoring APIs</li>
+            <li>Both run inside devcontainers and Dev Spaces — no extra setup</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module B slide 2 — Demo scenarios -->
+        <section class="content-light">
+          <p class="section-marker">Module B &mdash; AI Deep Dive</p>
+          <h2>Demo scenarios</h2>
+          <ul>
+            <li>Scaffold a collection, lint it, fix violations — all via AI prompt</li>
+            <li>Query AAP inventory, launch a job template, check status</li>
+            <li>AI pair programming across the full content lifecycle</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+      </section>
+
+      <!-- Slide 11 — Next steps + Module E (vertical group) -->
+      <section>
+
+        <!-- Core slide 11 -->
+        <section class="agenda">
+          <h2>What should I do next?</h2>
+          <div class="agenda-list">
+            <div class="steps-grid" style="grid-template-columns:1fr;">
+              <div class="step">
+                <div class="step-number">1</div>
+                <h3>Development Assessment</h3>
+                <p class="text-muted">1-day workshop</p>
+              </div>
+              <div class="step">
+                <div class="step-number">2</div>
+                <h3>Proof of Concept</h3>
+                <p class="text-muted">Red Hat demos feasibility</p>
+              </div>
+              <div class="step">
+                <div class="step-number">3</div>
+                <h3>Implementation &amp; Onboarding</h3>
+                <p class="text-muted">Deploy tooling, onboard teams</p>
+              </div>
+              <div class="step">
+                <div class="step-number">4</div>
+                <h3>Data-Driven Improvement</h3>
+                <p class="text-muted">Grafana monitoring, iterate</p>
+              </div>
+            </div>
+          </div>
+          <div class="rh-logo logo-red">Red Hat</div>
+          <aside class="notes">This is the engagement model. Start with the assessment — it's a 1-day whiteboard session.</aside>
+        </section>
+
+        <!-- Module E entry -->
+        <section class="divider-dark">
+          <h2>Legacy Automation to Ansible</h2>
+          <div class="rh-logo logo-light">Red Hat</div>
+        </section>
+
+        <!-- Module E slide 1 — x2Ansible -->
+        <section class="content-light">
+          <p class="section-marker">Module E &mdash; Migration</p>
+          <h2>x2Ansible</h2>
+          <ul>
+            <li>AI-assisted conversion: Chef, Puppet, BMC Bladelogic &rarr; Ansible</li>
+            <li>Powered by OpenShift AI</li>
+            <li>Converts recipes/manifests/jobs to Ansible roles and playbooks</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+        <!-- Module E slide 2 — Migration workflow -->
+        <section class="content-light">
+          <p class="section-marker">Module E &mdash; Migration</p>
+          <h2>Migration workflow</h2>
+          <ul>
+            <li>Assessment: inventory existing automation, identify conversion candidates</li>
+            <li>Conversion: x2Ansible generates initial Ansible code</li>
+            <li>Validation: review, test with molecule, refine</li>
+            <li>Rollout: gradual cutover with parallel-run period</li>
+          </ul>
+          <div class="rh-logo logo-red">Red Hat</div>
+        </section>
+
+      </section>
+
+      <!-- Slide 12 — Thank you -->
+      <section class="thank-you">
+        <h2>Thank you</h2>
+        <p class="boilerplate">Red Hat is the world's leading provider of enterprise open source software solutions, using a community-powered approach to deliver high-performing Linux, cloud, container, and Kubernetes technologies.</p>
+        <p class="social-links">linkedin.com/company/red-hat &middot; youtube.com/user/RedHatVideos &middot; facebook.com/redhatinc</p>
+        <div class="rh-logo logo-light">Red Hat</div>
+      </section>
+
     </div>
   </div>
   <script type="module" src="js/main.js"></script>
