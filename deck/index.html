@@ -13,7 +13,7 @@
     <div class="slides">
 
       <!-- Slide 1 — Title -->
-      <section class="title-red">
+      <section class="title-red" data-background-color="#ee0000">
         <h1>The Ansible Developer Experience</h1>
         <p class="subtitle">From individual setup to enterprise workspace</p>
         <p class="presenter">Presenter Name &mdash; Title</p>
@@ -22,7 +22,8 @@
       </section>
 
       <!-- Slide 2 — Onboarding problem -->
-      <section class="content-light">
+      <section class="content-light" data-background-color="#ffffff">
+        <div class="accent-bar"></div>
         <p class="section-marker">The Challenge</p>
         <h2>The onboarding problem</h2>
         <div class="timeline">
@@ -53,7 +54,7 @@
       </section>
 
       <!-- Slide 3 — Thesis divider -->
-      <section class="divider-red">
+      <section class="divider-red" data-background-color="#ee0000">
         <h2>What if it took 5 minutes?</h2>
         <div class="rh-logo logo-light">Red Hat</div>
         <aside class="notes">Pause for effect. This is the thesis of the talk.</aside>
@@ -63,7 +64,8 @@
       <section>
 
         <!-- Core slide 4 -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">The Toolchain</p>
           <h2>Ansible Development Tools</h2>
           <div class="tool-grid">
@@ -97,13 +99,14 @@
         </section>
 
         <!-- Module A entry -->
-        <section class="divider-red">
+        <section class="divider-red" data-background-color="#ee0000">
           <h2>ADT Tools in Detail</h2>
           <div class="rh-logo logo-light">Red Hat</div>
         </section>
 
         <!-- Module A slide 1 — ansible-creator -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module A &mdash; ADT Deep Dive</p>
           <h2>ansible-creator</h2>
           <ul>
@@ -115,7 +118,8 @@
         </section>
 
         <!-- Module A slide 2 — ansible-lint -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module A &mdash; ADT Deep Dive</p>
           <h2>ansible-lint</h2>
           <ul>
@@ -127,7 +131,8 @@
         </section>
 
         <!-- Module A slide 3 — molecule -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module A &mdash; ADT Deep Dive</p>
           <h2>molecule</h2>
           <ul>
@@ -141,7 +146,8 @@
       </section>
 
       <!-- Slide 5 — Maturity path -->
-      <section class="content-light">
+      <section class="content-light" data-background-color="#ffffff">
+        <div class="accent-bar"></div>
         <p class="section-marker">The Journey</p>
         <h2>The maturity path</h2>
         <div class="maturity-grid">
@@ -182,7 +188,8 @@
       <section>
 
         <!-- Core slide 6 -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">The Workflow</p>
           <h2>The content lifecycle</h2>
           <div class="lifecycle-flow">
@@ -196,12 +203,12 @@
             <div>
               <h3 class="text-red">Inner loop (developer)</h3>
               <p>Write &rarr; Lint &rarr; Test &rarr; Iterate</p>
-              <p>Fast feedback, local or container</p>
+              <p class="text-muted">Fast feedback, local or container</p>
             </div>
             <div>
               <h3 class="text-red">Outer loop (CI/CD)</h3>
               <p>PR &rarr; GitHub Actions &rarr; Controller sync</p>
-              <p>Automated gates, compliance scanning</p>
+              <p class="text-muted">Automated gates, compliance scanning</p>
             </div>
           </div>
           <div class="rh-logo logo-red">Red Hat</div>
@@ -209,13 +216,14 @@
         </section>
 
         <!-- Module D entry -->
-        <section class="divider-dark">
+        <section class="divider-dark" data-background-color="#292929">
           <h2>CI/CD Integration</h2>
           <div class="rh-logo logo-light">Red Hat</div>
         </section>
 
-        <!-- Module D slide 1 — The outer loop -->
-        <section class="content-light">
+        <!-- Module D slide 1 -->
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module D &mdash; CI/CD</p>
           <h2>The outer loop</h2>
           <ul>
@@ -226,8 +234,9 @@
           <div class="rh-logo logo-red">Red Hat</div>
         </section>
 
-        <!-- Module D slide 2 — Development observability -->
-        <section class="content-light">
+        <!-- Module D slide 2 -->
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module D &mdash; CI/CD</p>
           <h2>Development observability</h2>
           <ul>
@@ -241,14 +250,15 @@
       </section>
 
       <!-- Slide 7 — Enterprise divider -->
-      <section class="divider-dark">
+      <section class="divider-dark" data-background-color="#292929">
         <h2>Scaling to the enterprise</h2>
         <div class="rh-logo logo-light">Red Hat</div>
         <aside class="notes">Transition: we've shown the tools, now how do you roll them out to 50 or 500 developers?</aside>
       </section>
 
       <!-- Slide 8 — Dev Containers -->
-      <section class="content-light">
+      <section class="content-light" data-background-color="#ffffff">
+        <div class="accent-bar"></div>
         <p class="section-marker">Enterprise Scale</p>
         <h2>Dev Containers: team consistency</h2>
         <ul>
@@ -265,7 +275,8 @@
       <section>
 
         <!-- Core slide 9 -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Enterprise Scale</p>
           <h2>Dev Spaces: zero local dependencies</h2>
           <ul>
@@ -279,38 +290,40 @@
         </section>
 
         <!-- Module C entry -->
-        <section class="divider-dark">
+        <section class="divider-dark" data-background-color="#292929">
           <h2>Dev Spaces &amp; Image Customization</h2>
           <div class="rh-logo logo-light">Red Hat</div>
         </section>
 
         <!-- Module C slide 1 — Tiered image strategy -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module C &mdash; Dev Spaces Deep Dive</p>
           <h2>Tiered image strategy</h2>
           <div class="tier-stack">
             <div class="tier">
               <span class="tier-label">Tier 1</span>
-              <p>Upstream base — ansible-devspaces (managed by ansible-dev-tools project)</p>
+              <span>Upstream base — ansible-devspaces (managed by ansible-dev-tools project)</span>
             </div>
             <div class="tier">
               <span class="tier-label">Tier 2</span>
-              <p>Org/domain image — via OpenShift BuildConfig or CEKit factory</p>
+              <span>Org/domain image — via OpenShift BuildConfig or CEKit factory</span>
             </div>
             <div class="tier">
               <span class="tier-label">Tier 3</span>
-              <p>Team image — Containerfile in workspace repo, auto-rebuilds</p>
+              <span>Team image — Containerfile in workspace repo, auto-rebuilds</span>
             </div>
             <div class="tier">
               <span class="tier-label">Tier 4</span>
-              <p>Personal image — opt-in fork, self-service</p>
+              <span>Personal image — opt-in fork, self-service</span>
             </div>
           </div>
           <div class="rh-logo logo-red">Red Hat</div>
         </section>
 
         <!-- Module C slide 2 — Auto-rebuild cascade -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module C &mdash; Dev Spaces Deep Dive</p>
           <h2>Auto-rebuild cascade</h2>
           <ul>
@@ -322,7 +335,8 @@
         </section>
 
         <!-- Module C slide 3 — Self-service workflow -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module C &mdash; Dev Spaces Deep Dive</p>
           <h2>Self-service workflow</h2>
           <ul>
@@ -339,7 +353,8 @@
       <section>
 
         <!-- Core slide 10 -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">AI-Assisted Development</p>
           <h2>AI-assisted development</h2>
           <div class="mcp-layout">
@@ -367,13 +382,14 @@
         </section>
 
         <!-- Module B entry -->
-        <section class="divider-dark">
+        <section class="divider-dark" data-background-color="#292929">
           <h2>AI-Assisted Development Deep Dive</h2>
           <div class="rh-logo logo-light">Red Hat</div>
         </section>
 
         <!-- Module B slide 1 — MCP architecture -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module B &mdash; AI Deep Dive</p>
           <h2>MCP architecture</h2>
           <ul>
@@ -385,7 +401,8 @@
         </section>
 
         <!-- Module B slide 2 — Demo scenarios -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module B &mdash; AI Deep Dive</p>
           <h2>Demo scenarios</h2>
           <ul>
@@ -402,10 +419,10 @@
       <section>
 
         <!-- Core slide 11 -->
-        <section class="agenda">
+        <section class="agenda" data-background-color="#ffffff">
           <h2>What should I do next?</h2>
           <div class="agenda-list">
-            <div class="steps-grid" style="grid-template-columns:1fr;">
+            <div class="steps-grid" style="grid-template-columns: 1fr;">
               <div class="step">
                 <div class="step-number">1</div>
                 <h3>Development Assessment</h3>
@@ -433,13 +450,14 @@
         </section>
 
         <!-- Module E entry -->
-        <section class="divider-dark">
+        <section class="divider-dark" data-background-color="#292929">
           <h2>Legacy Automation to Ansible</h2>
           <div class="rh-logo logo-light">Red Hat</div>
         </section>
 
         <!-- Module E slide 1 — x2Ansible -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module E &mdash; Migration</p>
           <h2>x2Ansible</h2>
           <ul>
@@ -451,7 +469,8 @@
         </section>
 
         <!-- Module E slide 2 — Migration workflow -->
-        <section class="content-light">
+        <section class="content-light" data-background-color="#ffffff">
+          <div class="accent-bar"></div>
           <p class="section-marker">Module E &mdash; Migration</p>
           <h2>Migration workflow</h2>
           <ul>
@@ -466,7 +485,7 @@
       </section>
 
       <!-- Slide 12 — Thank you -->
-      <section class="thank-you">
+      <section class="thank-you" data-background-color="#ee0000">
         <h2>Thank you</h2>
         <p class="boilerplate">Red Hat is the world's leading provider of enterprise open source software solutions, using a community-powered approach to deliver high-performing Linux, cloud, container, and Kubernetes technologies.</p>
         <p class="social-links">linkedin.com/company/red-hat &middot; youtube.com/user/RedHatVideos &middot; facebook.com/redhatinc</p>
