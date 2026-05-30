@@ -14,7 +14,7 @@ const deck = new Reveal({
   backgroundTransition: 'fade',
   width: 1280,
   height: 720,
-  margin: 0.04,
+  margin: 0,
   slideNumber: 'c/t',
   plugins: [RevealNotes],
 });
