@@ -978,10 +978,26 @@ const PytestTox: Page = () => (
       }}>
         pytest-ansible & tox-ansible
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet bold="pytest-ansible" text="pytest plugin for testing Ansible module and plugin Python code" />
-        <Bullet bold="tox-ansible" text="test matrix across multiple Python and ansible-core versions" />
-        <Bullet text="Complement molecule: unit tests for Python code, integration tests for roles" />
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="pytest-ansible" text="pytest plugin for testing Ansible module and plugin Python code" />
+          <Bullet bold="tox-ansible" text="test matrix across multiple Python and ansible-core versions" />
+          <Bullet text="Complement molecule: unit tests for Python code, integration tests for roles" />
+        </div>
+        <Terminal lines={[
+          '$ tox -e py312-2.17',
+          '',
+          '  py312-2.17: commands',
+          '  pytest --ansible-host-pattern=localhost',
+          '',
+          '  tests/unit/test_lookup.py .... PASSED',
+          '  tests/unit/test_module.py .... PASSED',
+          '  tests/integration/ .......... PASSED',
+          '',
+          '✔ py312-2.17: OK (42.3s)',
+          '✔ py311-2.16: OK (38.7s)',
+          '✔ congratulations :)',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1001,11 +1017,28 @@ const ExecutionEnvs: Page = () => (
       }}>
         Execution Environments
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet bold="ansible-builder" text="build container images with your collections, Python deps, and system packages" />
-        <Bullet text="Reproducible automation runtime — same image runs in dev, CI, and Controller" />
-        <Bullet text="Replaces manual pip install on Controller nodes" />
-        <Bullet bold="execution-environment.yml" text="definition file is versioned in your repo" />
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="ansible-builder" text="build container images with collections, Python deps, and system packages" />
+          <Bullet text="Same image in dev, CI, and Controller" />
+          <Bullet bold="execution-environment.yml" text="versioned in your repo" />
+        </div>
+        <Terminal lines={[
+          '# execution-environment.yml',
+          'version: 3',
+          'dependencies:',
+          '  galaxy:',
+          '    collections:',
+          '      - ansible.netcommon',
+          '      - cisco.ios',
+          '  python:',
+          '    - netaddr>=0.8',
+          '  system:',
+          '    - libssh-devel [platform:centos-9]',
+          '',
+          '$ ansible-builder build -t my-ee:latest',
+          '✔ Built image: my-ee:latest',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1025,11 +1058,24 @@ const NavigatorSign: Page = () => (
       }}>
         ansible-navigator & ansible-sign
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet bold="ansible-navigator" text="TUI for running and troubleshooting automation with EEs" />
-        <Bullet bold="ansible-sign" text="sign and verify Ansible project contents for supply chain security" />
-        <Bullet text="Navigator shows what runs inside the EE — collections, Python packages, settings" />
-        <Bullet text="Signing ensures content integrity from dev to production" />
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="ansible-navigator" text="TUI for running and troubleshooting automation with EEs" />
+          <Bullet bold="ansible-sign" text="sign and verify project contents for supply chain security" />
+          <Bullet text="Signing ensures content integrity from dev to production" />
+        </div>
+        <Terminal lines={[
+          '$ ansible-navigator run site.yml',
+          '',
+          '  PLAY [webservers] ──────────',
+          '  0│OK  Gather facts',
+          '  1│OK  Install packages',
+          '  2│CHG Deploy config',
+          '  3│OK  Ensure service running',
+          '',
+          '$ ansible-sign project gpg-sign .',
+          '✔ Signed: .ansible-sign/sha256sum.txt.sig',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1155,16 +1201,31 @@ const DevtoolsMCP: Page = () => (
       }}>
         Ansible Devtools MCP Server
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet bold="Lint & auto-fix" text="run ansible-lint, apply --fix, iterate until clean" />
-        <Bullet bold="Scaffold" text="create collections, roles, playbooks via ansible-creator" />
-        <Bullet bold="Navigate" text="explore collection structure, inspect modules, read docs" />
-        <Bullet bold="Build" text="create execution environment definitions and images" />
-      </div>
-      <div className="fadeUp" style={{
-        marginTop: 40, fontFamily: font.mono, fontSize: 20, color: c.muted, animationDelay: '0.5s',
-      }}>
-        Compatible with: Claude Code, VS Code Copilot Chat, Gemini CLI, Cursor, Windsurf
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="Lint & auto-fix" text="run ansible-lint, apply --fix, iterate until clean" />
+          <Bullet bold="Scaffold" text="create collections, roles, playbooks via ansible-creator" />
+          <Bullet bold="Navigate" text="explore collection structure, inspect modules, read docs" />
+          <Bullet bold="Build" text="create execution environment definitions and images" />
+          <div style={{ fontFamily: font.mono, fontSize: 18, color: c.muted, marginTop: 8 }}>
+            Compatible with: Claude Code, VS Code Copilot Chat, Gemini CLI, Cursor, Windsurf
+          </div>
+        </div>
+        <Terminal lines={[
+          '# MCP client prompt:',
+          '',
+          '> Scaffold a network automation',
+          '  collection with a backup role,',
+          '  lint it, fix all violations',
+          '',
+          '$ ansible-creator init collection',
+          '  myorg.network',
+          '✔ Collection created',
+          '',
+          '$ ansible-lint --fix',
+          '✔ Fixed 3 violations',
+          '✔ Passed: 0 warnings',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1184,11 +1245,29 @@ const AAPMCP: Page = () => (
       }}>
         AAP MCP Server
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet bold="Job management" text="launch templates, check status, review output" />
-        <Bullet bold="Inventory queries" text="list hosts, groups, variables across inventories" />
-        <Bullet bold="System monitoring" text="check Controller health, node status, license usage" />
-        <Bullet bold="Gateway API" text="connects to AAP 2.6.4+ unified gateway endpoints" />
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="Job management" text="launch templates, check status, review output" />
+          <Bullet bold="Inventory queries" text="list hosts, groups, variables across inventories" />
+          <Bullet bold="System monitoring" text="check Controller health, node status, license usage" />
+          <Bullet bold="Gateway API" text="connects to AAP 2.6.4+ unified gateway endpoints" />
+        </div>
+        <Terminal lines={[
+          '# MCP client prompt:',
+          '',
+          '> Show failed jobs in the last',
+          '  24 hours and launch the',
+          '  remediation template',
+          '',
+          '  Querying AAP gateway...',
+          '  3 failed jobs found:',
+          '    - patch-rhel9 (timeout)',
+          '    - deploy-web (auth error)',
+          '    - backup-db (disk full)',
+          '',
+          '  Launching: remediate-hosts',
+          '✔ Job #4521 started',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1403,11 +1482,25 @@ const Tier2Detail: Page = () => (
       }}>
         Tier 2: the core deployment path
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet text="Platform team manages domain-specific images via OpenShift BuildConfig" />
-        <Bullet text="One image per automation domain (network, Windows, cloud, AAP config)" />
-        <Bullet bold="Standard Containerfile" text="FROM upstream-base + dnf install + pip install" />
-        <Bullet bold="5+ variants" text="CEKit factory model generates Containerfiles from YAML definitions" />
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet text="Platform team manages domain-specific images via OpenShift BuildConfig" />
+          <Bullet text="One image per automation domain (network, Windows, cloud, AAP config)" />
+          <Bullet bold="5+ variants" text="CEKit factory generates Containerfiles from YAML" />
+        </div>
+        <Terminal lines={[
+          '# Containerfile — network domain',
+          'FROM ansible-devspaces:latest',
+          '',
+          'RUN dnf install -y \\',
+          '    libssh-devel \\',
+          '    python3-netaddr \\',
+          '  && dnf clean all',
+          '',
+          'RUN pip install \\',
+          '    netaddr \\',
+          '    napalm',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1427,7 +1520,7 @@ const AutoRebuild: Page = () => (
       }}>
         Auto-rebuild cascade
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <Bullet text="OpenShift ImageStream triggers connect all tiers" />
         <Bullet bold="Upstream update" text="→ Org rebuild → Team rebuild (automatic)" />
         <Bullet text="Security patches flow through the chain without manual intervention" />
@@ -1451,7 +1544,7 @@ const SelfService: Page = () => (
       }}>
         Self-service workflow
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <Bullet text="Teams request image customizations via PR to the config repo" />
         <Bullet text="Platform team reviews and approves; rebuild is automatic" />
         <Bullet bold="Personal tier (Tier 4)" text="opt-in fork for individual experimentation" />
@@ -1497,11 +1590,29 @@ const PRGates: Page = () => (
       }}>
         The outer loop: PR quality gates
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-        <Bullet bold="ansible-lint in CI" text="enforce the team's lint profile (moderate → production)" />
-        <Bullet bold="molecule CI" text="run integration tests against target platforms" />
-        <Bullet bold="ansible-sign" text="validate content signatures on merge" />
-        <Bullet text="SARIF output for GitHub code scanning annotations on PRs" />
+      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="ansible-lint in CI" text="enforce the team's lint profile (moderate → production)" />
+          <Bullet bold="molecule CI" text="run integration tests against target platforms" />
+          <Bullet bold="ansible-sign" text="validate content signatures on merge" />
+          <Bullet text="SARIF output for GitHub code scanning annotations" />
+        </div>
+        <Terminal lines={[
+          '# .github/workflows/ci.yml',
+          'jobs:',
+          '  lint:',
+          '    runs-on: ubuntu-latest',
+          '    steps:',
+          '      - uses: actions/checkout@v4',
+          '      - run: pip install ansible-lint',
+          '      - run: ansible-lint --profile=production',
+          '             --sarif-file=results.sarif',
+          '',
+          '  molecule:',
+          '    runs-on: ubuntu-latest',
+          '    steps:',
+          '      - run: molecule test',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -1566,7 +1677,7 @@ const GitOps: Page = () => (
       }}>
         Controller sync: GitOps for automation
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <Bullet text="Automation Controller syncs projects from Git on schedule or webhook" />
         <Bullet text="Approved content flows from PR → merge → Controller without manual steps" />
         <Bullet bold="RBAC" text="controls who can run what — separation of dev and ops" />
@@ -1590,7 +1701,7 @@ const Observability: Page = () => (
       }}>
         Development observability
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <Bullet text="Grafana dashboards for workflow and development metrics" />
         <Bullet bold="Track" text="build times, lint violations over time, test coverage trends" />
         <Bullet text="Identify bottlenecks: which teams are blocked? Where do PRs stall?" />
@@ -1636,7 +1747,7 @@ const WhyMigrate: Page = () => (
       }}>
         Why migrate?
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <Bullet text="Legacy tool contracts expiring or costs rising" />
         <Bullet text="Skills gap: fewer engineers know Chef/Puppet/Bladelogic, more know Ansible" />
         <Bullet text="Consolidation: one automation platform instead of three or four" />
@@ -1660,7 +1771,7 @@ const X2Ansible: Page = () => (
       }}>
         x2Ansible: AI-assisted conversion
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
         <Bullet text="Converts Chef recipes, Puppet manifests, BMC Bladelogic jobs → Ansible roles" />
         <Bullet bold="Powered by OpenShift AI" text="understands automation intent, not just syntax" />
         <Bullet text="Generates idiomatic Ansible: FQCN, proper module usage, role structure" />
