@@ -1136,41 +1136,47 @@ const MCPArchitecture: Page = () => (
             </div>
           </div>
 
-          {/* Arrows + MCP servers */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+          {/* Arrows + MCP servers + tool groups */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
               <span style={{ fontSize: 28, color: c.muted }}>→</span>
               <div style={{
                 background: c.red, color: c.white, borderRadius: 12,
-                padding: '20px 32px', fontFamily: font.display, fontSize: 24, fontWeight: 700,
+                padding: '20px 28px', fontFamily: font.display, fontSize: 22, fontWeight: 700,
+                whiteSpace: 'nowrap' as const,
               }}>
                 Devtools MCP
               </div>
               <span style={{ fontSize: 28, color: c.muted }}>→</span>
-              <div style={{
-                background: c.gray, borderRadius: 12,
-                padding: '20px 32px', fontFamily: font.mono, fontSize: 20, color: c.text,
-                border: `1px solid ${c.grayMid}`,
-              }}>
-                Ansible Dev Tools
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' as const }}>
+                {['Lint', 'Scaffold', 'Docs', 'Navigate', 'Build'].map(t => (
+                  <span key={t} style={{
+                    background: c.gray, borderRadius: 8, padding: '8px 16px',
+                    fontFamily: font.mono, fontSize: 17, color: c.text,
+                    border: `1px solid ${c.grayMid}`,
+                  }}>{t}</span>
+                ))}
               </div>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
               <span style={{ fontSize: 28, color: c.muted }}>→</span>
               <div style={{
                 background: c.red, color: c.white, borderRadius: 12,
-                padding: '20px 32px', fontFamily: font.display, fontSize: 24, fontWeight: 700,
+                padding: '20px 28px', fontFamily: font.display, fontSize: 22, fontWeight: 700,
+                whiteSpace: 'nowrap' as const,
               }}>
                 AAP MCP
               </div>
               <span style={{ fontSize: 28, color: c.muted }}>→</span>
-              <div style={{
-                background: c.gray, borderRadius: 12,
-                padding: '20px 32px', fontFamily: font.mono, fontSize: 20, color: c.text,
-                border: `1px solid ${c.grayMid}`,
-              }}>
-                AAP 2.6+ Gateway
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' as const }}>
+                {['Jobs', 'Inventory', 'Projects', 'Templates', 'Credentials', 'Hosts', 'Health', 'RBAC'].map(t => (
+                  <span key={t} style={{
+                    background: c.gray, borderRadius: 8, padding: '8px 16px',
+                    fontFamily: font.mono, fontSize: 17, color: c.text,
+                    border: `1px solid ${c.grayMid}`,
+                  }}>{t}</span>
+                ))}
               </div>
             </div>
           </div>
@@ -1205,7 +1211,8 @@ const DevtoolsMCP: Page = () => (
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
           <Bullet bold="Lint & auto-fix" text="run ansible-lint, apply --fix, iterate until clean" />
           <Bullet bold="Scaffold" text="create collections, roles, playbooks via ansible-creator" />
-          <Bullet bold="Navigate" text="explore collection structure, inspect modules, read docs" />
+          <Bullet bold="Docs & knowledge" text="query documentation, apply recommended practices" />
+          <Bullet bold="Navigate" text="explore collection structure, inspect modules" />
           <Bullet bold="Build" text="create execution environment definitions and images" />
           <div style={{ fontFamily: font.mono, fontSize: 18, color: c.muted, marginTop: 8 }}>
             Compatible with: Claude Code, VS Code Copilot Chat, Gemini CLI, Cursor, Windsurf
@@ -1274,65 +1281,7 @@ const AAPMCP: Page = () => (
   </div>
 );
 
-// ─── 23. Demo Scenarios ─────────────────────────────────────────────────────
-const DemoScenarios: Page = () => (
-  <div style={{ ...fill, background: c.white, color: c.text }}>
-    <Styles />
-    <AccentBar />
-    <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
-      <SectionTag light>Module B — Demo Scenarios</SectionTag>
-      <h2 className="fadeUp" style={{
-        fontFamily: font.display, fontSize: 64, fontWeight: 700,
-        letterSpacing: '-0.03em', margin: '0 0 48px', lineHeight: 1.1,
-      }}>
-        What does this look like in practice?
-      </h2>
-
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1 }}>
-        <div className="fadeUp" style={{
-          background: c.gray, borderRadius: 16, padding: '40px 40px',
-          animationDelay: '0.2s',
-        }}>
-          <h3 style={{
-            fontFamily: font.display, fontSize: 28, fontWeight: 700,
-            color: c.redText, margin: '0 0 24px',
-          }}>
-            Inner loop (developer)
-          </h3>
-          <div style={{
-            fontFamily: font.mono, fontSize: 20, lineHeight: 1.6,
-            color: c.text, background: c.white, borderRadius: 12,
-            padding: '24px 28px', border: `1px solid ${c.grayMid}`,
-          }}>
-            "Scaffold a network automation collection, add a backup role, lint it, write molecule tests, fix all violations"
-          </div>
-        </div>
-
-        <div className="fadeUp" style={{
-          background: c.dark, borderRadius: 16, padding: '40px 40px', color: c.white,
-          animationDelay: '0.35s',
-        }}>
-          <h3 style={{
-            fontFamily: font.display, fontSize: 28, fontWeight: 700,
-            color: c.red, margin: '0 0 24px',
-          }}>
-            Outer loop (operations)
-          </h3>
-          <div style={{
-            fontFamily: font.mono, fontSize: 20, lineHeight: 1.6,
-            color: 'rgba(255,255,255,0.8)', background: c.surface, borderRadius: 12,
-            padding: '24px 28px', border: `1px solid ${c.border}`,
-          }}>
-            "Show me failed jobs in the last 24 hours, check inventory for hosts missing the security baseline, launch the remediation template"
-          </div>
-        </div>
-      </div>
-    </div>
-    <Footer />
-  </div>
-);
-
-// ─── 24. Dev Spaces Deep Dive Divider ───────────────────────────────────────
+// ─── 23. Dev Spaces Deep Dive Divider ───────────────────────────────────────
 const DevSpacesDivider: Page = () => (
   <div style={{ ...fill, background: c.dark, color: c.white }}>
     <Styles />
@@ -1897,23 +1846,22 @@ export const notes = {
   19: "MCP is an open protocol — AI assistants discover available tools and call them with structured input/output. The key point: the AI doesn't replace the developer's judgment, it removes manual steps.",
   20: "The Devtools MCP server is @ansible/ansible-mcp-server on npm. It wraps the ADT CLI tools so an AI assistant can scaffold a project, lint it, fix violations, and navigate the collection structure.",
   21: "The AAP MCP server connects to the AAP gateway API (2.6.4+). It lets an AI assistant query inventory, launch job templates, and check system status.",
-  22: "These are real prompts you can give to an AI assistant with the MCP servers configured. Consider doing a live demo here if the audience is technical.",
-  23: "This module covers the tiered image strategy for customizing Dev Spaces environments.",
-  24: "Container immutability is a feature, not a bug — we don't want developers running dnf install in their workspaces because that creates drift.",
-  25: "Tier 1 is managed by the ansible-dev-tools upstream project. Tier 2 is where most organizations focus — it's the standard deployment path.",
-  26: "Tier 2 is where the real value is for enterprise customers. When you hit 5+ domain variants, CEKit pays off — adding a new domain is a YAML file, not a Containerfile.",
-  27: "ImageStream triggers are the key automation mechanism. When the upstream base image updates, OpenShift automatically triggers rebuilds of every Tier 2 image. For rollback, re-tag the ImageStream.",
-  28: "The self-service model keeps the platform team as gatekeepers without making them a bottleneck. Set lifecycle policies to clean up stale personal images after 30/60/90 days.",
-  29: "This module covers the outer loop — what happens when a developer pushes code.",
-  30: "The outer loop is the automated enforcement layer. When a developer opens a PR, GitHub Actions runs ansible-lint with the team's profile and molecule tests.",
-  31: "This is the deployment pipeline for automation content. The EE definition file is versioned in the repo, so the image is always reproducible.",
-  32: "Controller project sync is the GitOps mechanism for Ansible. Every job execution in Controller records the project revision (commit SHA).",
-  33: "Observability closes the feedback loop. Grafana dashboards pull metrics from GitHub Actions, ansible-lint, and Automation Controller.",
-  34: "This module covers the migration path from legacy automation tools to Ansible.",
-  35: "The business case is usually one of three: contract renewal, consolidation, or skills gap.",
-  36: "x2Ansible is not a syntax translator — it's an AI that understands the intent of the source automation and generates idiomatic Ansible.",
-  37: "The workflow is designed to minimize risk. Assessment inventories all legacy automation. Validation is critical: run molecule tests AND compare output side-by-side. Rollout is phased — run Ansible in parallel with legacy.",
-  38: "",
+  22: "This module covers the tiered image strategy for customizing Dev Spaces environments.",
+  23: "Container immutability is a feature, not a bug — we don't want developers running dnf install in their workspaces because that creates drift.",
+  24: "Tier 1 is managed by the ansible-dev-tools upstream project. Tier 2 is where most organizations focus — it's the standard deployment path.",
+  25: "Tier 2 is where the real value is for enterprise customers. When you hit 5+ domain variants, CEKit pays off — adding a new domain is a YAML file, not a Containerfile.",
+  26: "ImageStream triggers are the key automation mechanism. When the upstream base image updates, OpenShift automatically triggers rebuilds of every Tier 2 image. For rollback, re-tag the ImageStream.",
+  27: "The self-service model keeps the platform team as gatekeepers without making them a bottleneck. Set lifecycle policies to clean up stale personal images after 30/60/90 days.",
+  28: "This module covers the outer loop — what happens when a developer pushes code.",
+  29: "The outer loop is the automated enforcement layer. When a developer opens a PR, GitHub Actions runs ansible-lint with the team's profile and molecule tests.",
+  30: "This is the deployment pipeline for automation content. The EE definition file is versioned in the repo, so the image is always reproducible.",
+  31: "Controller project sync is the GitOps mechanism for Ansible. Every job execution in Controller records the project revision (commit SHA).",
+  32: "Observability closes the feedback loop. Grafana dashboards pull metrics from GitHub Actions, ansible-lint, and Automation Controller.",
+  33: "This module covers the migration path from legacy automation tools to Ansible.",
+  34: "The business case is usually one of three: contract renewal, consolidation, or skills gap.",
+  35: "x2Ansible is not a syntax translator — it's an AI that understands the intent of the source automation and generates idiomatic Ansible.",
+  36: "The workflow is designed to minimize risk. Assessment inventories all legacy automation. Validation is critical: run molecule tests AND compare output side-by-side. Rollout is phased — run Ansible in parallel with legacy.",
+  37: "",
 };
 
 export default [
@@ -1939,7 +1887,6 @@ export default [
   MCPArchitecture,
   DevtoolsMCP,
   AAPMCP,
-  DemoScenarios,
   DevSpacesDivider,
   WhyCustomize,
   TieredStrategy,
