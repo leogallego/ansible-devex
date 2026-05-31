@@ -247,12 +247,12 @@ const Title: Page = () => (
 
 // ─── 02. The Onboarding Problem ─────────────────────────────────────────────
 const OnboardingProblem: Page = () => {
-  const timeline = [
-    { day: 'Day 1', label: 'Kick-off & paperwork' },
-    { day: 'Day 10', label: 'Laptop arrives' },
-    { day: 'Day 20', label: 'IDE & tools installed' },
-    { day: 'Day 30', label: 'Git access granted' },
-    { day: 'Day 60', label: 'Still waiting for Linux/sudo' },
+  const steps = [
+    { day: 'Day 1', label: 'Kick-off & paperwork', story: '"Welcome! Here\'s 40 pages of security training."', icon: '📋' },
+    { day: 'Day 10', label: 'Laptop arrives', story: '"Your laptop is shipping. Use your personal one for now... actually, don\'t."', icon: '💻' },
+    { day: 'Day 20', label: 'IDE & tools installed', story: '"IT approved VS Code. Python is pending a separate ticket."', icon: '🔧' },
+    { day: 'Day 30', label: 'Git access granted', story: '"You can clone repos now. But you can\'t push — that\'s a different form."', icon: '🔑' },
+    { day: 'Day 60', label: 'Still waiting...', story: '"Your sudo request is in queue. Current wait: 3-4 weeks."', icon: '⏳', alert: true },
   ];
   return (
     <div style={{ ...fill, background: c.white, color: c.text }}>
@@ -267,37 +267,51 @@ const OnboardingProblem: Page = () => {
           The onboarding problem
         </h2>
 
-        <div style={{
-          flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-          marginTop: 48,
-        }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', gap: 32, width: '100%', maxWidth: 1600 }}>
-            {timeline.map((t, i) => (
-              <div key={t.day} className="fadeUp" style={{
-                flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
-                animationDelay: `${0.3 + i * 0.15}s`,
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', marginTop: 32 }}>
+          <div style={{ display: 'flex', gap: 20, width: '100%' }}>
+            {steps.map((s, i) => (
+              <div key={s.day} className="fadeUp" style={{
+                flex: 1, display: 'flex', flexDirection: 'column',
+                animationDelay: `${0.3 + i * 0.2}s`,
               }}>
+                {/* Day badge */}
                 <div style={{
-                  fontFamily: font.mono, fontSize: 16, color: c.muted,
-                  marginBottom: 12,
-                }}>
-                  {t.label}
-                </div>
-                <div style={{
-                  width: '100%', borderRadius: 8,
-                  background: i < 4
-                    ? `linear-gradient(180deg, ${c.gray} 0%, ${c.grayMid} 100%)`
-                    : `linear-gradient(180deg, ${c.red} 0%, ${c.redDark} 100%)`,
-                  height: 60 + i * 50,
-                  display: 'flex', alignItems: 'flex-end', justifyContent: 'center',
-                  padding: '0 0 12px',
+                  display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12,
                 }}>
                   <span style={{
-                    fontFamily: font.mono, fontSize: 18, fontWeight: 600,
-                    color: i < 4 ? c.text : c.white,
+                    fontFamily: font.display, fontSize: 22, fontWeight: 700,
+                    color: s.alert ? c.red : c.text,
                   }}>
-                    {t.day}
+                    {s.day}
                   </span>
+                  <div style={{
+                    flex: 1, height: 2,
+                    background: s.alert ? c.red : c.grayMid,
+                    opacity: i < 4 ? 1 : 0,
+                  }} />
+                </div>
+
+                {/* Card */}
+                <div style={{
+                  background: s.alert ? c.red : c.gray,
+                  borderRadius: 14, padding: '28px 24px',
+                  flex: 1, display: 'flex', flexDirection: 'column', gap: 16,
+                  color: s.alert ? c.white : c.text,
+                }}>
+                  <div style={{ fontSize: 40, textAlign: 'center' }}>{s.icon}</div>
+                  <div style={{
+                    fontFamily: font.display, fontSize: 20, fontWeight: 700,
+                    textAlign: 'center',
+                  }}>
+                    {s.label}
+                  </div>
+                  <div style={{
+                    fontFamily: font.sans, fontSize: 17, lineHeight: 1.5,
+                    color: s.alert ? 'rgba(255,255,255,0.85)' : c.muted,
+                    fontStyle: 'italic', textAlign: 'center',
+                  }}>
+                    {s.story}
+                  </div>
                 </div>
               </div>
             ))}
@@ -305,8 +319,8 @@ const OnboardingProblem: Page = () => {
         </div>
 
         <p className="fadeUp" style={{
-          textAlign: 'center', fontFamily: font.sans, fontSize: 26,
-          color: c.muted, fontStyle: 'italic', marginTop: 24, animationDelay: '1.1s',
+          textAlign: 'center', fontFamily: font.display, fontSize: 28, fontWeight: 700,
+          color: c.redText, marginTop: 24, animationDelay: '1.3s',
         }}>
           Months before writing a single playbook
         </p>
