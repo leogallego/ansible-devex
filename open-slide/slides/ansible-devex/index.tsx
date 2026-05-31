@@ -43,22 +43,50 @@ const fill = {
   height: '100%',
   overflow: 'hidden',
   position: 'relative' as const,
+  letterSpacing: '-0.015em',
+  fontFamily: font.sans,
 };
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;600;700;900&family=Red+Hat+Text:wght@400;500;600&family=Red+Hat+Mono:wght@400;500&display=swap');
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
+    from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeIn {
     from { opacity: 0; }
     to   { opacity: 1; }
   }
-  .fadeUp { opacity: 0; animation: fadeUp 0.8s cubic-bezier(.2,.7,.2,1) forwards; }
-  .fadeIn { opacity: 0; animation: fadeIn 0.6s ease forwards; }
+  @keyframes blink {
+    0%, 49%   { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+  .fadeUp { opacity: 0; animation: fadeUp 0.9s cubic-bezier(.2,.7,.2,1) forwards; }
+  .fadeIn { opacity: 0; animation: fadeIn 1.2s ease forwards; }
+  .stream { opacity: 0; animation: fadeIn .45s ease forwards; }
+  .caret::after {
+    content: '';
+    display: inline-block;
+    width: 0.06em;
+    height: 0.9em;
+    background: currentColor;
+    margin-left: 0.08em;
+    vertical-align: baseline;
+    animation: blink 1.05s steps(1) infinite;
+  }
 `;
 const Styles = () => <style>{styles}</style>;
+
+const PatternBg = () => (
+  <div style={{
+    position: 'absolute', inset: 0,
+    backgroundImage: 'radial-gradient(circle, rgba(0,0,0,0.035) 1px, transparent 1px)',
+    backgroundSize: '28px 28px',
+    maskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.9) 0%, transparent 72%)',
+    WebkitMaskImage: 'radial-gradient(ellipse at center, rgba(0,0,0,0.9) 0%, transparent 72%)',
+    pointerEvents: 'none',
+  }} />
+);
 
 const Footer = ({ dark = false, onRed = false }: { dark?: boolean; onRed?: boolean }) => (
   <div style={{
@@ -150,27 +178,37 @@ const Placeholder = ({ label, height = 320 }: { label: string; height?: number }
   </div>
 );
 
-const Terminal = ({ lines }: { lines: string[] }) => (
+const Terminal = ({ lines, title = 'terminal' }: { lines: string[]; title?: string }) => (
   <div style={{
-    flex: 1, minWidth: 440, borderRadius: 14, overflow: 'hidden',
-    background: c.darkest, border: `1px solid ${c.dark}`,
+    flex: 1, minWidth: 440, borderRadius: 'var(--osd-radius)', overflow: 'hidden',
+    background: c.surface, border: `1px solid ${c.border}`,
     display: 'flex', flexDirection: 'column',
-    boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
+    boxShadow: '0 40px 80px -30px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.02)',
   }}>
     <div style={{
-      height: 36, padding: '0 14px', display: 'flex', alignItems: 'center', gap: 8,
-      background: c.dark, borderBottom: `1px solid rgba(255,255,255,0.06)`,
+      height: 48, padding: '0 20px', display: 'flex', alignItems: 'center', gap: 14,
+      background: c.surfaceHi, borderBottom: `1px solid ${c.border}`, flexShrink: 0,
     }}>
-      {['#ff5f56', '#ffbd2e', '#27c93f'].map(clr => (
-        <span key={clr} style={{ width: 11, height: 11, borderRadius: '50%', background: clr }} />
-      ))}
+      <div style={{ display: 'flex', gap: 9 }}>
+        {['#ff5f56', '#ffbd2e', '#27c93f'].map(clr => (
+          <span key={clr} style={{ width: 12, height: 12, borderRadius: '50%', background: clr, boxShadow: 'inset 0 0 0 1px rgba(0,0,0,0.2)' }} />
+        ))}
+      </div>
+      <div style={{
+        flex: 1, textAlign: 'center', fontFamily: font.mono, fontSize: 17,
+        color: c.muted, letterSpacing: '0.02em',
+      }}>
+        {title}
+      </div>
+      <div style={{ minWidth: 48 }} />
     </div>
     <div style={{
-      flex: 1, padding: '20px 24px', fontFamily: font.mono, fontSize: 18,
-      lineHeight: 1.7, color: 'rgba(255,255,255,0.85)', overflow: 'hidden',
+      flex: 1, padding: '24px 32px', fontFamily: font.mono, fontSize: 19,
+      lineHeight: 1.65, color: 'rgba(255,255,255,0.85)', overflow: 'hidden',
+      background: c.darkest,
     }}>
       {lines.map((line, i) => (
-        <div key={i}>
+        <div key={i} className="stream" style={{ animationDelay: `${0.15 + i * 0.06}s`, minHeight: line === '' ? 12 : undefined }}>
           {line === '' ? <br /> : line.startsWith('$') ? (
             <><span style={{ color: '#27c93f' }}>$ </span><span style={{ color: c.white }}>{line.slice(2)}</span></>
           ) : line.startsWith('#') ? (
@@ -182,6 +220,10 @@ const Terminal = ({ lines }: { lines: string[] }) => (
           )}
         </div>
       ))}
+      <div className="stream" style={{ animationDelay: `${0.15 + lines.length * 0.06 + 0.1}s`, display: 'flex', gap: 12, marginTop: 8 }}>
+        <span style={{ color: '#27c93f' }}>$</span>
+        <span className="caret" style={{ color: c.white }} />
+      </div>
     </div>
   </div>
 );
@@ -257,6 +299,7 @@ const OnboardingProblem: Page = () => {
   return (
     <div style={{ ...fill, background: c.white, color: c.text }}>
       <Styles />
+      <PatternBg />
       <AccentBar />
       <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
         <SectionTag light>The Challenge</SectionTag>
@@ -360,25 +403,31 @@ const Toolchain: Page = () => {
   return (
     <div style={{ ...fill, background: c.white, color: c.text }}>
       <Styles />
+      <PatternBg />
       <AccentBar />
       <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
         <SectionTag light>The Toolchain</SectionTag>
         <h2 className="fadeUp" style={{
           fontFamily: font.display, fontSize: 72, fontWeight: 700,
-          letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1,
+          letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
         }}>
-          Ansible Development Tools
+          Ansible <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Development Tools</span>
         </h2>
+        <p className="fadeUp" style={{ marginTop: 16, fontSize: 26, color: c.muted, animationDelay: '0.2s' }}>
+          10 tools, one install — Create, Test, Deploy.
+        </p>
 
         <div style={{
-          flex: 1, display: 'flex', gap: 40, marginTop: 56, minHeight: 0,
+          flex: 1, display: 'flex', gap: 32, marginTop: 40, minHeight: 0,
         }}>
           {groups.map((g, gi) => (
             <div key={g.title} className="fadeUp" style={{
               flex: 1, background: c.gray, borderRadius: 16,
               padding: '36px 40px', display: 'flex', flexDirection: 'column',
-              animationDelay: `${0.2 + gi * 0.15}s`,
+              animationDelay: `${0.3 + gi * 0.12}s`,
               borderTop: `4px solid ${g.color}`,
+              border: `1px solid rgba(0,0,0,0.06)`,
+              borderTopWidth: 4, borderTopColor: g.color,
             }}>
               <div style={{ marginBottom: 16 }}>{g.icon}</div>
               <h3 style={{
@@ -387,7 +436,7 @@ const Toolchain: Page = () => {
               }}>
                 {g.title}
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 16, flex: 1 }}>
                 {g.items.map(item => (
                   <div key={item} style={{
                     display: 'flex', alignItems: 'center', gap: 14,
@@ -418,17 +467,18 @@ const MaturityPath: Page = () => {
   return (
     <div style={{ ...fill, background: c.white, color: c.text }}>
       <Styles />
+      <PatternBg />
       <AccentBar />
       <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
         <SectionTag light>The Journey</SectionTag>
         <h2 className="fadeUp" style={{
           fontFamily: font.display, fontSize: 72, fontWeight: 700,
-          letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1,
+          letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
         }}>
-          The maturity path
+          The <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>maturity path</span>
         </h2>
 
-        <div style={{ flex: 1, display: 'flex', gap: 32, marginTop: 56, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', gap: 32, marginTop: 40, alignItems: 'stretch', minHeight: 0 }}>
           {stages.map((s, i) => (
             <div key={s.title} className="fadeUp" style={{
               flex: 1, borderRadius: 16, padding: '40px 32px',
@@ -473,14 +523,15 @@ const MaturityPath: Page = () => {
 const ContentLifecycle: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>The Workflow</SectionTag>
       <h2 className="fadeUp" style={{
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
-        letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1,
+        letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
       }}>
-        The content lifecycle
+        The <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>content lifecycle</span>
       </h2>
 
       {/* Two-column flow diagram */}
@@ -641,7 +692,7 @@ const ScalingDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Scaling to<br/>the enterprise
+        Scaling to<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>the enterprise</span>
       </h2>
       <img src={ansibleA} alt="" style={{
         position: 'absolute', right: 120, bottom: 80,
@@ -656,23 +707,27 @@ const ScalingDivider: Page = () => (
 const DevContainers: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Enterprise Scale</SectionTag>
       <h2 className="fadeUp" style={{
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
-        letterSpacing: '-0.03em', margin: '0 0 48px', lineHeight: 1.1,
+        letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
       }}>
-        Dev Containers: team consistency
+        Dev Containers: <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>team consistency</span>
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
-          <Bullet bold="Same image" text="same tools, same config — every developer" />
+      <p className="fadeUp" style={{ marginTop: 16, fontSize: 26, color: c.muted, animationDelay: '0.2s' }}>
+        Same image, same tools, same config — every developer, every time.
+      </p>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, marginTop: 36, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold=".devcontainer/" text="lives in the repo, versioned with code" />
           <Bullet text="Works on any OS with VS Code + container runtime" />
           <Bullet text="Nested Podman for molecule and ansible-builder" />
+          <Bullet text="Free community image or Red Hat supported variant" />
         </div>
-        <Terminal lines={[
+        <Terminal title="devcontainer.json" lines={[
           '# .devcontainer/devcontainer.json',
           '{',
           '  "image": "ghcr.io/ansible/',
@@ -696,23 +751,27 @@ const DevContainers: Page = () => (
 const DevSpaces: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Enterprise Scale</SectionTag>
       <h2 className="fadeUp" style={{
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
-        letterSpacing: '-0.03em', margin: '0 0 48px', lineHeight: 1.1,
+        letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
       }}>
-        Dev Spaces: zero local dependencies
+        Dev Spaces: <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>zero local deps</span>
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
-          <Bullet text="Browser-only — ~5 minutes to coding" />
+      <p className="fadeUp" style={{ marginTop: 16, fontSize: 26, color: c.muted, animationDelay: '0.2s' }}>
+        Browser-only — ~5 minutes from nothing to coding.
+      </p>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, marginTop: 36, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet text="Centrally governed by platform team" />
           <Bullet bold="devfile.yaml" text="defines everything: tools, config, extensions" />
           <Bullet text="Developers just click Create — no local setup" />
+          <Bullet text="Requires OpenShift + Dev Spaces operator" />
         </div>
-        <Terminal lines={[
+        <Terminal title="devfile.yaml" lines={[
           '# devfile.yaml',
           'schemaVersion: 2.2.2',
           'metadata:',
@@ -735,6 +794,7 @@ const DevSpaces: Page = () => (
 const AIOverview: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>AI-Assisted Development</SectionTag>
@@ -742,7 +802,7 @@ const AIOverview: Page = () => (
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
         letterSpacing: '-0.03em', margin: '0 0 48px', lineHeight: 1.1,
       }}>
-        AI-assisted development
+        AI-assisted <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>development</span>
       </h2>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40, flex: 1, minHeight: 0 }}>
@@ -798,7 +858,7 @@ const NextSteps: Page = () => {
           fontFamily: font.display, fontSize: 72, fontWeight: 700,
           letterSpacing: '-0.03em', margin: '0 0 48px', lineHeight: 1.1,
         }}>
-          What should I do next?
+          What should I do <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>next?</span>
         </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
@@ -843,7 +903,7 @@ const ADTDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Ansible Development<br/>Tools — A Closer Look
+        Ansible Development<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Tools — A Closer Look</span>
       </h2>
     </div>
     <img src={ansibleA} alt="" style={{
@@ -858,6 +918,7 @@ const ADTDivider: Page = () => (
 const AnsibleCreator: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module A — Create</SectionTag>
@@ -867,14 +928,14 @@ const AnsibleCreator: Page = () => (
       }}>
         ansible-creator & ansible-dev-environment
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}>
           <Bullet bold="ansible-creator" text="scaffold collections, roles, playbooks, and EE definitions" />
           <Bullet bold="ansible-dev-environment (ade)" text="pip-like install for collections in virtual environments" />
           <Bullet text="Opinionated project structure with molecule, lint config, and CI templates out of the box" />
           <Bullet text="Consistent starting point — no more copy-pasting boilerplate from old projects" />
         </div>
-        <Terminal lines={[
+        <Terminal title="ansible-creator" lines={[
           '$ ansible-creator init collection myorg.myapp',
           '✔ Collection project created at ./myorg.myapp',
           '',
@@ -898,6 +959,7 @@ const AnsibleCreator: Page = () => (
 const AnsibleLint: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module A — Test</SectionTag>
@@ -942,6 +1004,7 @@ const AnsibleLint: Page = () => (
 const Molecule: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module A — Test</SectionTag>
@@ -951,14 +1014,14 @@ const Molecule: Page = () => (
       }}>
         molecule
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24 }}>
           <Bullet text="Integration testing with ephemeral infrastructure" />
           <Bullet bold="Pluggable drivers" text="Podman, Docker, delegated, cloud" />
           <Bullet text="Collection-aware: test roles within their collection context" />
           <Bullet text="Multi-scenario support for different test configurations" />
         </div>
-        <Terminal lines={[
+        <Terminal title="molecule" lines={[
           '$ molecule test',
           '',
           '  ── Creating instances ──',
@@ -983,6 +1046,7 @@ const Molecule: Page = () => (
 const PytestTox: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module A — Test</SectionTag>
@@ -992,13 +1056,13 @@ const PytestTox: Page = () => (
       }}>
         pytest-ansible & tox-ansible
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold="pytest-ansible" text="pytest plugin for testing Ansible module and plugin Python code" />
           <Bullet bold="tox-ansible" text="test matrix across multiple Python and ansible-core versions" />
           <Bullet text="Complement molecule: unit tests for Python code, integration tests for roles" />
         </div>
-        <Terminal lines={[
+        <Terminal title="tox-ansible" lines={[
           '$ tox -e py312-2.17',
           '',
           '  py312-2.17: commands',
@@ -1022,6 +1086,7 @@ const PytestTox: Page = () => (
 const ExecutionEnvs: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module A — Deploy</SectionTag>
@@ -1031,13 +1096,13 @@ const ExecutionEnvs: Page = () => (
       }}>
         Execution Environments
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold="ansible-builder" text="build container images with collections, Python deps, and system packages" />
           <Bullet text="Same image in dev, CI, and Controller" />
           <Bullet bold="execution-environment.yml" text="versioned in your repo" />
         </div>
-        <Terminal lines={[
+        <Terminal title="ansible-builder" lines={[
           '# execution-environment.yml',
           'version: 3',
           'dependencies:',
@@ -1063,6 +1128,7 @@ const ExecutionEnvs: Page = () => (
 const NavigatorSign: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module A — Deploy</SectionTag>
@@ -1072,13 +1138,13 @@ const NavigatorSign: Page = () => (
       }}>
         ansible-navigator & ansible-sign
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold="ansible-navigator" text="TUI for running and troubleshooting automation with EEs" />
           <Bullet bold="ansible-sign" text="sign and verify project contents for supply chain security" />
           <Bullet text="Signing ensures content integrity from dev to production" />
         </div>
-        <Terminal lines={[
+        <Terminal title="ansible-navigator" lines={[
           '$ ansible-navigator run site.yml',
           '',
           '  PLAY [webservers] ──────────',
@@ -1111,7 +1177,7 @@ const AIDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        AI-Assisted<br/>Development
+        AI-Assisted<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Development</span>
       </h2>
     </div>
     <Footer dark />
@@ -1122,6 +1188,7 @@ const AIDivider: Page = () => (
 const MCPArchitecture: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module B — MCP Architecture</SectionTag>
@@ -1212,6 +1279,7 @@ const MCPArchitecture: Page = () => (
 const DevtoolsMCP: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module B — Devtools MCP</SectionTag>
@@ -1221,8 +1289,8 @@ const DevtoolsMCP: Page = () => (
       }}>
         Ansible Devtools MCP Server
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold="Lint & auto-fix" text="run ansible-lint, apply --fix, iterate until clean" />
           <Bullet bold="Scaffold" text="create collections, roles, playbooks via ansible-creator" />
           <Bullet bold="Docs & knowledge" text="query documentation, apply recommended practices" />
@@ -1232,7 +1300,7 @@ const DevtoolsMCP: Page = () => (
             Compatible with: Claude Code, VS Code Copilot Chat, Gemini CLI, Cursor, Windsurf
           </div>
         </div>
-        <Terminal lines={[
+        <Terminal title="devtools MCP" lines={[
           '# MCP client prompt:',
           '',
           '> Scaffold a network automation',
@@ -1257,6 +1325,7 @@ const DevtoolsMCP: Page = () => (
 const AAPMCP: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module B — AAP MCP</SectionTag>
@@ -1266,14 +1335,14 @@ const AAPMCP: Page = () => (
       }}>
         AAP MCP Server
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold="Job management" text="launch templates, check status, review output" />
           <Bullet bold="Inventory queries" text="list hosts, groups, variables across inventories" />
           <Bullet bold="System monitoring" text="check Controller health, node status, license usage" />
           <Bullet bold="Gateway API" text="connects to AAP 2.6.4+ unified gateway endpoints" />
         </div>
-        <Terminal lines={[
+        <Terminal title="AAP MCP" lines={[
           '# MCP client prompt:',
           '',
           '> Show failed jobs in the last',
@@ -1310,7 +1379,7 @@ const DevSpacesDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Dev Spaces &<br/>Image Customization
+        Dev Spaces &<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Image Customization</span>
       </h2>
     </div>
     <Footer dark />
@@ -1321,6 +1390,7 @@ const DevSpacesDivider: Page = () => (
 const WhyCustomize: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module C — The Problem</SectionTag>
@@ -1436,6 +1506,7 @@ const TieredStrategy: Page = () => {
 const Tier2Detail: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module C — Tier 2</SectionTag>
@@ -1445,13 +1516,13 @@ const Tier2Detail: Page = () => (
       }}>
         Tier 2: the core deployment path
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet text="Platform team manages domain-specific images via OpenShift BuildConfig" />
           <Bullet text="One image per automation domain (network, Windows, cloud, AAP config)" />
           <Bullet bold="5+ variants" text="CEKit factory generates Containerfiles from YAML" />
         </div>
-        <Terminal lines={[
+        <Terminal title="Containerfile" lines={[
           '# Containerfile — network domain',
           'FROM ansible-devspaces:latest',
           '',
@@ -1474,6 +1545,7 @@ const Tier2Detail: Page = () => (
 const AutoRebuild: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module C — Auto-rebuild</SectionTag>
@@ -1483,7 +1555,7 @@ const AutoRebuild: Page = () => (
       }}>
         Auto-rebuild cascade
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
         <Bullet text="OpenShift ImageStream triggers connect all tiers" />
         <Bullet bold="Upstream update" text="→ Org rebuild → Team rebuild (automatic)" />
         <Bullet text="Security patches flow through the chain without manual intervention" />
@@ -1498,6 +1570,7 @@ const AutoRebuild: Page = () => (
 const SelfService: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module C — Self-service</SectionTag>
@@ -1507,7 +1580,7 @@ const SelfService: Page = () => (
       }}>
         Self-service workflow
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
         <Bullet text="Teams request image customizations via PR to the config repo" />
         <Bullet text="Platform team reviews and approves; rebuild is automatic" />
         <Bullet bold="Personal tier (Tier 4)" text="opt-in fork for individual experimentation" />
@@ -1533,7 +1606,7 @@ const CICDDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        CI/CD<br/>Integration
+        CI/CD<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>Integration</span>
       </h2>
     </div>
     <Footer dark />
@@ -1544,6 +1617,7 @@ const CICDDivider: Page = () => (
 const PRGates: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module D — PR Gates</SectionTag>
@@ -1553,14 +1627,14 @@ const PRGates: Page = () => (
       }}>
         The outer loop: PR quality gates
       </h2>
-      <div style={{ display: 'flex', gap: 48, flex: 1, alignItems: 'flex-start' }}>
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ display: 'flex', gap: 40, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 24, justifyContent: 'center' }}>
           <Bullet bold="ansible-lint in CI" text="enforce the team's lint profile (moderate → production)" />
           <Bullet bold="molecule CI" text="run integration tests against target platforms" />
           <Bullet bold="ansible-sign" text="validate content signatures on merge" />
           <Bullet text="SARIF output for GitHub code scanning annotations" />
         </div>
-        <Terminal lines={[
+        <Terminal title="GitHub Actions" lines={[
           '# .github/workflows/ci.yml',
           'jobs:',
           '  lint:',
@@ -1586,6 +1660,7 @@ const PRGates: Page = () => (
 const EEPipeline: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module D — EE Pipeline</SectionTag>
@@ -1631,6 +1706,7 @@ const EEPipeline: Page = () => (
 const GitOps: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module D — GitOps</SectionTag>
@@ -1640,7 +1716,7 @@ const GitOps: Page = () => (
       }}>
         Controller sync: GitOps for automation
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
         <Bullet text="Automation Controller syncs projects from Git on schedule or webhook" />
         <Bullet text="Approved content flows from PR → merge → Controller without manual steps" />
         <Bullet bold="RBAC" text="controls who can run what — separation of dev and ops" />
@@ -1655,6 +1731,7 @@ const GitOps: Page = () => (
 const Observability: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module D — Observability</SectionTag>
@@ -1664,7 +1741,7 @@ const Observability: Page = () => (
       }}>
         Development observability
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
         <Bullet text="Grafana dashboards for workflow and development metrics" />
         <Bullet bold="Track" text="build times, lint violations over time, test coverage trends" />
         <Bullet text="Identify bottlenecks: which teams are blocked? Where do PRs stall?" />
@@ -1690,7 +1767,7 @@ const MigrationDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Legacy Automation<br/>to Ansible
+        Legacy Automation<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>to Ansible</span>
       </h2>
     </div>
     <Footer dark />
@@ -1701,6 +1778,7 @@ const MigrationDivider: Page = () => (
 const WhyMigrate: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module E — The Problem</SectionTag>
@@ -1710,7 +1788,7 @@ const WhyMigrate: Page = () => (
       }}>
         Why migrate?
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
         <Bullet text="Legacy tool contracts expiring or costs rising" />
         <Bullet text="Skills gap: fewer engineers know Chef/Puppet/Bladelogic, more know Ansible" />
         <Bullet text="Consolidation: one automation platform instead of three or four" />
@@ -1725,6 +1803,7 @@ const WhyMigrate: Page = () => (
 const X2Ansible: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module E — x2Ansible</SectionTag>
@@ -1734,7 +1813,7 @@ const X2Ansible: Page = () => (
       }}>
         x2Ansible: AI-assisted conversion
       </h2>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 32, justifyContent: 'center' }}>
         <Bullet text="Converts Chef recipes, Puppet manifests, BMC Bladelogic jobs → Ansible roles" />
         <Bullet bold="Powered by OpenShift AI" text="understands automation intent, not just syntax" />
         <Bullet text="Generates idiomatic Ansible: FQCN, proper module usage, role structure" />
@@ -1749,6 +1828,7 @@ const X2Ansible: Page = () => (
 const MigrationWorkflow: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
     <Styles />
+    <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '80px 120px 100px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>Module E — Workflow</SectionTag>
