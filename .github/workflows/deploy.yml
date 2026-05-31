@@ -37,6 +37,12 @@ jobs:
         working-directory: open-slide
         run: npm run build
 
+      - name: Fix base path for GitHub Pages
+        working-directory: open-slide
+        run: |
+          sed -i 's|href="/assets/|href="/ansible-devex/assets/|g; s|src="/assets/|src="/ansible-devex/assets/|g' dist/index.html
+          cp dist/index.html dist/404.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: open-slide/dist
