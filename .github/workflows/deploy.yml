@@ -35,13 +35,13 @@ jobs:
 
       - name: Build
         working-directory: open-slide
+        env:
+          OPEN_SLIDE_BASE: /ansible-devex/
         run: npm run build
 
-      - name: Fix base path for GitHub Pages
+      - name: SPA fallback for client-side routing
         working-directory: open-slide
-        run: |
-          sed -i 's|href="/assets/|href="/ansible-devex/assets/|g; s|src="/assets/|src="/ansible-devex/assets/|g' dist/index.html
-          cp dist/index.html dist/404.html
+        run: cp dist/index.html dist/404.html
 
       - uses: actions/upload-pages-artifact@v3
         with:

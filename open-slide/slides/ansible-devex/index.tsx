@@ -343,7 +343,7 @@ const FiveMinutes: Page = () => (
         letterSpacing: '-0.04em', lineHeight: 1.0, textAlign: 'center', margin: 0,
       }}>
         What if it took<br/>
-        <span style={{ color: 'rgba(255,255,255,0.4)' }}>5 minutes?</span>
+        <span style={{ color: '#ffffff', fontWeight: 400, fontStyle: 'italic' }}>5 minutes?</span>
       </h2>
     </div>
     <Footer dark onRed />
