@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'deck/**'
+      - 'open-slide/**'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
@@ -27,19 +27,19 @@ jobs:
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: deck/package-lock.json
+          cache-dependency-path: open-slide/package-lock.json
 
       - name: Install dependencies
-        working-directory: deck
+        working-directory: open-slide
         run: npm ci
 
       - name: Build
-        working-directory: deck
+        working-directory: open-slide
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: deck/dist
+          path: open-slide/dist
 
   deploy:
     needs: build
