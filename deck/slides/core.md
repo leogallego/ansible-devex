@@ -77,9 +77,9 @@ Note: Pause for effect. This is the thesis of the talk.
 
 <div class="tool-grid">
 <div class="tool-group"><h3>Create</h3>
-<ul><li>ansible-creator</li><li>ade</li></ul></div>
+<ul><li>ansible-creator</li><li>ansible-dev-environment</li><li>ansible-core</li></ul></div>
 <div class="tool-group"><h3>Test</h3>
-<ul><li>molecule</li><li>ansible-lint</li><li>pytest-ansible</li><li>tox-ansible</li></ul></div>
+<ul><li>ansible-lint</li><li>molecule</li><li>pytest-ansible</li><li>tox-ansible</li></ul></div>
 <div class="tool-group"><h3>Deploy</h3>
 <ul><li>ansible-builder</li><li>ansible-navigator</li><li>ansible-sign</li></ul></div>
 </div>
@@ -89,7 +89,7 @@ Note: Pause for effect. This is the thesis of the talk.
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: ADT is one install — `adt --version` shows all tools with compatible versions. No more dependency conflicts.
+Note: ADT bundles 10 tools into one install — `adt --version` shows all tools with compatible, tested versions. No more dependency conflicts. The tools are tightly integrated: ansible-lint feeds the VS Code extension, molecule uses ansible-navigator and podman, ansible-creator scaffolds projects pre-configured for all of them.
 
 ---
 
@@ -115,7 +115,7 @@ Note: ADT is one install — `adt --version` shows all tools with compatible ver
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: Most customers are somewhere between Crawl and Walk. The container-based methods are the target.
+Note: Most customers are somewhere between Crawl and Walk. The container-based methods are the target. Key subscription detail: uv/pip is free (upstream community). RPM requires AAP or Ansible Developer subscription + RHEL 9. Dev Container has a free community image and a supported image (AAP subscription). Dev Spaces requires OpenShift + Dev Spaces operator. Onboarding times come from real customer benchmarks.
 
 ---
 
@@ -161,7 +161,7 @@ Automated gates, compliance scanning
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: Two loops: the inner loop is your developer's daily experience, the outer loop is what happens when they push.
+Note: Two loops: the inner loop is your developer's daily experience (write, lint, molecule test, iterate — fast local feedback). The outer loop is what happens on push: PR triggers GitHub Actions with molecule CI + ansible-lint + compliance scanning. On merge, approved content syncs to Automation Controller via GitOps. ansible-sign validates content integrity in the pipeline.
 
 ---
 
@@ -201,7 +201,7 @@ Note: Transition: we've shown the tools, now how do you roll them out to 50 or 5
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: This is the sweet spot for most teams starting out. Zero infrastructure investment, immediate consistency.
+Note: This is the sweet spot for most teams starting out. Zero infrastructure investment, immediate consistency. Available as community image (ghcr.io/ansible/community-ansible-dev-tools, free) or supported image (registry.redhat.io, AAP subscription). The .devcontainer/ definition is checked into the repo, so every developer who opens the project gets the same environment automatically. Nested Podman is required for molecule and ansible-builder to build container images inside the container.
 
 ---
 
@@ -224,7 +224,7 @@ Note: This is the sweet spot for most teams starting out. Zero infrastructure in
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: The value prop for Dev Spaces is governance + zero desktop requirements. IT loves it because nothing runs locally.
+Note: The value prop for Dev Spaces is governance + zero desktop requirements. IT loves it because nothing runs locally — no container runtime, no Python, no sudo. The platform team controls the base image, extensions, and linting config centrally. Developers just need a browser. Requires OpenShift + Dev Spaces operator. The devfile.yaml in each repo defines the workspace: tools, configuration, VS Code extensions, resource limits.
 
 ---
 
@@ -252,7 +252,7 @@ Note: The value prop for Dev Spaces is governance + zero desktop requirements. I
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: Both MCP servers are tech preview. Works with Claude Code, VS Code Copilot Chat, Gemini, Cursor, and other MCP-compatible tools.
+Note: Both MCP servers are tech preview. The Devtools MCP exposes ADT CLI tools (lint, scaffold, navigate, build) to any MCP-compatible AI assistant. The AAP MCP connects to the AAP 2.6.4+ gateway API for job management, inventory queries, and system monitoring. Compatible with Claude Code, VS Code Copilot Chat, Gemini CLI, Cursor, and other MCP clients. The key insight: AI doesn't replace the developer, it accelerates the content lifecycle by removing manual steps.
 
 ---
 
@@ -265,10 +265,10 @@ Note: Both MCP servers are tech preview. Works with Claude Code, VS Code Copilot
 ## What should I do next?
 
 <div class="steps-list">
-<div class="step"><span class="step-number">1</span><div class="step-content"><h3>Development Assessment</h3><p>1-day workshop</p></div></div>
-<div class="step"><span class="step-number">2</span><div class="step-content"><h3>Proof of Concept</h3><p>Red Hat demos feasibility</p></div></div>
-<div class="step"><span class="step-number">3</span><div class="step-content"><h3>Implementation & Onboarding</h3><p>Deploy tooling, onboard teams</p></div></div>
-<div class="step"><span class="step-number">4</span><div class="step-content"><h3>Data-Driven Improvement</h3><p>Grafana monitoring, iterate</p></div></div>
+<div class="step"><span class="step-number">1</span><div class="step-content"><h3>Development Assessment</h3><p>1-day workshop: map current state, identify gaps, define target maturity</p></div></div>
+<div class="step"><span class="step-number">2</span><div class="step-content"><h3>Proof of Concept</h3><p>Red Hat deploys ADT + Dev Container/Spaces for one pilot team</p></div></div>
+<div class="step"><span class="step-number">3</span><div class="step-content"><h3>Implementation & Onboarding</h3><p>Roll out tooling org-wide, customize images per domain</p></div></div>
+<div class="step"><span class="step-number">4</span><div class="step-content"><h3>Data-Driven Improvement</h3><p>Grafana dashboards: build times, lint violations, test coverage trends</p></div></div>
 </div>
 </div>
 
@@ -276,7 +276,7 @@ Note: Both MCP servers are tech preview. Works with Claude Code, VS Code Copilot
 <img src="assets/redhat-logo-color.png" alt="Red Hat" class="footer-logo" />
 </div>
 
-Note: This is the engagement model. Start with the assessment — it's a 1-day whiteboard session.
+Note: This is the engagement model. The assessment is a 1-day whiteboard session where we map the customer's current developer workflow, identify friction points, and recommend a target maturity stage. The PoC typically takes 2-4 weeks with a single pilot team. Implementation scales from there — the tiered image strategy (Module C) is how you customize for different domains without losing governance.
 
 ---
 
