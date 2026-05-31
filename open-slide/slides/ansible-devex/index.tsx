@@ -1369,7 +1369,7 @@ const TieredStrategy: Page = () => {
         </h2>
 
         {/* Tier stack diagram */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 16 }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 16 }}>
           {tiers.map((t, i) => (
             <div key={t.n} className="fadeUp" style={{
               display: 'flex', alignItems: 'center', gap: 24,
