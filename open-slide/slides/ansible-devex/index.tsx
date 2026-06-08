@@ -80,6 +80,9 @@ const styles = `
     background-clip: text;
     color: transparent;
   }
+  .gradient-text.light {
+    background-image: linear-gradient(90deg, #ee0000, #ff4444);
+  }
   @media print {
     * {
       -webkit-print-color-adjust: exact !important;
@@ -410,7 +413,7 @@ const FiveMinutes: Page = () => (
         letterSpacing: '-0.04em', lineHeight: 1.0, textAlign: 'center', margin: 0,
       }}>
         What if it took<br/>
-        <span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>5 MINUTES?</span>
+        <span className="gradient-text light">5 MINUTES?</span>
       </h2>
     </div>
     <Footer dark />
@@ -716,7 +719,7 @@ const ScalingDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Scaling to<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>the enterprise</span>
+        Scaling to<br/><span className="gradient-text light">the enterprise</span>
       </h2>
       <img src={ansibleA} alt="" style={{
         position: 'absolute', right: 120, bottom: 80,
@@ -1045,7 +1048,7 @@ const ADTDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Ansible Development Tools<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>a closer look</span>
+        Ansible Development Tools<br/><span className="gradient-text light">a closer look</span>
       </h2>
     </div>
     <img src={ansibleA} alt="" style={{
@@ -1817,7 +1820,7 @@ const AIDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        AI-assisted<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>development</span>
+        AI-assisted<br/><span className="gradient-text light">development</span>
       </h2>
     </div>
     <Footer dark />
@@ -2286,7 +2289,7 @@ const DevSpacesDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Dev Spaces &<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>image customization</span>
+        Dev Spaces &<br/><span className="gradient-text light">image customization</span>
       </h2>
     </div>
     <Footer dark />
@@ -2717,7 +2720,7 @@ const CICDDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        CI/CD<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>integration</span>
+        CI/CD<br/><span className="gradient-text light">integration</span>
       </h2>
     </div>
     <Footer dark />
@@ -2936,7 +2939,7 @@ const MigrationDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Legacy Automation<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>to Ansible</span>
+        Legacy Automation<br/><span className="gradient-text light">to Ansible</span>
       </h2>
     </div>
     <Footer dark />
