@@ -74,6 +74,29 @@ const styles = `
     vertical-align: baseline;
     animation: blink 1.05s steps(1) infinite;
   }
+  .gradient-text {
+    background: linear-gradient(90deg, #ee0000, #a60000);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  @media print {
+    * {
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+    .gradient-text {
+      -webkit-text-fill-color: #ee0000 !important;
+      color: #ee0000 !important;
+      background: none !important;
+      -webkit-background-clip: unset !important;
+      background-clip: unset !important;
+    }
+    .fadeUp, .fadeIn, .stream {
+      opacity: 1 !important;
+      animation: none !important;
+    }
+  }
 `;
 const Styles = () => <style>{styles}</style>;
 
@@ -387,7 +410,7 @@ const FiveMinutes: Page = () => (
         letterSpacing: '-0.04em', lineHeight: 1.0, textAlign: 'center', margin: 0,
       }}>
         What if it took<br/>
-        <span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>5 MINUTES?</span>
+        <span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>5 MINUTES?</span>
       </h2>
     </div>
     <Footer dark />
@@ -476,7 +499,7 @@ const MaturityPath: Page = () => {
           fontFamily: font.display, fontSize: 72, fontWeight: 700,
           letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
         }}>
-          The <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>maturity path</span>
+          The <span className="gradient-text">maturity path</span>
         </h2>
 
         <div style={{ flex: 1, display: 'flex', gap: 32, marginTop: 40, alignItems: 'stretch', minHeight: 0 }}>
@@ -532,7 +555,7 @@ const ContentLifecycle: Page = () => (
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
         letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
       }}>
-        The <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>content lifecycle</span>
+        The <span className="gradient-text">content lifecycle</span>
       </h2>
 
       {/* Two-column flow diagram */}
@@ -693,7 +716,7 @@ const ScalingDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Scaling to<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>the enterprise</span>
+        Scaling to<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>the enterprise</span>
       </h2>
       <img src={ansibleA} alt="" style={{
         position: 'absolute', right: 120, bottom: 80,
@@ -716,7 +739,7 @@ const DevContainers: Page = () => (
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
         letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
       }}>
-        Dev Containers: <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>team consistency</span>
+        Dev Containers: <span className="gradient-text">team consistency</span>
       </h2>
       <p className="fadeUp" style={{ marginTop: 16, fontSize: 26, color: c.muted, animationDelay: '0.2s' }}>
         Same image, same tools, same config — every developer, every time.
@@ -761,7 +784,7 @@ const DevSpaces: Page = () => (
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
         letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
       }}>
-        Dev Spaces: <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>zero local deps</span>
+        Dev Spaces: <span className="gradient-text">zero local deps</span>
       </h2>
       <p className="fadeUp" style={{ marginTop: 16, fontSize: 26, color: c.muted, animationDelay: '0.2s' }}>
         Browser-only — ~5 minutes from nothing to coding.
@@ -823,7 +846,7 @@ const AIOverview: Page = () => (
         fontFamily: font.display, fontSize: 80, fontWeight: 700,
         letterSpacing: '-0.035em', margin: '0 0 40px', lineHeight: 1.05,
       }}>
-        AI-assisted <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>development</span>
+        AI-assisted <span className="gradient-text">development</span>
       </h2>
 
       <div style={{ display: 'flex', gap: 48, flex: 1, minHeight: 0, alignItems: 'stretch' }}>
@@ -977,7 +1000,7 @@ const NextSteps: Page = () => {
           fontFamily: font.display, fontSize: 72, fontWeight: 700,
           letterSpacing: '-0.03em', margin: '0 0 24px', lineHeight: 1.1,
         }}>
-          What should I do <span style={{ background: 'linear-gradient(90deg, #ee0000, #a60000)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>next?</span>
+          What should I do <span className="gradient-text">next?</span>
         </h2>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
@@ -1022,7 +1045,7 @@ const ADTDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Ansible Development Tools<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>a closer look</span>
+        Ansible Development Tools<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>a closer look</span>
       </h2>
     </div>
     <img src={ansibleA} alt="" style={{
@@ -1794,7 +1817,7 @@ const AIDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        AI-assisted<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>development</span>
+        AI-assisted<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>development</span>
       </h2>
     </div>
     <Footer dark />
@@ -2263,7 +2286,7 @@ const DevSpacesDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Dev Spaces &<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>image customization</span>
+        Dev Spaces &<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>image customization</span>
       </h2>
     </div>
     <Footer dark />
@@ -2694,7 +2717,7 @@ const CICDDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        CI/CD<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>integration</span>
+        CI/CD<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>integration</span>
       </h2>
     </div>
     <Footer dark />
@@ -2913,7 +2936,7 @@ const MigrationDivider: Page = () => (
         fontFamily: font.display, fontSize: 100, fontWeight: 900,
         letterSpacing: '-0.04em', lineHeight: 1.05, margin: 0,
       }}>
-        Legacy Automation<br/><span style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>to Ansible</span>
+        Legacy Automation<br/><span className="gradient-text" style={{ background: 'linear-gradient(90deg, #ee0000, #ff4444)' }}>to Ansible</span>
       </h2>
     </div>
     <Footer dark />
