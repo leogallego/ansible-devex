@@ -1213,12 +1213,11 @@ const AnsibleDevEnv: Page = () => (
 );
 
 // ─── 14. ansible-lint ───────────────────────────────────────────────────────
-const CodeLine = ({ text, color, bg, prefix }: { text: string; color: string; bg?: string; prefix?: string }) => (
+const CodeLine = ({ text, color, bg }: { text: string; color: string; bg?: string }) => (
   <div style={{
     fontFamily: font.mono, fontSize: 18, lineHeight: 2, padding: '0 16px',
     color, background: bg || 'transparent', whiteSpace: 'pre',
   }}>
-    {prefix && <span style={{ color: prefix === '-' ? '#d32f2f' : '#2e7d32', marginRight: 12, fontWeight: 700 }}>{prefix}</span>}
     {text}
   </div>
 );
@@ -1283,17 +1282,17 @@ const AnsibleLint: Page = () => (
             <span style={{ fontSize: 20 }}>✕</span> Before — 4 violations
           </div>
           <div style={{ flex: 1, background: '#fafafa', padding: '8px 0', overflow: 'hidden' }}>
-            <CodeLine text="- name: install stuff" color={c.text} bg="rgba(211,47,47,0.06)" prefix="-" />
-            <CodeLine text="  yum:" color="#d32f2f" bg="rgba(211,47,47,0.06)" prefix="-" />
+            <CodeLine text="- name: install stuff" color={c.text} bg="rgba(211,47,47,0.06)" />
+            <CodeLine text="  yum:" color="#d32f2f" bg="rgba(211,47,47,0.06)" />
             <CodeLine text="    name: httpd" color={c.text} />
             <CodeLine text="    state: present" color={c.text} />
             <CodeLine text="" color={c.text} />
-            <CodeLine text="- command: systemctl enable httpd" color="#d32f2f" bg="rgba(211,47,47,0.06)" prefix="-" />
+            <CodeLine text="- command: systemctl enable httpd" color="#d32f2f" bg="rgba(211,47,47,0.06)" />
             <CodeLine text="" color={c.text} />
             <CodeLine text="- copy:" color={c.text} />
             <CodeLine text="    src: httpd.conf" color={c.text} />
             <CodeLine text="    dest: /etc/httpd/conf/" color={c.text} />
-            <CodeLine text="    backup: no" color="#d32f2f" bg="rgba(211,47,47,0.06)" prefix="-" />
+            <CodeLine text="    backup: no" color="#d32f2f" bg="rgba(211,47,47,0.06)" />
           </div>
         </div>
 
@@ -1325,20 +1324,20 @@ const AnsibleLint: Page = () => (
             <span style={{ fontSize: 20 }}>✔</span> After — 0 violations
           </div>
           <div style={{ flex: 1, background: '#fafafa', padding: '8px 0', overflow: 'hidden' }}>
-            <CodeLine text="- name: Install web server packages" color={c.text} bg="rgba(46,125,50,0.06)" prefix="+" />
-            <CodeLine text="  ansible.builtin.dnf:" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
+            <CodeLine text="- name: Install web server packages" color={c.text} bg="rgba(46,125,50,0.06)" />
+            <CodeLine text="  ansible.builtin.dnf:" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
             <CodeLine text="    name: httpd" color={c.text} />
             <CodeLine text="    state: present" color={c.text} />
             <CodeLine text="" color={c.text} />
-            <CodeLine text="- name: Enable web server service" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
-            <CodeLine text="  ansible.builtin.systemd:" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
+            <CodeLine text="- name: Enable web server service" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
+            <CodeLine text="  ansible.builtin.systemd:" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
             <CodeLine text="    name: httpd" color={c.text} />
-            <CodeLine text="    enabled: true" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
-            <CodeLine text="- name: Deploy web server config" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
-            <CodeLine text="  ansible.builtin.copy:" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
+            <CodeLine text="    enabled: true" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
+            <CodeLine text="- name: Deploy web server config" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
+            <CodeLine text="  ansible.builtin.copy:" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
             <CodeLine text="    src: httpd.conf" color={c.text} />
             <CodeLine text="    dest: /etc/httpd/conf/" color={c.text} />
-            <CodeLine text="    backup: true" color="#2e7d32" bg="rgba(46,125,50,0.06)" prefix="+" />
+            <CodeLine text="    backup: true" color="#2e7d32" bg="rgba(46,125,50,0.06)" />
           </div>
         </div>
       </div>
