@@ -273,7 +273,7 @@ const Bullet = ({ bold, text, dark = true }: { bold?: string; text: string; dark
 
 // ─── 01. Title ──────────────────────────────────────────────────────────────
 const Title: Page = () => (
-  <div style={{ ...fill, background: c.red, color: c.white }}>
+  <div style={{ ...fill, background: c.darkest, color: c.white }}>
     <Styles />
     <div style={{
       position: 'absolute', inset: 0, padding: '100px 120px',
@@ -310,7 +310,7 @@ const Title: Page = () => (
     <img src={ansibleStack} alt="" className="fadeIn"
       style={{ position: 'absolute', right: 0, bottom: 0, height: '100%', width: 'auto', opacity: 0.12, animationDelay: '0.5s' }} />
 
-    <Footer dark onRed />
+    <Footer dark />
   </div>
 );
 
@@ -721,11 +721,11 @@ const ScalingDivider: Page = () => (
       }}>
         Scaling to<br/><span className="gradient-text light">the enterprise</span>
       </h2>
-      <img src={ansibleA} alt="" style={{
-        position: 'absolute', right: 120, bottom: 80,
-        height: 400, width: 'auto', opacity: 0.06,
-      }} />
     </div>
+    <img src={ansibleA} alt="" style={{
+      position: 'absolute', right: -10, bottom: -40,
+      height: 800, width: 'auto', opacity: 0.06,
+    }} />
     <Footer dark />
   </div>
 );
@@ -1052,8 +1052,8 @@ const ADTDivider: Page = () => (
       </h2>
     </div>
     <img src={ansibleA} alt="" style={{
-      position: 'absolute', right: 80, bottom: 80,
-      height: 500, width: 'auto', opacity: 0.06,
+      position: 'absolute', right: -10, bottom: -40,
+      height: 800, width: 'auto', opacity: 0.06,
     }} />
     <Footer dark />
   </div>
@@ -1822,6 +1822,10 @@ const AIDivider: Page = () => (
         AI-assisted<br/><span className="gradient-text light">development</span>
       </h2>
     </div>
+    <img src={ansibleA} alt="" style={{
+      position: 'absolute', right: -10, bottom: -40,
+      height: 800, width: 'auto', opacity: 0.06,
+    }} />
     <Footer dark />
   </div>
 );
@@ -2291,6 +2295,10 @@ const DevSpacesDivider: Page = () => (
         Dev Spaces &<br/><span className="gradient-text light">image customization</span>
       </h2>
     </div>
+    <img src={ansibleA} alt="" style={{
+      position: 'absolute', right: -10, bottom: -40,
+      height: 800, width: 'auto', opacity: 0.06,
+    }} />
     <Footer dark />
   </div>
 );
@@ -2722,6 +2730,10 @@ const CICDDivider: Page = () => (
         CI/CD<br/><span className="gradient-text light">integration</span>
       </h2>
     </div>
+    <img src={ansibleA} alt="" style={{
+      position: 'absolute', right: -10, bottom: -40,
+      height: 800, width: 'auto', opacity: 0.06,
+    }} />
     <Footer dark />
   </div>
 );
@@ -2941,6 +2953,10 @@ const MigrationDivider: Page = () => (
         Legacy Automation<br/><span className="gradient-text light">to Ansible</span>
       </h2>
     </div>
+    <img src={ansibleA} alt="" style={{
+      position: 'absolute', right: -10, bottom: -40,
+      height: 800, width: 'auto', opacity: 0.06,
+    }} />
     <Footer dark />
   </div>
 );
@@ -3141,7 +3157,7 @@ const MigrationWorkflow: Page = () => (
 
 // ─── 39. Thank You ──────────────────────────────────────────────────────────
 const ThankYou: Page = () => (
-  <div style={{ ...fill, background: c.red, color: c.white }}>
+  <div style={{ ...fill, background: c.darkest, color: c.white }}>
     <Styles />
     <div style={{
       position: 'absolute', inset: 0, padding: '120px 120px 80px',
@@ -3176,7 +3192,7 @@ const ThankYou: Page = () => (
       </div>
 
     </div>
-    <Footer dark onRed />
+    <Footer dark />
   </div>
 );
 
@@ -3267,7 +3283,7 @@ const ScreenshotSlide = ({ title, hint }: { title: string; hint: string }) => (
 const ScreenshotLifecycle: Page = () => (
   <ScreenshotSlide
     title="Inner loop / outer loop architecture"
-    hint="Paste the development workflow diagram showing inner loop (write → lint → test → iterate) and outer loop (PR → CI → merge → Controller sync). See Developer Journey deck pages 5-6."
+    hint="Paste the development workflow diagram showing inner loop (write → lint → test → iterate) and outer loop (PR → CI → merge → Controller sync)."
   />
 );
 
@@ -3281,7 +3297,7 @@ const ScreenshotDevSpaces: Page = () => (
 const ScreenshotLint: Page = () => (
   <ScreenshotSlide
     title="ansible-lint in VS Code"
-    hint="Screenshot of VS Code with the Ansible extension showing inline lint violations — squiggles on bad practices, Problems panel at the bottom with rule names. See 'From Create to Deploy' deck page 15."
+    hint="Screenshot of VS Code with the Ansible extension showing inline lint violations — squiggles on bad practices, Problems panel at the bottom with rule names."
   />
 );
 
@@ -3309,7 +3325,7 @@ const ScreenshotMCP: Page = () => (
 const ScreenshotGrafana: Page = () => (
   <ScreenshotSlide
     title="Grafana development dashboard"
-    hint="Screenshot of a Grafana dashboard showing GitHub development metrics — PR velocity, lint violation trends, build times, test coverage. See Developer Journey deck page 13."
+    hint="Screenshot of a Grafana dashboard showing GitHub development metrics — PR velocity, lint violation trends, build times, test coverage."
   />
 );
 
