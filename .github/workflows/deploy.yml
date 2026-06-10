@@ -43,6 +43,11 @@ jobs:
         working-directory: open-slide
         run: cp dist/index.html dist/404.html
 
+      - name: Redirect root to presentation
+        working-directory: open-slide
+        run: |
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0;url=s/ansible-devex"><link rel="canonical" href="s/ansible-devex"></head></html>' > dist/index.html
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: open-slide/dist
