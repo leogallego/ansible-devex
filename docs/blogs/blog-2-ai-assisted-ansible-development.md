@@ -57,7 +57,7 @@ The DevTools MCP Server doesn't require a specific AI provider. It works with an
 - **Gemini CLI** for Google's models
 - **Cursor**, **Windsurf**, or any other MCP-compatible editor
 
-The Ansible VS Code extension makes setup even simpler because the MCP server implementation lives inside the extension itself. Enable `ansible.mcpServer.enabled` in your settings and it starts automatically. No separate process, no npm install. Installing the Ansible extension is enough to make the MCP server available to any AI agent in the IDE.
+The Ansible VS Code extension makes setup even simpler. Set `ansible.mcpServer.enabled` to `true` in your extension settings and the MCP server starts automatically alongside the extension. No manual configuration, no separate npm install step. The extension handles the server lifecycle for you, making it available to any AI chat client in the IDE.
 
 For organizations with specific AI governance requirements, the choice of model stays in their hands. The Ansible engineering team is developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. Users will configure their endpoint and API key in one place, enabling a "Bring Your Own Model" setup that works with local instances, air-gapped corporate servers, or any cloud provider.
 
