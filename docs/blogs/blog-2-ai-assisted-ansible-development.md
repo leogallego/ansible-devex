@@ -31,7 +31,7 @@ MCP adds a layer of abstraction between the AI and the tool, providing context a
 
 ## What the MCP server can do
 
-The current DevTools MCP Server covers the core automation developer workflow across several areas:
+The current Ansible DevTools MCP Server covers the core automation developer workflow across several areas:
 
 - **Code quality:** Run ansible-lint against playbooks, roles, and collections, with the option to auto-fix violations.
 - **Project scaffolding:** Create new collections, playbooks, and roles through ansible-creator, following organizational templates and standards.
@@ -46,7 +46,7 @@ A next-generation MCP server is already in development, expanding coverage to in
 
 ## Bring your own model
 
-The DevTools MCP Server doesn't require a specific AI provider. It works with any MCP-compatible client, so automation developers and content creators can use the AI assistant they already have:
+The Ansible DevTools MCP Server doesn't require a specific AI provider. It works with any MCP-compatible client, so automation developers and content creators can use the AI assistant they already have:
 
 - **GitHub Copilot** in VS Code
 - **Claude Code** in the terminal or VS Code
@@ -91,7 +91,7 @@ A platform engineer can ask:
 
 The AI queries the Controller API for failed jobs, cross-references inventory data, and launches a job template, all through structured MCP calls with the user's RBAC permissions. Tokens can be scoped as read-only for querying or read-write when job launching is needed.
 
-Together, the DevTools MCP and AAP MCP connect the inner loop (content creation) with the outer loop (content execution) through the same AI interface. Write a playbook, push it to a dev AAP instance, run it, troubleshoot failures. One conversation.
+Together, the Ansible DevTools MCP and AAP MCP connect the inner loop (content creation) with the outer loop (content execution) through the same AI interface. Write a playbook, push it to a dev AAP instance, run it, troubleshoot failures. One conversation.
 
 ## Getting started
 
@@ -132,11 +132,11 @@ podman run --rm -i \
   ghcr.io/ansible/devtools-mcp-server:latest --stdio
 ```
 
-The DevTools MCP Server is available as a Technology Preview. For the full setup guide, including AAP MCP Server configuration, see the [MCP server documentation](https://docs.ansible.com/projects/vscode-ansible/mcp/).
+The Ansible DevTools MCP Server is available as a Technology Preview. For the full setup guide, including AAP MCP Server configuration, see the [MCP server documentation](https://docs.ansible.com/projects/vscode-ansible/mcp/).
 
 ## Beyond development: MCP in execution environments
 
-The DevTools MCP Server covers the development side, but the Ansible ecosystem is also exploring MCP at runtime. The `ansible.mcp` collection (available as a Technology Preview) lets you invoke MCP servers directly from playbooks using native Ansible module syntax inside execution environments. That's a topic for another post, but the direction is worth noting: MCP is becoming an integration layer across the Ansible platform, from development through execution.
+The Ansible DevTools MCP Server covers the development side, but the Ansible ecosystem is also exploring MCP at runtime. The `ansible.mcp` collection (available as a Technology Preview) lets you invoke MCP servers directly from playbooks using native Ansible module syntax inside execution environments. That's a topic for another post, but the direction is worth noting: MCP is becoming an integration layer across the Ansible platform, from development through execution.
 
 ---
 
