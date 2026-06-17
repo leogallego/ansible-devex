@@ -12,7 +12,7 @@ Even after that initial setup, keeping environments consistent across a team is 
 
 ## What if it took five minutes?
 
-Ansible Development Tools (DevTools) already bundles the essential CLI tools for the Ansible content lifecycle (ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more) into a single, versioned package. The maturity path for delivering Ansible DevTools to automation developers (also known as automation content creators) looks like this:
+Ansible Development Tools (DevTools) already bundles the essential CLI tools for the Ansible content lifecycle into a single, versioned package. The bundle includes ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more. The maturity path for delivering Ansible DevTools to automation developers (also known as automation content creators) looks like this:
 
 | Stage | Method | Onboarding time | Environment consistency |
 |-------|--------|----------------|------------------------|
