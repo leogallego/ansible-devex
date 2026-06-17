@@ -29,24 +29,20 @@ The Ansible DevTools MCP Server (`@ansible/ansible-mcp-server`) wraps the Ansibl
 
 MCP adds a layer of abstraction between the AI and the tool, providing context around **when**, **why**, and exactly **how** to execute a particular process. This cuts back on the guesswork and non-deterministic behaviors that make AI-driven development unreliable.
 
-## Ten tools, one server
+## What the MCP server can do
 
-The Ansible DevTools MCP Server currently exposes ten tools covering the core developer workflow:
+The current DevTools MCP Server covers the core automation developer workflow across several areas:
 
-| Tool | What it does |
-|------|-------------|
-| `ansible_lint` | Run ansible-lint, optionally apply --fix |
-| `create_ansible_projects` | Scaffold collections, playbooks, and roles via ansible-creator |
-| `ansible_navigator` | Run playbooks through ansible-navigator with execution environments |
-| `define_and_build_execution_env` | Create and build execution environment definitions |
-| `ade_setup_environment` | Set up a complete Ansible development environment |
-| `ade_environment_info` | Check installed tool versions and environment status |
-| `adt_check_env` | Verify ansible-dev-tools installation |
-| `ansible_content_best_practices` | Retrieve community and organizational best practice guidelines |
-| `zen_of_ansible` | Surface the 20 design philosophy aphorisms that guide Ansible development |
-| `list_available_tools` | Discover all available MCP tools |
+- **Code quality:** Run ansible-lint against playbooks, roles, and collections, with the option to auto-fix violations.
+- **Project scaffolding:** Create new collections, playbooks, and roles through ansible-creator, following organizational templates and standards.
+- **Playbook execution:** Run playbooks through ansible-navigator with execution environment support.
+- **Environment management:** Set up, inspect, and verify Ansible development environments, including tool versions and dependencies.
+- **Execution environments:** Define and build EE container images from within the conversation.
+- **Best practices:** Surface community and organizational guidelines so the AI generates code that follows your team's conventions.
 
-These aren't wrappers around generic shell commands. Each one encodes the specific way an Ansible development tool needs to be invoked, with the right flags, the right order, and proper error handling. When the AI calls `ansible_lint`, it doesn't figure out how to run the tool on its own; it follows the implementation that the Ansible engineering team built.
+These aren't wrappers around generic shell commands. Each tool encodes the specific way an Ansible development tool needs to be invoked, with the right flags, the right order, and proper error handling. The AI doesn't figure out how to run `ansible-lint` on its own; it follows the implementation the Ansible engineering team built.
+
+A next-generation MCP server is already in development, expanding coverage to include plugin discovery and documentation lookup across installed collections, Galaxy browsing, task and playbook generation grounded in real module schemas, and tighter integration between the MCP tools and the VS Code extension UI. The goal is full parity: anything a developer can do through the extension's interface, an AI agent can do through MCP, and vice versa.
 
 ## Bring your own model
 
