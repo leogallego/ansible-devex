@@ -1,4 +1,4 @@
-# Accelerate automation content development with AI and the Ansible DevTools MCP Server
+# DRAFT: Accelerate automation content development with AI and the Ansible DevTools MCP Server
 
 *What if your AI assistant could actually run ansible-lint instead of just telling you how? The Ansible DevTools MCP Server makes that real, turning any MCP-compatible AI into an Ansible-aware operator that creates, lints, and debugs your automation content, and helps you develop playbooks grounded in real module documentation.*
 
