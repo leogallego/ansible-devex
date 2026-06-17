@@ -142,4 +142,4 @@ The Ansible DevTools MCP Server covers the development side, but the Ansible eco
 
 ---
 
-*Visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/developing_automation_content/devtools-intro) for the full solution guide, or join the community on [Matrix #devtools:ansible.com](https://matrix.to/#/#devtools:ansible.com).*
+*Visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/developing_automation_content/devtools-intro) for the full solution guide, or join the community on the [Ansible Development Tools forum](https://forum.ansible.com/tag/devtools).*

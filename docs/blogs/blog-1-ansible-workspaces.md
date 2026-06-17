@@ -133,4 +133,4 @@ The recommended adoption path: start with a Tier 2 org-wide image using a simple
 
 ---
 
-*Join the conversation on [Matrix #devtools:ansible.com](https://matrix.to/#/#devtools:ansible.com), or visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/developing_automation_content/devtools-intro) for the full solution guide.*
+*Join the conversation on the [Ansible Development Tools forum](https://forum.ansible.com/tag/devtools), or visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/developing_automation_content/devtools-intro) for the full solution guide.*
