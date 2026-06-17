@@ -12,7 +12,7 @@ Even after that initial setup, keeping environments consistent across a team is 
 
 ## What if it took five minutes?
 
-Ansible Development Tools (ADT) already bundles the essential CLI tools for the Ansible content lifecycle (ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more) into a single, versioned package. The maturity path for delivering ADT to developers looks like this:
+Ansible Development Tools (ADT) already bundles the essential CLI tools for the Ansible content lifecycle (ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more) into a single, versioned package. The maturity path for delivering ADT to automation developers (also known as automation content creators) looks like this:
 
 | Stage | Method | Onboarding time | Environment consistency |
 |-------|--------|----------------|------------------------|
@@ -33,11 +33,11 @@ The workspace itself is defined declaratively in a `devfile.yaml` checked into t
 
 ## Why this matters for enterprise teams
 
-Ansible Workspaces isn't just about convenience. For platform teams and engineering managers, it's about **governance without friction**.
+Ansible Workspaces isn't just about convenience. For platform teams, automation architects, and engineering managers, it's about **governance without friction**.
 
 When the platform team controls the workspace image, they control the toolchain version, the linting rules, the VS Code extensions, and the resource limits. Standards aren't documented and hoped-for; they're inherited automatically by every workspace that uses the image.
 
-This matters most for organizations managing multiple automation domains. Consider the package requirements across different teams:
+This matters most for organizations where automation architects manage multiple automation domains. Consider the package requirements across different teams:
 
 - **Network automation:** `libssh-devel`, `python3-netaddr`, `paramiko`
 - **Windows automation:** `krb5-workstation`, `python3-pykerberos`
@@ -95,13 +95,13 @@ If your team already uses dev containers locally with the ADT container image, t
 - **Dev containers** require each developer to have a local container runtime (Docker or Podman), sufficient disk space, and permissions to run containers on their workstation.
 - **Dev Spaces** removes all of those requirements. The infrastructure is managed by OpenShift. Developers only need a browser.
 
-Both deliver high environment consistency. Dev Spaces goes further by adding centralized governance: the platform team controls resource limits, image versions, and access policies from the cluster, not from documentation that developers may or may not follow.
+Both deliver high environment consistency. Dev Spaces goes further by adding centralized governance: the platform team and automation architects control resource limits, image versions, and access policies from the cluster, not from documentation that developers may or may not follow.
 
 ## The content lifecycle in a governed workspace
 
 With Ansible Workspaces, the full content lifecycle (Create, Test, Deploy) runs inside a governed environment:
 
-**Inner loop (developer):** Write playbooks and roles → lint with `ansible-lint` → test with `molecule` in nested Podman → iterate. Fast feedback, consistent tools, no local setup.
+**Inner loop (automation developer):** Write playbooks and roles → lint with `ansible-lint` → test with `molecule` in nested Podman → iterate. Fast feedback, consistent tools, no local setup.
 
 **Outer loop (CI/CD):** Push to Git → PR triggers quality gates (ansible-lint, molecule, ansible-sign) → on merge, `ansible-builder` builds the execution environment → Automation Controller syncs the project. The same toolchain in the workspace matches the toolchain in CI.
 

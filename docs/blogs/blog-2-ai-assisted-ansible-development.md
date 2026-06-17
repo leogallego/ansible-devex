@@ -12,7 +12,7 @@ That's the gap between an AI that **describes** and an AI that **does**. The Ans
 
 Developing Ansible automation today involves constant context switching. Finding community documentation and Community of Practice resources. Locating the right tool for the job and figuring out how to run it. Parsing AI-generated output for reliability. Correlating best practice violations with runtime issues. All of it means jumping between browser tabs, terminals, documentation sites, and the editor. It adds up.
 
-The workflow is fragmented, and it hits new developers hardest. When someone asks an AI assistant for help writing a playbook, the assistant generates code that looks syntactically correct, but it may reference collections that aren't installed, use module parameters that don't exist in the installed version, or ignore the organization's naming conventions entirely. The AI doesn't know what's actually in the developer's local environment.
+The workflow is fragmented, and it hits new automation developers hardest. When someone asks an AI assistant for help writing a playbook, the assistant generates code that looks syntactically correct, but it may reference collections that aren't installed, use module parameters that don't exist in the installed version, or ignore the organization's naming conventions entirely. The AI doesn't know what's actually in the developer's local environment.
 
 ## Model Context Protocol: from advisor to operator
 
@@ -50,7 +50,7 @@ These aren't wrappers around generic shell commands. Each one encodes the specif
 
 ## Bring your own model
 
-The DevTools MCP Server doesn't require a specific AI provider. It works with any MCP-compatible client, so developers can use the AI assistant they already have:
+The DevTools MCP Server doesn't require a specific AI provider. It works with any MCP-compatible client, so automation developers and content creators can use the AI assistant they already have:
 
 - **GitHub Copilot** in VS Code
 - **Claude Code** in the terminal or VS Code
@@ -59,7 +59,7 @@ The DevTools MCP Server doesn't require a specific AI provider. It works with an
 
 The Ansible VS Code extension makes setup even simpler because the MCP server implementation lives inside the extension itself. Enable `ansible.mcpServer.enabled` in your settings and it starts automatically. No separate process, no npm install. Installing the Ansible extension is enough to make the MCP server available to any AI agent in the IDE.
 
-For organizations with specific AI governance requirements, the choice of model stays in their hands. The Ansible engineering team is developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. Users will configure their endpoint and API key in one place, enabling a "Bring Your Own Model" setup that works with local instances, air-gapped corporate servers, or any cloud provider.
+For automation architects and organizations with specific AI governance requirements, the choice of model stays in their hands. The Ansible engineering team is developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. Users will configure their endpoint and API key in one place, enabling a "Bring Your Own Model" setup that works with local instances, air-gapped corporate servers, or any cloud provider.
 
 ## The deterministic coding assistant
 
@@ -77,7 +77,7 @@ The goal: an AI assistant that doesn't hallucinate collection names or guess mod
 
 ### Inner loop: content development
 
-A developer working on a network automation collection can have a conversation like this:
+An automation developer working on a network automation collection can have a conversation like this:
 
 > *"Scaffold a network automation collection, add a backup role, lint it, write molecule tests, fix all violations."*
 
