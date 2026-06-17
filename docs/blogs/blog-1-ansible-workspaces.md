@@ -12,7 +12,7 @@ Even after that initial setup, keeping environments consistent across a team is 
 
 ## What if it took five minutes?
 
-Ansible Development Tools (ADT) already bundles the essential CLI tools for the Ansible content lifecycle (ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more) into a single, versioned package. The maturity path for delivering ADT to automation developers (also known as automation content creators) looks like this:
+Ansible Development Tools (DevTools) already bundles the essential CLI tools for the Ansible content lifecycle (ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more) into a single, versioned package. The maturity path for delivering Ansible DevTools to automation developers (also known as automation content creators) looks like this:
 
 | Stage | Method | Onboarding time | Environment consistency |
 |-------|--------|----------------|------------------------|
@@ -44,7 +44,7 @@ This matters most for organizations where automation architects manage multiple 
 - **AAP config-as-code:** `httpie`, `python3-pyyaml`
 - **Cloud automation:** `awscli`, `python3-boto3`
 
-A single monolithic image either bloats with every team's dependencies or satisfies no one. The upstream ADT container image has `/var` read-only at runtime, and that's by design. Container immutability is a feature, not a limitation. You don't want developers running `dnf install` inside their workspaces, because that creates drift.
+A single monolithic image either bloats with every team's dependencies or satisfies no one. The upstream Ansible DevTools container image has `/var` read-only at runtime, and that's by design. Container immutability is a feature, not a limitation. You don't want developers running `dnf install` inside their workspaces, because that creates drift.
 
 ## Tiered image strategy: customization without compromise
 
@@ -52,7 +52,7 @@ The solution is a tiered approach to image management, using standard OpenShift 
 
 | Tier | Scope | What it adds | Managed by |
 |------|-------|-------------|------------|
-| **1: Upstream** | Everyone | Base ADT tooling | ansible-dev-tools project |
+| **1: Upstream** | Everyone | Base Ansible DevTools tooling | ansible-dev-tools project |
 | **2: Org / Domain** | Domain teams | Domain-specific system packages | Platform team |
 | **3: Team** | One team | Team-specific extras | Team lead |
 | **4: Personal** | One developer | Individual niche needs (opt-in) | Individual |
@@ -109,7 +109,7 @@ Every execution in Automation Controller records the project revision, so the au
 
 ## Getting started
 
-Ansible Workspaces requires an OpenShift cluster with the [Red Hat OpenShift Dev Spaces](https://access.redhat.com/documentation/en-us/red_hat_openshift_dev_spaces/) operator installed. Point a workspace at any Git repository containing a `devfile.yaml` with the ADT container image:
+Ansible Workspaces requires an OpenShift cluster with the [Red Hat OpenShift Dev Spaces](https://access.redhat.com/documentation/en-us/red_hat_openshift_dev_spaces/) operator installed. Point a workspace at any Git repository containing a `devfile.yaml` with the Ansible DevTools container image:
 
 ```yaml
 schemaVersion: 2.2.2
