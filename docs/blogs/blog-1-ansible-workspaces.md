@@ -27,7 +27,13 @@ Ansible Workspaces is the "Fly" stage. Maximum consistency, minimum friction.
 
 ## What the developer sees
 
-From the developer's perspective, the complexity is invisible. They see a VS Code interface in their browser with a terminal, file explorer, extensions panel, and all the Ansible tooling ready to go. They can scaffold new collections and roles with `ansible-creator`, lint against the team's standard profile, run `molecule` integration tests inside nested Podman containers, build execution environments with `ansible-builder`, and push code to Git to trigger CI. All from the browser. No local installs, no "which Python version do I need" conversations.
+From the developer's perspective, the complexity is invisible. They see a VS Code interface in their browser with a terminal, file explorer, extensions panel, and all the Ansible tooling ready to go. The full Create > Test > Deploy lifecycle works out of the box:
+
+- **Create:** Set up development environments with `ansible-dev-environment`, scaffold new collections and roles with `ansible-creator`.
+- **Test:** Lint with `ansible-lint`, run `molecule` integration tests inside nested Podman containers, and validate modules with `pytest-ansible` and `tox-ansible`.
+- **Deploy:** Build execution environments with `ansible-builder`, sign content with `ansible-sign`, and push to Git to trigger CI.
+
+All from the browser. No local installs, no "which Python version do I need" conversations.
 
 The workspace itself is defined declaratively in a `devfile.yaml` checked into the project repository. When a developer clicks **Create Workspace** on that repository, Dev Spaces reads the devfile, provisions the environment, and presents a ready-to-use IDE. Every developer who opens the same repository gets the same environment.
 
