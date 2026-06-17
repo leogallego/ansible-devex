@@ -1,6 +1,6 @@
 # Ansible Workspaces: browser-based automation development with zero local setup
 
-*Red Hat OpenShift Dev Spaces meets Ansible Development Tools — giving every automation developer a governed, consistent environment in under five minutes.*
+*Red Hat OpenShift Dev Spaces meets Ansible Development Tools, giving every automation developer a governed, consistent environment in under five minutes.*
 
 ---
 
@@ -8,26 +8,26 @@ Onboarding a new automation developer is rarely a quick process. The timeline is
 
 Even after that initial setup, keeping environments consistent across a team is a challenge that documentation alone cannot solve. One developer runs ansible-lint 24.x while another has 25.x. Molecule tests pass on one workstation but fail on another because of a missing system dependency. When something breaks, the first question is always "which version were you running?" instead of "what changed?"
 
-**Ansible Workspaces** — powered by Red Hat OpenShift Dev Spaces — eliminates this entire category of problems. Developers open a browser, navigate to their Dev Spaces dashboard, and launch a workspace. Within minutes, they have a full VS Code environment running in the cloud, with every Ansible development tool pre-installed, the Ansible VS Code extension configured, and the team's linting profile active. No local Python, no container runtime, no VPN issues with package mirrors. Just a browser and credentials.
+**Ansible Workspaces**, powered by Red Hat OpenShift Dev Spaces, eliminates this entire category of problems. Developers open a browser, navigate to their Dev Spaces dashboard, and launch a workspace. Within minutes, they have a full VS Code environment running in the cloud, with every Ansible development tool pre-installed, the Ansible VS Code extension configured, and the team's linting profile active. No local Python, no container runtime, no VPN issues with package mirrors. Just a browser and credentials.
 
 ## What if it took five minutes?
 
-Ansible Development Tools (ADT) already bundles the essential CLI tools for the Ansible content lifecycle — ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more — into a single, versioned package. The maturity path for delivering ADT to developers looks like this:
+Ansible Development Tools (ADT) already bundles the essential CLI tools for the Ansible content lifecycle (ansible-creator, ansible-lint, molecule, ansible-navigator, ansible-builder, ansible-sign, and more) into a single, versioned package. The maturity path for delivering ADT to developers looks like this:
 
 | Stage | Method | Onboarding time | Environment consistency |
 |-------|--------|----------------|------------------------|
-| **Crawl** | pip / uv | ~30 min | Low — each developer manages their own |
-| **Walk** | RPM | ~15 min | Medium — same package, no IDE config |
-| **Run** | Dev Container | ~10 min | High — same image, tools, and config |
-| **Fly** | Dev Spaces | ~5 min | Highest — centrally managed, browser-only |
+| **Crawl** | pip / uv | ~30 min | Low: each developer manages their own |
+| **Walk** | RPM | ~15 min | Medium: same package, no IDE config |
+| **Run** | Dev Container | ~10 min | High: same image, tools, and config |
+| **Fly** | Dev Spaces | ~5 min | Highest: centrally managed, browser-only |
 
-Most organizations are somewhere between Crawl and Walk today. Dev containers and Dev Spaces are the target — they require an initial investment in image management, but once that investment is made, the environment is completely transparent to developers.
+Most organizations are somewhere between Crawl and Walk today. Dev containers and Dev Spaces are the target. They require an initial investment in image management, but once that investment is made, the environment is completely transparent to developers.
 
 Ansible Workspaces represents the "Fly" stage: the highest level of consistency with the lowest barrier to entry for the developer.
 
 ## What the developer sees
 
-From the developer's perspective, the complexity is invisible. They see a VS Code interface in their browser — with a terminal, file explorer, extensions panel, and all the Ansible tooling ready to use. They can:
+From the developer's perspective, the complexity is invisible. They see a VS Code interface in their browser, complete with a terminal, file explorer, extensions panel, and all the Ansible tooling ready to use. They can:
 
 - **Scaffold** new collections, roles, and playbooks with `ansible-creator`
 - **Lint** their code with `ansible-lint`, using the team's standard profile
@@ -44,7 +44,7 @@ The workspace itself is defined declaratively in a `devfile.yaml` checked into t
 
 The value of Ansible Workspaces goes beyond convenience. For platform teams and engineering managers, it delivers something more fundamental: **governance without friction**.
 
-When the platform team controls the workspace image, they control the toolchain version, the linting rules, the VS Code extensions, and the resource limits. Standards are not documented and hoped-for — they are inherited automatically by every workspace that uses the image.
+When the platform team controls the workspace image, they control the toolchain version, the linting rules, the VS Code extensions, and the resource limits. Standards are not documented and hoped-for; they are inherited automatically by every workspace that uses the image.
 
 This is particularly impactful for organizations managing multiple automation domains. Consider the package requirements across different teams:
 
@@ -53,7 +53,7 @@ This is particularly impactful for organizations managing multiple automation do
 - **AAP config-as-code:** `httpie`, `python3-pyyaml`
 - **Cloud automation:** `awscli`, `python3-boto3`
 
-A single monolithic image either bloats with every team's dependencies or satisfies no one. The upstream ADT container image has `/var` read-only at runtime — and that is by design. Container immutability is a feature, not a limitation. You do not want developers running `dnf install` inside their workspaces, because that creates drift.
+A single monolithic image either bloats with every team's dependencies or satisfies no one. The upstream ADT container image has `/var` read-only at runtime, and that is by design. Container immutability is a feature, not a limitation. You do not want developers running `dnf install` inside their workspaces, because that creates drift.
 
 ## Tiered image strategy: customization without compromise
 
@@ -61,12 +61,12 @@ The solution is a tiered approach to image management, using standard OpenShift 
 
 | Tier | Scope | What it adds | Managed by |
 |------|-------|-------------|------------|
-| **1 — Upstream** | Everyone | Base ADT tooling | ansible-dev-tools project |
-| **2 — Org / Domain** | Domain teams | Domain-specific system packages | Platform team |
-| **3 — Team** | One team | Team-specific extras | Team lead |
-| **4 — Personal** | One developer | Individual niche needs (opt-in) | Individual |
+| **1: Upstream** | Everyone | Base ADT tooling | ansible-dev-tools project |
+| **2: Org / Domain** | Domain teams | Domain-specific system packages | Platform team |
+| **3: Team** | One team | Team-specific extras | Team lead |
+| **4: Personal** | One developer | Individual niche needs (opt-in) | Individual |
 
-Each tier is an OpenShift BuildConfig that layers on top of the previous tier's ImageStream. When the upstream base image receives a security patch, the entire chain rebuilds automatically — no manual intervention at any tier. Security patches propagate in minutes, not days.
+Each tier is an OpenShift BuildConfig that layers on top of the previous tier's ImageStream. When the upstream base image receives a security patch, the entire chain rebuilds automatically, with no manual intervention at any tier. Security patches propagate in minutes, not days.
 
 **Adding a new domain image** is as straightforward as writing a short Containerfile:
 
@@ -80,13 +80,13 @@ RUN dnf install -y \
 USER 1000
 ```
 
-For organizations with five or more domain variants, a CEKit (Container Environment Kit) factory model generates Containerfiles from YAML definitions — adding a new domain becomes a YAML file, not a Containerfile.
+For organizations with five or more domain variants, a CEKit (Container Environment Kit) factory model generates Containerfiles from YAML definitions. Adding a new domain becomes a YAML file, not a Containerfile.
 
 ## Self-service without bottlenecks
 
 The tiered model keeps the platform team as gatekeepers without making them a bottleneck. Teams request image customizations via pull request to the config repository. The platform team reviews for security and compatibility, merges, and the rebuild happens automatically.
 
-For individual developers who need a system package no one else on the team requires, Tier 4 provides an opt-in personal layer — a fork of the team workspace repo with an additional Containerfile layer. If the same package shows up in multiple personal layers on the same team, it gets promoted to Tier 3. Lifecycle policies clean up stale personal images after 90 days.
+For individual developers who need a system package no one else on the team requires, Tier 4 provides an opt-in personal layer: a fork of the team workspace repo with an additional Containerfile layer. If the same package shows up in multiple personal layers on the same team, it gets promoted to Tier 3. Lifecycle policies clean up stale personal images after 90 days.
 
 The ownership model is clear:
 
@@ -104,17 +104,17 @@ For teams already using dev containers locally with the ADT container image, the
 - **Dev containers** require each developer to have a local container runtime (Docker or Podman), sufficient disk space, and permissions to run containers on their workstation.
 - **Dev Spaces** removes all of those requirements. The infrastructure is managed by OpenShift. Developers only need a browser.
 
-Both approaches deliver high environment consistency. Dev Spaces adds centralized governance — the platform team controls resource limits, image versions, and access policies from the cluster, not from documentation that developers may or may not follow.
+Both approaches deliver high environment consistency. Dev Spaces adds centralized governance. The platform team controls resource limits, image versions, and access policies from the cluster, not from documentation that developers may or may not follow.
 
 ## The content lifecycle in a governed workspace
 
-With Ansible Workspaces, the full content lifecycle — Create, Test, Deploy — runs inside a governed environment:
+With Ansible Workspaces, the full content lifecycle (Create, Test, Deploy) runs inside a governed environment:
 
 **Inner loop (developer):** Write playbooks and roles → lint with `ansible-lint` → test with `molecule` in nested Podman → iterate. Fast feedback, consistent tools, no local setup.
 
 **Outer loop (CI/CD):** Push to Git → PR triggers quality gates (ansible-lint, molecule, ansible-sign) → on merge, `ansible-builder` builds the execution environment → Automation Controller syncs the project. The same toolchain in the workspace matches the toolchain in CI.
 
-Every execution in Automation Controller records the project revision, so the audit trail connects production runs back to specific commits — and those commits were written in an environment that enforced the team's quality standards from the start.
+Every execution in Automation Controller records the project revision, so the audit trail connects production runs back to specific commits. Those commits were written in an environment that enforced the team's quality standards from the start.
 
 ## Getting started
 
@@ -138,7 +138,7 @@ Developers log into the Dev Spaces dashboard, paste the repository URL, click **
 
 For setup details and the supported image variants, see the [Ansible Development Workspaces documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/using_ansible_development_workspaces_for_automation_content_development/index). For the tiered image strategy, see the [Ansible Development Tools container documentation](https://docs.ansible.com/projects/dev-tools/container/).
 
-The recommended adoption path: start with a Tier 2 org-wide image using a simple inline BuildConfig. Validate with two pilot teams. Then expand to Tier 3 team images as demand grows. The infrastructure investment is modest — a typical deployment of one org-wide image plus five team images produces around 50-80 builds per month, each running three to five minutes.
+The recommended adoption path: start with a Tier 2 org-wide image using a simple inline BuildConfig. Validate with two pilot teams. Then expand to Tier 3 team images as demand grows. The infrastructure investment is modest. A typical deployment of one org-wide image plus five team images produces around 50-80 builds per month, each running three to five minutes.
 
 ---
 
