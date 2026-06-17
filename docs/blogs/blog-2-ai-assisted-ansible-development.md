@@ -73,6 +73,8 @@ The strategy is to feed the AI deterministic, real-time context from the local w
 
 The goal: an AI assistant that doesn't hallucinate collection names or guess module parameters, because it knows what's actually available in your environment.
 
+This also changes the game for automation architects responsible for standardizing practices across teams. Today, enforcing naming conventions, lint profiles, and approved patterns means writing a wiki and hoping everyone reads it. With the MCP server, the `ansible_content_best_practices` tool surfaces those organizational guidelines directly into the AI conversation. Every developer's AI assistant follows the same standards, not because someone read a document, but because the tooling makes it the path of least resistance. If Ansible Workspaces governs the environment (same tools, same versions), the MCP server governs the content (same practices, same conventions).
+
 ## What this looks like in practice
 
 ### Inner loop: content development
