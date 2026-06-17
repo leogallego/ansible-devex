@@ -1,6 +1,6 @@
 # From context switching to vibe coding: AI-assisted Ansible development with MCP
 
-*The Ansible DevTools MCP Server and the Ansible VS Code extension turn AI assistants from tentative advisors into trusted operators, scaffolding, linting, and debugging automation content through natural language, with any AI model you choose.*
+*What if your AI assistant could actually run ansible-lint instead of just telling you how? The Ansible DevTools MCP Server makes that real, turning any MCP-compatible AI into an Ansible-aware operator that creates, lints, and debugs your automation content, and helps you develop playbooks grounded in real module documentation.*
 
 ---
 
