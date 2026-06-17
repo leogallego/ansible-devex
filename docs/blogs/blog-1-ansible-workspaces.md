@@ -1,4 +1,4 @@
-# DRAFT: Ansible Workspaces: browser-based automation development with zero local setup
+# DRAFT: Ansible development workspaces: browser-based automation development with zero local setup
 
 *Red Hat OpenShift Dev Spaces meets Ansible Development Tools, giving every automation developer a governed, consistent environment in under five minutes.*
 
@@ -8,7 +8,7 @@ Onboarding a new automation developer is rarely quick. The timeline is familiar:
 
 Even after that initial setup, keeping environments consistent across a team is a challenge that documentation alone can't solve. One developer runs ansible-lint 24.x while another has 25.x. Molecule tests pass on one workstation but fail on another because of a missing system dependency. When something breaks, the first question is always "which version were you running?" instead of "what changed?"
 
-**Ansible Workspaces**, powered by Red Hat OpenShift Dev Spaces, eliminates this entire category of problems. Developers open a browser, navigate to their Dev Spaces dashboard, and launch a workspace. Within minutes, they have a full VS Code environment running in the cloud with every Ansible development tool pre-installed, the Ansible VS Code extension configured, and the team's linting profile active. No local Python. No container runtime. Just a browser and credentials.
+**Ansible development workspaces**, powered by Red Hat OpenShift Dev Spaces, eliminate this entire category of problems. Developers open a browser, navigate to their Dev Spaces dashboard, and launch a workspace. Within minutes, they have a full VS Code environment running in the cloud with every Ansible development tool pre-installed, the Ansible VS Code extension configured, and the team's linting profile active. No local Python. No container runtime. Just a browser and credentials.
 
 ## What if it took five minutes?
 
