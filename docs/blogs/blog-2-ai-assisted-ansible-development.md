@@ -10,7 +10,7 @@ That's the gap between an AI that **describes** and an AI that **does**. The Ans
 
 ## The context switching problem
 
-Developing Ansible automation today involves constant context switching. Finding community documentation and Community of Practice resources. Locating the right tool for the job and figuring out how to run it. Parsing AI-generated output for reliability. Correlating best practice violations with runtime issues. All of it means jumping between browser tabs, terminals, documentation sites, and the editor. It adds up.
+Developing Ansible automation today involves constant context switching. Checking module documentation across upstream docs, Red Hat knowledge base articles, and internal communities of practice. Figuring out which tool to use and how to run it. Parsing AI-generated suggestions against what's actually installed. Correlating lint violations with runtime failures. All of it means jumping between browser tabs, terminals, and the editor. It adds up.
 
 The workflow is fragmented, and it hits new automation developers hardest. When someone asks an AI assistant for help writing a playbook, the assistant generates code that looks syntactically correct, but it may reference collections that aren't installed, use module parameters that don't exist in the installed version, or ignore the organization's naming conventions entirely. The AI doesn't know what's actually in the developer's local environment.
 
