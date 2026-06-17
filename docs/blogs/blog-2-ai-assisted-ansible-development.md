@@ -59,7 +59,7 @@ The DevTools MCP Server doesn't require a specific AI provider. It works with an
 
 The Ansible VS Code extension makes setup even simpler because the MCP server implementation lives inside the extension itself. Enable `ansible.mcpServer.enabled` in your settings and it starts automatically. No separate process, no npm install. Installing the Ansible extension is enough to make the MCP server available to any AI agent in the IDE.
 
-For automation architects and organizations with specific AI governance requirements, the choice of model stays in their hands. The Ansible engineering team is developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. Users will configure their endpoint and API key in one place, enabling a "Bring Your Own Model" setup that works with local instances, air-gapped corporate servers, or any cloud provider.
+For organizations with specific AI governance requirements, the choice of model stays in their hands. The Ansible engineering team is developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. Users will configure their endpoint and API key in one place, enabling a "Bring Your Own Model" setup that works with local instances, air-gapped corporate servers, or any cloud provider.
 
 ## The deterministic coding assistant
 
