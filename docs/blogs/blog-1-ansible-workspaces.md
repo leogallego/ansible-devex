@@ -90,7 +90,7 @@ The ownership model breaks down like this:
 
 ## From local dev container to cloud workspace
 
-If your team already uses dev containers locally with the ADT container image, the transition to Ansible Workspaces is straightforward. The same image that powers your `.devcontainer/` setup is the same image that runs in Dev Spaces. The difference is operational:
+If your team already uses the Ansible DevTools dev containers locally, the transition to Ansible Workspaces is straightforward. The same image that powers your `.devcontainer/` setup is the same image that runs in Dev Spaces. The difference is operational:
 
 - **Dev containers** require each developer to have a local container runtime (Docker or Podman), sufficient disk space, and permissions to run containers on their workstation.
 - **Dev Spaces** removes all of those requirements. The infrastructure is managed by OpenShift. Developers only need a browser.
