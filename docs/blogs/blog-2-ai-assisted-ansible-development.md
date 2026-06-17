@@ -4,21 +4,21 @@
 
 ---
 
-Ask an AI assistant how to lint an Ansible playbook today, and you will likely get a helpful but generic answer: "Use ansible-lint. Install it with pip install ansible-lint, then run it against your playbook." Correct, but not very useful when you already have ansible-lint installed, your team has a custom linting profile, and what you actually wanted was for the tool to run and fix the violations for you.
+Ask an AI assistant how to lint an Ansible playbook today, and you'll likely get a helpful but generic answer: "Use ansible-lint. Install it with pip install ansible-lint, then run it against your playbook." Correct. Also not very useful when you already have ansible-lint installed, your team has a custom linting profile, and what you actually wanted was for the tool to just run and fix the violations.
 
-This is the gap between an AI that **describes** and an AI that **does**. The Ansible DevTools MCP Server bridges that gap, and it works with whatever AI model you already use.
+That's the gap between an AI that **describes** and an AI that **does**. The Ansible DevTools MCP Server bridges it, and it works with whatever AI model you already use.
 
 ## The context switching problem
 
-Developing Ansible automation today involves constant context switching. Finding community documentation and Community of Practice resources. Locating the right tool for the job and figuring out how to run it. Parsing AI-generated output for reliability. Correlating best practice violations with runtime issues. Each of these requires switching between browser tabs, terminals, documentation sites, and the editor. The research, correlation effort, and resource switching adds up.
+Developing Ansible automation today involves constant context switching. Finding community documentation and Community of Practice resources. Locating the right tool for the job and figuring out how to run it. Parsing AI-generated output for reliability. Correlating best practice violations with runtime issues. All of it means jumping between browser tabs, terminals, documentation sites, and the editor. It adds up.
 
-The result is a fragmented workflow that decreases productivity and raises the barrier to entry for new automation developers. When a developer asks an AI assistant for help writing a playbook, the assistant generates code that looks syntactically correct, but it may reference collections that are not installed, use module parameters that do not exist in the installed version, or ignore the organization's naming conventions entirely. The AI does not know what is actually in the developer's local environment.
+The workflow is fragmented, and it hits new developers hardest. When someone asks an AI assistant for help writing a playbook, the assistant generates code that looks syntactically correct, but it may reference collections that aren't installed, use module parameters that don't exist in the installed version, or ignore the organization's naming conventions entirely. The AI doesn't know what's actually in the developer's local environment.
 
 ## Model Context Protocol: from advisor to operator
 
 The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) is an open standard for connecting AI assistants to external tools through a unified interface. Instead of the AI guessing how to use a tool, MCP provides a structured contract: the tool declares what it can do (with full parameter schemas), and the AI calls it deterministically.
 
-The Ansible DevTools MCP Server (`@ansible/ansible-mcp-server`) wraps the Ansible Development Tools CLI into this protocol. When an AI assistant has the MCP server configured, the interaction changes fundamentally:
+The Ansible DevTools MCP Server (`@ansible/ansible-mcp-server`) wraps the Ansible Development Tools CLI into this protocol. With the MCP server configured, the interaction changes:
 
 | Without MCP | With MCP |
 |-------------|----------|
@@ -46,32 +46,32 @@ The Ansible DevTools MCP Server currently exposes ten tools covering the core de
 | `zen_of_ansible` | Surface the 20 design philosophy aphorisms that guide Ansible development |
 | `list_available_tools` | Discover all available MCP tools |
 
-These tools are not wrappers around generic shell commands. Each one encodes the specific way an Ansible development tool needs to be invoked: the right flags, the right order, the right error handling. When the AI calls `ansible_lint`, it does not figure out how to run the tool on its own; it follows the implementation that the Ansible engineering team built.
+These aren't wrappers around generic shell commands. Each one encodes the specific way an Ansible development tool needs to be invoked, with the right flags, the right order, and proper error handling. When the AI calls `ansible_lint`, it doesn't figure out how to run the tool on its own; it follows the implementation that the Ansible engineering team built.
 
 ## Bring your own model
 
-A key design principle of the DevTools MCP Server is **model flexibility**. The MCP server does not require a specific AI provider. It works with any MCP-compatible client. Developers can use the AI assistant they already have:
+The DevTools MCP Server doesn't require a specific AI provider. It works with any MCP-compatible client, so developers can use the AI assistant they already have:
 
 - **GitHub Copilot** in VS Code
 - **Claude Code** in the terminal or VS Code
 - **Gemini CLI** for Google's models
 - **Cursor**, **Windsurf**, or any other MCP-compatible editor
 
-The Ansible VS Code extension makes setup even simpler. The MCP server implementation lives inside the extension itself. Enable the `ansible.mcpServer.enabled` setting, and the server starts automatically. No separate process, no npm install, no additional configuration. Installing the Ansible extension makes the MCP server immediately available to any AI agent in the IDE.
+The Ansible VS Code extension makes setup even simpler because the MCP server implementation lives inside the extension itself. Enable `ansible.mcpServer.enabled` in your settings and it starts automatically. No separate process, no npm install. Installing the Ansible extension is enough to make the MCP server available to any AI agent in the IDE.
 
-For organizations with specific AI governance requirements, this architecture means the choice of model is entirely in their hands. The Ansible engineering team is actively developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. The goal: users configure their endpoint and API key in one centralized location, enabling a "Bring Your Own Model" approach that works with local instances, air-gapped corporate servers, or any cloud provider, without vendor lock-in.
+For organizations with specific AI governance requirements, the choice of model stays in their hands. The Ansible engineering team is developing a provider-agnostic middleware approach that decouples AI provider logic from the core extension. Users will configure their endpoint and API key in one place, enabling a "Bring Your Own Model" setup that works with local instances, air-gapped corporate servers, or any cloud provider.
 
 ## The deterministic coding assistant
 
-Beyond model flexibility, the roadmap for the DevTools MCP Server focuses on a critical challenge: **accuracy**. AI-generated Ansible code today often looks correct but fails immediately upon execution because the model does not know what is actually installed in the developer's environment.
+Model flexibility is one piece. The harder problem is **accuracy**. AI-generated Ansible code today often looks correct but fails on execution because the model doesn't know what's actually installed in the developer's environment.
 
-The strategy is to feed the AI deterministic, real-time context from the local workspace, prioritizing correctness over velocity. This means:
+The strategy is to feed the AI deterministic, real-time context from the local workspace, prioritizing correctness over velocity:
 
-- **Unified documentation access:** Delivering 100% coverage of ansible-doc via the MCP server, grounding the AI in authoritative schema data for every installed collection and module version.
-- **Environment-aware generation:** The AI refuses to generate code for missing dependencies and instead offers a clear path to resolve them (such as `ansible-galaxy install`) within the chat interface.
-- **Deterministic documentation generation:** A cycle of value where code generates structured reference guides, and the AI consumes those guides to ground its future coding suggestions.
+- **Full ansible-doc coverage via MCP**, grounding the AI in authoritative schema data for every installed collection and module version.
+- **Environment-aware generation**, where the AI won't generate code for missing dependencies and instead offers a path to resolve them (like `ansible-galaxy install`) within the chat interface.
+- **A documentation feedback loop**, where code generates structured reference guides that the AI consumes to ground its future suggestions.
 
-The result is an AI assistant that does not hallucinate collection names, does not guess module parameters, and does not ignore what is actually available in the developer's environment.
+The goal: an AI assistant that doesn't hallucinate collection names or guess module parameters, because it knows what's actually available in your environment.
 
 ## What this looks like in practice
 
@@ -81,7 +81,7 @@ A developer working on a network automation collection can have a conversation l
 
 > *"Scaffold a network automation collection, add a backup role, lint it, write molecule tests, fix all violations."*
 
-The AI assistant calls ansible-creator to scaffold the project, generates role defaults and tasks, runs ansible-lint against the team's profile, applies fixes, and presents the result for review. The developer stays in a single context, without switching between documentation, terminals, and the editor.
+The AI calls ansible-creator to scaffold the project, generates role defaults and tasks, runs ansible-lint against the team's profile, applies fixes, and presents the result for review. One context. No tab switching.
 
 ### Outer loop: operational integration
 
@@ -93,7 +93,7 @@ A platform engineer can ask:
 
 The AI queries the Controller API for failed jobs, cross-references inventory data, and launches a job template, all through structured MCP calls with the user's RBAC permissions. Tokens can be scoped as read-only for querying or read-write when job launching is needed.
 
-Together, the DevTools MCP and AAP MCP connect the inner loop (content creation) with the outer loop (content execution) through the same AI interface. Write a playbook, push it to a dev AAP instance, run it, and troubleshoot failures, all in a single conversation.
+Together, the DevTools MCP and AAP MCP connect the inner loop (content creation) with the outer loop (content execution) through the same AI interface. Write a playbook, push it to a dev AAP instance, run it, troubleshoot failures. One conversation.
 
 ## Getting started
 
@@ -138,7 +138,7 @@ The DevTools MCP Server is available as a Technology Preview. For the full setup
 
 ## Beyond development: MCP in execution environments
 
-While the DevTools MCP Server focuses on the development experience, the Ansible ecosystem is also exploring MCP at runtime. The `ansible.mcp` collection (available as a Technology Preview) provides a standardized plugin framework for invoking MCP servers directly from Ansible playbooks, calling external tools and APIs using native Ansible module syntax within execution environments. That is a topic for another post, but the direction is clear: MCP is becoming a foundational integration layer across the Ansible platform, from development to execution.
+The DevTools MCP Server covers the development side, but the Ansible ecosystem is also exploring MCP at runtime. The `ansible.mcp` collection (available as a Technology Preview) lets you invoke MCP servers directly from playbooks using native Ansible module syntax inside execution environments. That's a topic for another post, but the direction is worth noting: MCP is becoming an integration layer across the Ansible platform, from development through execution.
 
 ---
 
