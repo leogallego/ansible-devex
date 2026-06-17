@@ -44,7 +44,7 @@ This matters most for organizations where automation architects manage multiple 
 - **AAP config-as-code:** `httpie`, `python3-pyyaml`
 - **Cloud automation:** `awscli`, `python3-boto3`
 
-A single monolithic image either bloats with every team's dependencies or satisfies no one. The upstream Ansible DevTools container image has `/var` read-only at runtime, and that's by design. Container immutability is a feature, not a limitation. You don't want developers running `dnf install` inside their workspaces, because that creates drift.
+A single monolithic image either bloats with every team's dependencies or satisfies no one. The Ansible DevTools container image has `/var` read-only at runtime, and that's by design. Container immutability is a feature, not a limitation. You don't want developers running `dnf install` inside their workspaces, because that creates drift.
 
 ## Tiered image strategy: customization without compromise
 
