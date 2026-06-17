@@ -52,7 +52,7 @@ The solution is a tiered approach to image management, using standard OpenShift 
 
 | Tier | Scope | What it adds | Managed by |
 |------|-------|-------------|------------|
-| **1: Upstream** | Everyone | Base Ansible DevTools tooling | ansible-dev-tools project |
+| **1: Base Image** | Everyone | Ansible DevTools tooling | ansible-dev-tools project |
 | **2: Org / Domain** | Domain teams | Domain-specific system packages | Platform team |
 | **3: Team** | One team | Team-specific extras | Team lead |
 | **4: Personal** | One developer | Individual niche needs (opt-in) | Individual |
