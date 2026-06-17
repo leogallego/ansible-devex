@@ -4,7 +4,7 @@
 
 ---
 
-Onboarding a new automation developer is rarely quick. The timeline is familiar: Day 1 is paperwork. Day 10, the laptop arrives. Day 20, the IDE and tools are finally installed. Day 30, Git access is granted. Day 60, still waiting for the right Linux environment or sudo permissions. Months before a single playbook gets written.
+Onboarding a new automation developer is rarely quick. The timeline is familiar: Day 1 is paperwork. Day 10, the laptop arrives. Day 20, the IDE and tools are finally installed. Day 30, Git access and permissions are finally sorted out. Weeks before a single playbook gets written.
 
 Even after that initial setup, keeping environments consistent across a team is a challenge that documentation alone can't solve. One developer runs ansible-lint 24.x while another has 25.x. Molecule tests pass on one workstation but fail on another because of a missing system dependency. When something breaks, the first question is always "which version were you running?" instead of "what changed?"
 
@@ -57,7 +57,7 @@ The solution is a tiered approach to image management, using standard OpenShift 
 | **3: Team** | One team | Team-specific extras | Team lead |
 | **4: Personal** | One developer | Individual niche needs (opt-in) | Individual |
 
-Each tier is an OpenShift BuildConfig that layers on top of the previous tier's ImageStream. When the upstream base image receives a security patch, the entire chain rebuilds automatically, with no manual intervention at any tier. Security patches propagate in minutes, not days.
+Each tier is an OpenShift BuildConfig that layers on top of the previous tier's ImageStream. When the base image receives a security patch, the entire chain rebuilds automatically, with no manual intervention at any tier. Security patches propagate in minutes, not days.
 
 **Adding a new domain image** is as straightforward as writing a short Containerfile:
 
@@ -83,7 +83,7 @@ The ownership model breaks down like this:
 
 | Concern | Owner |
 |---------|-------|
-| Upstream base image version | Platform admin |
+| Base image version | Platform admin |
 | Domain-specific packages | Platform team |
 | Team-specific extras | Team lead |
 | Personal extras | Individual developer (opt-in) |
