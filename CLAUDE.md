@@ -26,6 +26,13 @@ The Ansible DevEx initiative addresses three interconnected areas:
 
 ## Current Repository Structure
 
+### Slide Decks
+
+- **`open-slide/`** -- **primary presentation deck**, built with [open-slide.dev](https://open-slide.dev). Slides are React/TSX components under `open-slide/slides/ansible-devex/index.tsx`. Run with `pnpm dev` from the `open-slide/` directory. See `open-slide/CLAUDE.md` for authoring rules and available skills.
+- **`deck/`** -- legacy Reveal.js deck (v5.2.1, Vite-based). Kept for reference but no longer the active presentation. Run with `npm run dev` from the `deck/` directory.
+
+### Reference Content
+
 All reference content lives under `resources/`:
 
 - `README-Ansible-DevTools.md` -- main solution guide: ADT installation methods, AI-assisted development setup, validation steps
