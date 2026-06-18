@@ -502,7 +502,7 @@ const MaturityPath: Page = () => {
           fontFamily: font.display, fontSize: 72, fontWeight: 700,
           letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
         }}>
-          The <span className="gradient-text">maturity path</span>
+          <span className="gradient-text">Onboarding</span> the enterprise developer
         </h2>
 
         <div style={{ flex: 1, display: 'flex', gap: 32, marginTop: 40, alignItems: 'stretch', minHeight: 0 }}>
