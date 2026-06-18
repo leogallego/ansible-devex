@@ -557,115 +557,88 @@ const ContentLifecycle: Page = () => (
     <Styles />
     <PatternBg />
     <AccentBar />
-    <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+    <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
       <SectionTag light>The Workflow</SectionTag>
       <h2 className="fadeUp" style={{
         fontFamily: font.display, fontSize: 72, fontWeight: 700,
-        letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
+        letterSpacing: '-0.03em', margin: '0 0 24px', lineHeight: 1.1, animationDelay: '0.1s',
       }}>
         The <span className="gradient-text">content lifecycle</span>
       </h2>
 
-      {/* Two-column flow diagram */}
       <div className="fadeUp" style={{
-        flex: 1, display: 'flex', gap: 24, marginTop: 32, animationDelay: '0.2s',
-        alignItems: 'stretch',
+        flex: 1, display: 'flex', gap: 0, animationDelay: '0.2s',
+        alignItems: 'stretch', minHeight: 0,
       }}>
-        {/* Inner Loop column */}
+        {/* Inner Loop */}
         <div style={{
-          flex: 1, borderRadius: 20, border: `2px solid ${c.redText}`,
-          padding: '28px 36px', display: 'flex', flexDirection: 'column',
-          position: 'relative',
+          flex: 1, borderRadius: '20px 0 0 20px', padding: '24px 32px',
+          display: 'flex', flexDirection: 'column',
+          background: c.gray,
         }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 20 }}>
-            <span style={{ fontFamily: font.display, fontSize: 36, fontWeight: 700, color: c.redText }}>Inner Loop</span>
-            <span style={{ fontFamily: font.mono, fontSize: 20, color: c.muted }}>developer · seconds</span>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 16 }}>
+            <span style={{ fontFamily: font.display, fontSize: 32, fontWeight: 900, color: c.redText }}>Inner Loop</span>
+            <span style={{ fontFamily: font.mono, fontSize: 16, color: c.muted }}>developer · seconds</span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
             {[
-              { step: 'Write', tool: 'ansible-creator / VS Code', accent: false },
-              { step: 'Lint', tool: 'ansible-lint --fix', accent: false },
-              { step: 'Test', tool: 'molecule test', accent: false },
-              { step: 'Iterate', tool: 'fix → re-lint → re-test', accent: false },
+              { step: 'Write', tool: 'ansible-creator / VS Code' },
+              { step: 'Lint', tool: 'ansible-lint --fix' },
+              { step: 'Test', tool: 'molecule test' },
+              { step: 'Iterate', tool: 'fix → re-lint → re-test' },
             ].map((s, i) => (
-              <div key={s.step}>
+              <div key={s.step} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '8px 0' }}>
                 <div style={{
-                  display: 'flex', alignItems: 'center', gap: 16, padding: '10px 0',
-                }}>
-                  <div style={{
-                    width: 40, height: 40, borderRadius: '50%',
-                    background: c.redText, color: c.white,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: font.display, fontSize: 18, fontWeight: 700, flexShrink: 0,
-                  }}>
-                    {i + 1}
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 700, color: c.text }}>{s.step}</div>
-                    <div style={{ fontFamily: font.mono, fontSize: 20, color: c.muted }}>{s.tool}</div>
-                  </div>
+                  width: 3, height: 36, borderRadius: 2, flexShrink: 0,
+                  background: i === 0 ? c.redText : 'rgba(0,0,0,0.12)',
+                }} />
+                <div>
+                  <div style={{ fontFamily: font.display, fontSize: 34, fontWeight: 700, color: c.text, lineHeight: 1.2 }}>{s.step}</div>
+                  <div style={{ fontFamily: font.mono, fontSize: 18, color: c.muted, opacity: 0.8 }}>{s.tool}</div>
                 </div>
-                {i < 3 && (
-                  <div style={{ marginLeft: 19, width: 2, height: 10, background: c.redText, opacity: 0.3 }} />
-                )}
               </div>
             ))}
           </div>
 
           <div style={{
-            marginTop: 20, padding: '10px 16px', borderRadius: 8,
-            background: `${c.redText}08`, border: `1px solid ${c.redText}20`,
-            fontFamily: font.sans, fontSize: 16, color: c.muted, textAlign: 'center',
+            padding: '8px 16px', borderRadius: 8,
+            background: 'rgba(0,0,0,0.05)',
+            fontFamily: font.sans, fontSize: 15, color: c.muted, textAlign: 'center',
           }}>
             Fast feedback, local or container
           </div>
         </div>
 
-        {/* Push connector */}
+        {/* Push/Merge connector */}
         <div style={{
           display: 'flex', flexDirection: 'column', alignItems: 'center',
-          justifyContent: 'center', gap: 8, width: 80, flexShrink: 0,
+          justifyContent: 'center', gap: 6, width: 72, flexShrink: 0,
+          background: c.red, color: c.white,
         }}>
-          <div style={{
-            fontFamily: font.display, fontSize: 16, fontWeight: 700,
-            color: c.red, textTransform: 'uppercase' as const, letterSpacing: '0.1em',
-          }}>
+          <div style={{ fontFamily: font.display, fontSize: 14, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
             Push
           </div>
-          <div style={{ position: 'relative', width: 56, height: 56 }}>
-            <div style={{
-              position: 'absolute', top: '50%', left: 0, right: 14,
-              height: 3, background: c.red, transform: 'translateY(-50%)',
-            }} />
-            <div style={{
-              position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)',
-              width: 0, height: 0,
-              borderTop: '10px solid transparent',
-              borderBottom: '10px solid transparent',
-              borderLeft: `14px solid ${c.red}`,
-            }} />
-          </div>
-          <div style={{
-            fontFamily: font.display, fontSize: 16, fontWeight: 700,
-            color: c.red, textTransform: 'uppercase' as const, letterSpacing: '0.1em',
-          }}>
+          <svg width="28" height="40" viewBox="0 0 28 40" fill="none">
+            <path d="M4 20h16M16 12l8 8-8 8" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <div style={{ fontFamily: font.display, fontSize: 14, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
             Merge
           </div>
         </div>
 
-        {/* Outer Loop column */}
+        {/* Outer Loop */}
         <div style={{
-          flex: 1, borderRadius: 20, border: `2px solid ${c.dark}`,
-          padding: '28px 36px', display: 'flex', flexDirection: 'column',
+          flex: 1, borderRadius: '0 20px 20px 0', padding: '24px 32px',
+          display: 'flex', flexDirection: 'column',
           background: c.dark, color: c.white,
         }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12, marginBottom: 20 }}>
-            <span style={{ fontFamily: font.display, fontSize: 36, fontWeight: 700, color: c.white }}>Outer Loop</span>
-            <span style={{ fontFamily: font.mono, fontSize: 20, color: 'rgba(255,255,255,0.4)' }}>CI/CD · minutes</span>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, marginBottom: 16 }}>
+            <span style={{ fontFamily: font.display, fontSize: 32, fontWeight: 900 }}>Outer Loop</span>
+            <span style={{ fontFamily: font.mono, fontSize: 16, color: 'rgba(255,255,255,0.5)' }}>CI/CD · minutes</span>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 0, flex: 1 }}>
+          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, justifyContent: 'center' }}>
             {[
               { step: 'PR Quality Gates', tool: 'ansible-lint + molecule CI' },
               { step: 'Build EE', tool: 'ansible-builder → registry' },
@@ -673,35 +646,23 @@ const ContentLifecycle: Page = () => (
               { step: 'Deploy & Run', tool: 'job template execution' },
               { step: 'Monitor', tool: 'Grafana dashboards' },
             ].map((s, i) => (
-              <div key={s.step}>
+              <div key={s.step} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '6px 0' }}>
                 <div style={{
-                  display: 'flex', alignItems: 'center', gap: 16, padding: '8px 0',
-                }}>
-                  <div style={{
-                    width: 40, height: 40, borderRadius: '50%',
-                    background: i === 3 ? c.red : 'rgba(255,255,255,0.12)',
-                    color: c.white,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    fontFamily: font.display, fontSize: 18, fontWeight: 700, flexShrink: 0,
-                  }}>
-                    {i + 1}
-                  </div>
-                  <div>
-                    <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 700 }}>{s.step}</div>
-                    <div style={{ fontFamily: font.mono, fontSize: 20, color: 'rgba(255,255,255,0.45)' }}>{s.tool}</div>
-                  </div>
+                  width: 3, height: 32, borderRadius: 2, flexShrink: 0,
+                  background: i === 3 ? c.red : 'rgba(255,255,255,0.2)',
+                }} />
+                <div>
+                  <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 700, lineHeight: 1.2 }}>{s.step}</div>
+                  <div style={{ fontFamily: font.mono, fontSize: 18, color: 'rgba(255,255,255,0.7)' }}>{s.tool}</div>
                 </div>
-                {i < 4 && (
-                  <div style={{ marginLeft: 19, width: 2, height: 8, background: 'rgba(255,255,255,0.15)' }} />
-                )}
               </div>
             ))}
           </div>
 
           <div style={{
-            marginTop: 16, padding: '10px 16px', borderRadius: 8,
-            background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
-            fontFamily: font.sans, fontSize: 16, color: 'rgba(255,255,255,0.4)', textAlign: 'center',
+            padding: '8px 16px', borderRadius: 8,
+            background: 'rgba(255,255,255,0.06)',
+            fontFamily: font.sans, fontSize: 15, color: 'rgba(255,255,255,0.5)', textAlign: 'center',
           }}>
             Automated gates, compliance scanning
           </div>
@@ -711,6 +672,302 @@ const ContentLifecycle: Page = () => (
     <Footer />
   </div>
 );
+
+// ─── 06b. Content Lifecycle — Pipeline View ─────────────────────────────────
+const ContentLifecyclePipeline: Page = () => {
+  const inner = [
+    { step: 'Write', tool: 'ansible-creator' },
+    { step: 'Lint', tool: 'ansible-lint' },
+    { step: 'Test', tool: 'molecule' },
+    { step: 'Iterate', tool: 're-lint · re-test' },
+  ];
+  const outer = [
+    { step: 'PR Gates', tool: 'lint + molecule CI' },
+    { step: 'Build EE', tool: 'ansible-builder' },
+    { step: 'Sync', tool: 'webhook → controller' },
+    { step: 'Deploy', tool: 'job template' },
+    { step: 'Monitor', tool: 'dashboards' },
+  ];
+  return (
+    <div style={{ ...fill, background: c.white, color: c.text }}>
+      <Styles />
+      <PatternBg />
+      <AccentBar />
+      <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
+        <SectionTag light>The Workflow</SectionTag>
+        <h2 className="fadeUp" style={{
+          fontFamily: font.display, fontSize: 72, fontWeight: 700,
+          letterSpacing: '-0.03em', margin: '0 0 32px', lineHeight: 1.1, animationDelay: '0.1s',
+        }}>
+          The <span className="gradient-text">content lifecycle</span>
+        </h2>
+
+        {/* Section labels */}
+        <div className="fadeUp" style={{
+          display: 'flex', gap: 0, animationDelay: '0.15s', marginBottom: 12,
+        }}>
+          <div style={{ flex: inner.length, display: 'flex', alignItems: 'baseline', gap: 10 }}>
+            <span style={{ fontFamily: font.display, fontSize: 28, fontWeight: 900, color: c.redText }}>Inner Loop</span>
+            <span style={{ fontFamily: font.mono, fontSize: 15, color: c.muted }}>developer · seconds</span>
+          </div>
+          <div style={{ width: 48, flexShrink: 0 }} />
+          <div style={{ flex: outer.length, display: 'flex', alignItems: 'baseline', gap: 10 }}>
+            <span style={{ fontFamily: font.display, fontSize: 28, fontWeight: 900, color: c.dark }}>Outer Loop</span>
+            <span style={{ fontFamily: font.mono, fontSize: 15, color: c.muted }}>CI/CD · minutes</span>
+          </div>
+        </div>
+
+        {/* Pipeline */}
+        <div className="fadeUp" style={{
+          flex: 1, display: 'flex', gap: 0, animationDelay: '0.2s',
+          alignItems: 'stretch', minHeight: 0,
+        }}>
+          {/* Inner loop steps */}
+          {inner.map((s, i) => (
+            <div key={s.step} style={{
+              flex: 1, display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: 12,
+              padding: '24px 8px', textAlign: 'center',
+              background: i % 2 === 0 ? c.gray : 'rgba(0,0,0,0.04)',
+              borderRadius: i === 0 ? '16px 0 0 16px' : 0,
+              position: 'relative',
+            }}>
+              <div style={{
+                width: 56, height: 56, borderRadius: '50%',
+                background: c.redText, color: c.white,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: font.display, fontSize: 22, fontWeight: 700,
+              }}>
+                {i + 1}
+              </div>
+              <div style={{ fontFamily: font.display, fontSize: 28, fontWeight: 700, color: c.text }}>{s.step}</div>
+              <div style={{
+                fontFamily: font.mono, fontSize: 15, color: c.muted,
+                background: 'rgba(0,0,0,0.06)', padding: '4px 12px', borderRadius: 100,
+              }}>{s.tool}</div>
+              {i < inner.length - 1 && (
+                <div style={{
+                  position: 'absolute', right: -6, top: '50%', transform: 'translateY(-50%)',
+                  color: c.redText, fontSize: 20, fontWeight: 700, zIndex: 1,
+                }}>›</div>
+              )}
+            </div>
+          ))}
+
+          {/* Push divider */}
+          <div style={{
+            width: 48, flexShrink: 0, display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center',
+            background: c.red, color: c.white, gap: 4,
+          }}>
+            <div style={{ fontFamily: font.display, fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
+              git
+            </div>
+            <svg width="20" height="28" viewBox="0 0 20 28" fill="none">
+              <path d="M2 14h12M11 8l6 6-6 6" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <div style={{ fontFamily: font.display, fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' as const }}>
+              push
+            </div>
+          </div>
+
+          {/* Outer loop steps */}
+          {outer.map((s, i) => (
+            <div key={s.step} style={{
+              flex: 1, display: 'flex', flexDirection: 'column',
+              alignItems: 'center', justifyContent: 'center', gap: 12,
+              padding: '24px 8px', textAlign: 'center',
+              background: i % 2 === 0 ? c.dark : '#1a1a1a',
+              color: c.white,
+              borderRadius: i === outer.length - 1 ? '0 16px 16px 0' : 0,
+              position: 'relative',
+            }}>
+              <div style={{
+                width: 56, height: 56, borderRadius: '50%',
+                background: i === 3 ? c.red : 'rgba(255,255,255,0.12)',
+                color: c.white,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontFamily: font.display, fontSize: 22, fontWeight: 700,
+              }}>
+                {i + 1}
+              </div>
+              <div style={{ fontFamily: font.display, fontSize: 28, fontWeight: 700 }}>{s.step}</div>
+              <div style={{
+                fontFamily: font.mono, fontSize: 15, color: 'rgba(255,255,255,0.7)',
+                background: 'rgba(255,255,255,0.08)', padding: '4px 12px', borderRadius: 100,
+              }}>{s.tool}</div>
+              {i < outer.length - 1 && (
+                <div style={{
+                  position: 'absolute', right: -6, top: '50%', transform: 'translateY(-50%)',
+                  color: 'rgba(255,255,255,0.3)', fontSize: 20, fontWeight: 700, zIndex: 1,
+                }}>›</div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
+};
+
+// ─── 06c. Content Lifecycle — Infinity Loop ─────────────────────────────────
+const ContentLifecycleLoop: Page = () => {
+  const innerSteps = [
+    { step: 'Write', tool: 'ansible-creator / VS Code' },
+    { step: 'Lint', tool: 'ansible-lint --fix' },
+    { step: 'Test', tool: 'molecule test' },
+    { step: 'Iterate', tool: 'fix → re-lint → re-test' },
+  ];
+  const outerSteps = [
+    { step: 'PR Quality Gates', tool: 'ansible-lint + molecule CI' },
+    { step: 'Build EE', tool: 'ansible-builder → registry' },
+    { step: 'Controller Sync', tool: 'webhook → project update' },
+    { step: 'Deploy & Run', tool: 'job template execution' },
+    { step: 'Monitor', tool: 'observability dashboards' },
+  ];
+
+  const stepRow = (s: { step: string; tool: string }, i: number, accent: boolean) => (
+    <div key={s.step} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '5px 0' }}>
+      <div style={{
+        width: 3, height: 28, borderRadius: 2, flexShrink: 0,
+        background: accent ? c.red : 'rgba(255,255,255,0.2)',
+      }} />
+      <div>
+        <div style={{
+          fontFamily: font.display, fontSize: 26, fontWeight: 700, lineHeight: 1.2,
+          color: c.white,
+        }}>{s.step}</div>
+        <div style={{
+          fontFamily: font.mono, fontSize: 15, lineHeight: 1.3,
+          color: 'rgba(255,255,255,0.6)',
+        }}>{s.tool}</div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={{ ...fill, background: c.dark, color: c.white, position: 'relative' }}>
+      <Styles />
+
+      {/* DEBUG GRID — full slide 1920x1080 */}
+      <svg viewBox="0 0 1920 1080" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 50, pointerEvents: 'none' }}>
+        {Array.from({ length: 20 }, (_, i) => i * 100).map(x => (
+          <g key={`gx${x}`}>
+            <line x1={x} y1={0} x2={x} y2={1080} stroke="rgba(0,255,0,0.15)" strokeWidth="1" />
+            <text x={x + 3} y={12} fill="rgba(0,255,0,0.5)" fontSize="11" fontFamily="monospace">{x}</text>
+          </g>
+        ))}
+        {Array.from({ length: 11 }, (_, i) => i * 100).map(y => (
+          <g key={`gy${y}`}>
+            <line x1={0} y1={y} x2={1920} y2={y} stroke="rgba(0,255,0,0.15)" strokeWidth="1" />
+            <text x={3} y={y + 12} fill="rgba(0,255,0,0.5)" fontSize="11" fontFamily="monospace">{y}</text>
+          </g>
+        ))}
+      </svg>
+
+      {/* Header */}
+      <div style={{ position: 'absolute', top: 56, left: 120, zIndex: 2 }}>
+        <SectionTag>The Workflow</SectionTag>
+        <h2 className="fadeUp" style={{
+          fontFamily: font.display, fontSize: 64, fontWeight: 700,
+          letterSpacing: '-0.03em', margin: 0, lineHeight: 1.1, animationDelay: '0.1s',
+        }}>
+          The <span style={{ color: c.red }}>content lifecycle</span>
+        </h2>
+      </div>
+
+      {/* Infinity loop SVG — positioned to fill the lower portion */}
+      <svg viewBox="0 0 1680 560" fill="none" preserveAspectRatio="xMidYMid meet"
+        style={{ position: 'absolute', left: 120, right: 120, top: 240, bottom: 80, zIndex: 0 }}>
+        <defs>
+          <linearGradient id="loopGrad" x1="0%" y1="50%" x2="100%" y2="50%">
+            <stop offset="0%" stopColor={c.red} stopOpacity="0.4" />
+            <stop offset="45%" stopColor={c.red} stopOpacity="0.15" />
+            <stop offset="55%" stopColor="white" stopOpacity="0.06" />
+            <stop offset="100%" stopColor="white" stopOpacity="0.12" />
+          </linearGradient>
+        </defs>
+        <path
+          d={`M840 280
+              C840 -76, 80 -76, 80 280
+              C80 636, 840 636, 840 280
+              C840 -76, 1600 -76, 1600 280
+              C1600 636, 840 636, 840 280`}
+          stroke="url(#loopGrad)"
+          strokeWidth="56"
+          strokeLinecap="round"
+          opacity="0.6"
+        />
+      </svg>
+
+      {/* Inner Loop title — centered at circle center x=580, y=300 */}
+      <div style={{
+        position: 'absolute', left: 400, top: 300, width: 360, zIndex: 2,
+        textAlign: 'center',
+      }}>
+        <div style={{ fontFamily: font.display, fontSize: 28, fontWeight: 900, color: c.red }}>Inner Loop</div>
+        <div style={{ fontFamily: font.mono, fontSize: 14, color: 'rgba(255,255,255,0.4)' }}>developer · seconds</div>
+      </div>
+
+      {/* Outer Loop title — centered at circle center x=1340, y=300 */}
+      <div style={{
+        position: 'absolute', left: 1160, top: 300, width: 360, zIndex: 2,
+        textAlign: 'center',
+      }}>
+        <div style={{ fontFamily: font.display, fontSize: 28, fontWeight: 900, color: c.white }}>Outer Loop</div>
+        <div style={{ fontFamily: font.mono, fontSize: 14, color: 'rgba(255,255,255,0.4)' }}>CI/CD · minutes</div>
+      </div>
+
+      {/* GIT PUSH badge — at crossover x=960, y=620 */}
+      <div style={{
+        position: 'absolute', left: 960, top: 620, transform: 'translate(-50%, -50%)',
+        background: c.red, color: c.white,
+        padding: '10px 22px', borderRadius: 12,
+        fontFamily: font.display, fontSize: 16, fontWeight: 700,
+        letterSpacing: '0.08em', textTransform: 'uppercase' as const,
+        boxShadow: '0 4px 24px rgba(238,0,0,0.4)',
+        zIndex: 3, whiteSpace: 'nowrap' as const,
+      }}>
+        git push
+      </div>
+
+      {/* Inner loop steps — centered at cx=580, top=400 */}
+      <div style={{
+        position: 'absolute', left: 580, top: 400, transform: 'translateX(-50%)',
+        zIndex: 2, display: 'flex', flexDirection: 'column', gap: 6,
+      }}>
+        {innerSteps.map((s, i) => (
+          <div key={s.step} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '5px 0' }}>
+            <div style={{ width: 3, height: 28, borderRadius: 2, flexShrink: 0, background: i === 0 ? c.red : 'rgba(255,255,255,0.2)' }} />
+            <div>
+              <div style={{ fontFamily: font.display, fontSize: 26, fontWeight: 700, lineHeight: 1.2, color: c.white }}>{s.step}</div>
+              <div style={{ fontFamily: font.mono, fontSize: 15, lineHeight: 1.3, color: 'rgba(255,255,255,0.6)' }}>{s.tool}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Outer loop steps — centered at cx=1340, top=400 */}
+      <div style={{
+        position: 'absolute', left: 1340, top: 400, transform: 'translateX(-50%)',
+        zIndex: 2, display: 'flex', flexDirection: 'column', gap: 4,
+      }}>
+        {outerSteps.map((s, i) => (
+          <div key={s.step} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '4px 0' }}>
+            <div style={{ width: 3, height: 28, borderRadius: 2, flexShrink: 0, background: i === 0 ? c.red : 'rgba(255,255,255,0.2)' }} />
+            <div>
+              <div style={{ fontFamily: font.display, fontSize: 26, fontWeight: 700, lineHeight: 1.2, color: c.white }}>{s.step}</div>
+              <div style={{ fontFamily: font.mono, fontSize: 15, lineHeight: 1.3, color: 'rgba(255,255,255,0.6)' }}>{s.tool}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
 
 // ─── 07. Scaling Divider ────────────────────────────────────────────────────
 const ScalingDivider: Page = () => (
@@ -3340,7 +3597,7 @@ export default [
   FiveMinutes,
   Toolchain,
   MaturityPath,
-  ContentLifecycle,
+  ContentLifecycleLoop,
   ScreenshotLifecycle,
   ScalingDivider,
   DevContainers,
