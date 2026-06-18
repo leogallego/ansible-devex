@@ -486,10 +486,10 @@ const Toolchain: Page = () => {
 // ─── 05. Maturity Path ──────────────────────────────────────────────────────
 const MaturityPath: Page = () => {
   const stages = [
-    { title: 'Crawl', method: 'pip / uv', time: '~30 min', level: 'Low consistency', filled: false, icon: <IconTerminal size={72} color={c.text} /> },
-    { title: 'Walk', method: 'RPM', time: '~15 min', level: 'Medium consistency', filled: false, icon: <IconPackage size={72} color={c.text} /> },
-    { title: 'Run', method: 'Dev Container', time: '~10 min', level: 'High consistency', filled: true, icon: <IconContainer size={72} color={c.white} /> },
-    { title: 'Fly', method: 'Dev Spaces', time: '~5 min', level: 'Highest consistency', filled: true, icon: <IconCloud size={72} color={c.white} /> },
+    { title: 'Crawl', method: 'pip / uv', time: '~30 min', level: 'Low consistency', filled: false, icon: <IconTerminal size={108} color={c.text} /> },
+    { title: 'Walk', method: 'RPM', time: '~15 min', level: 'Medium consistency', filled: false, icon: <IconPackage size={108} color={c.text} /> },
+    { title: 'Run', method: 'Dev Container', time: '~10 min', level: 'High consistency', filled: true, icon: <IconContainer size={108} color={c.white} /> },
+    { title: 'Fly', method: 'Dev Spaces', time: '~5 min', level: 'Highest consistency', filled: true, icon: <IconCloud size={108} color={c.white} /> },
   ];
   return (
     <div style={{ ...fill, background: c.white, color: c.text }}>
@@ -515,18 +515,23 @@ const MaturityPath: Page = () => {
               justifyContent: 'center', gap: 20, textAlign: 'center',
               animationDelay: `${0.2 + i * 0.12}s`,
             }}>
-              <div style={{ marginBottom: 8 }}>{s.icon}</div>
-              <div style={{ fontFamily: font.display, fontSize: 40, fontWeight: 700 }}>{s.title}</div>
-              <div style={{ fontFamily: font.sans, fontSize: 22, opacity: 0.8 }}>{s.method}</div>
+              <div style={{ marginBottom: 12 }}>{s.icon}</div>
+              <div style={{ fontFamily: font.display, fontSize: 48, fontWeight: 900 }}>{s.title}</div>
               <div style={{
-                fontFamily: font.display, fontSize: 52, fontWeight: 900,
+                fontFamily: font.sans, fontSize: 24, fontWeight: 700,
+                background: 'rgba(0,0,0,0.12)',
+                color: s.filled ? c.white : c.text,
+                padding: '8px 24px', borderRadius: 100,
+              }}>{s.method}</div>
+              <div style={{
+                fontFamily: font.display, fontSize: 56, fontWeight: 900,
                 color: s.filled ? c.white : c.redText,
               }}>
                 {s.time}
               </div>
               <div style={{
-                fontFamily: font.mono, fontSize: 16,
-                color: s.filled ? 'rgba(255,255,255,0.6)' : c.muted,
+                fontFamily: font.mono, fontSize: 16, fontWeight: s.filled ? 600 : 400,
+                color: s.filled ? 'rgba(255,255,255,0.85)' : c.muted,
               }}>
                 {s.level}
               </div>
