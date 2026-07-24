@@ -85,13 +85,17 @@ The AI calls ansible-creator to scaffold the project, generates role defaults an
 
 ### Outer loop: operational integration
 
-For teams with a development Ansible Automation Platform instance, the companion **AAP MCP Server** extends AI assistance into operations. Available starting with AAP 2.6.4, the AAP gateway exposes MCP endpoints for job management, inventory queries, system monitoring, and more.
+For teams with a development Ansible Automation Platform instance, the companion **AAP MCP Server** extends AI assistance into operations. Available starting with AAP 2.5 and generally available in AAP 2.7, the AAP gateway exposes MCP endpoints for job management, inventory queries, system monitoring, and more.
 
 A platform engineer can ask:
 
 > *"Show me failed jobs in the last 24 hours, check inventory for hosts missing the security baseline, launch the remediation template."*
 
 The AI queries the Controller API for failed jobs, cross-references inventory data, and launches a job template, all through structured MCP calls with the user's RBAC permissions. Tokens can be scoped as read-only for querying or read-write when job launching is needed.
+
+> **Warning:** Use development or staging AAP instances for AI-assisted workflows.
+>
+> AI assistants can launch jobs and modify platform state through the AAP MCP server. Always point MCP configurations at non-production instances during development, and use a read-only token unless you specifically need the AI assistant to launch jobs.
 
 Together, the Ansible DevTools MCP and AAP MCP connect the inner loop (content creation) with the outer loop (content execution) through the same AI interface. Write a playbook, push it to a dev AAP instance, run it, troubleshoot failures. One conversation.
 
@@ -140,6 +144,11 @@ The Ansible DevTools MCP Server is available as a Technology Preview. For the fu
 
 The Ansible DevTools MCP Server covers the development side, but the Ansible ecosystem is also exploring MCP at runtime. The `ansible.mcp` collection (available as a Technology Preview) lets you invoke MCP servers directly from playbooks using native Ansible module syntax inside execution environments. That's a topic for another post, but the direction is worth noting: MCP is becoming an integration layer across the Ansible platform, from development through execution.
 
+## Related content
+
+- **Governed development environments:** [Ansible development workspaces](<!-- TODO: replace with final blog 1 URL -->) covers how to deliver consistent, browser-based environments with Dev Spaces, so every developer's AI assistant runs against the same toolchain.
+- **Full solution guide:** The [AI-Assisted Ansible Developer Experience solution guide](<!-- TODO: replace with final solution guide URL -->) provides the complete technical walkthrough covering both workspaces and MCP server configuration.
+
 ---
 
-*Visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/developing_automation_content/devtools-intro) for the full solution guide, or join the community on the [Ansible Development Tools forum](https://forum.ansible.com/tag/devtools).*
+*Visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/develop-assembly_devtools_intro) for the full solution guide, or join the community on the [Ansible Development Tools forum](https://forum.ansible.com/tag/devtools).*

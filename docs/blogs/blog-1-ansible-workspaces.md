@@ -68,7 +68,7 @@ Each tier is an OpenShift BuildConfig that layers on top of the previous tier's 
 **Adding a new domain image** is as straightforward as writing a short Containerfile:
 
 ```dockerfile
-FROM ansible-devspaces-custom:latest
+FROM registry.redhat.io/ansible-automation-platform-27/ansible-devspaces-rhel9:latest
 USER root
 RUN dnf install -y \
       libssh-devel \
@@ -124,19 +124,27 @@ metadata:
 components:
   - name: tooling-container
     container:
-      image: ghcr.io/ansible/community-ansible-dev-tools:latest
+      image: registry.redhat.io/ansible-automation-platform-27/ansible-devspaces-rhel9:latest
       memoryRequest: 2Gi
       memoryLimit: 4Gi
       cpuRequest: 500m
       cpuLimit: 1000m
 ```
 
+> **Tip:** Authentication required for the supported image.
+>
+> The supported image requires [Red Hat registry authentication](https://access.redhat.com/RegistryAuthentication) and an AAP or Ansible Developer subscription. For development, testing, or community use without a subscription, replace the `image` value with `ghcr.io/ansible/ansible-devspaces:latest`.
+
 Developers log into the Dev Spaces dashboard, paste the repository URL, click **Create & Open**, and start coding.
 
-For setup details and the supported image variants, see the [Ansible Development Workspaces documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/using_ansible_development_workspaces_for_automation_content_development/index). For the tiered image strategy, see the [Ansible Development Tools container documentation](https://docs.ansible.com/projects/dev-tools/container/).
+For setup details and the supported image variants, see the [Ansible Development Workspaces documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/develop-assembly_workspaces_intro). For the tiered image strategy, see the [Ansible Development Tools container documentation](https://docs.ansible.com/projects/dev-tools/container/).
 
 The recommended adoption path: start with a Tier 2 org-wide image using a simple inline BuildConfig, validate with two pilot teams, then expand to Tier 3 team images as demand grows. The infrastructure cost is low. A typical deployment of one org-wide image plus five team images produces around 50-80 builds per month, each running three to five minutes.
 
+## What's next
+
+Ansible Workspaces governs the environment -- same tools, same versions, same image for every developer. The next piece is governing the content itself: same practices, same conventions, same quality bar. The [Ansible DevTools MCP Server](<!-- TODO: replace with final blog 2 URL -->) brings AI-assisted development into this governed environment, turning your AI assistant into an Ansible-aware pair programmer that can scaffold, lint, test, and troubleshoot automation content without leaving the conversation. For the full technical walkthrough covering both workspaces and MCP server setup, see the [AI-Assisted Ansible Developer Experience solution guide](<!-- TODO: replace with final solution guide URL -->).
+
 ---
 
-*Join the conversation on the [Ansible Development Tools forum](https://forum.ansible.com/tag/devtools), or visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html/developing_automation_content/devtools-intro) for the full solution guide.*
+*Join the conversation on the [Ansible Development Tools forum](https://forum.ansible.com/tag/devtools), or visit the [Ansible Development Tools documentation](https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.7/develop-assembly_devtools_intro) for the full solution guide.*
