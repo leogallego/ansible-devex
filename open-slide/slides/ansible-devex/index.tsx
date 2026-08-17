@@ -300,7 +300,7 @@ const Title: Page = () => (
           marginTop: 24, fontSize: 22, fontFamily: font.sans,
           color: 'rgba(255,255,255,0.6)', fontStyle: 'italic', animationDelay: '0.45s',
         }}>
-          Presenter Name — Title
+          Leonardo Gallego — Senior Technical Marketing Manager, Ansible, Red Hat
         </p>
       </div>
 
@@ -850,7 +850,8 @@ const ContentLifecycleLoop: Page = () => {
     <div style={{ ...fill, background: c.dark, color: c.white, position: 'relative' }}>
       <Styles />
 
-      {/* DEBUG GRID — full slide 1920x1080 */}
+      {/* DEBUG GRID — to restore, set showDebugGrid to true */}
+      {false && (
       <svg viewBox="0 0 1920 1080" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 50, pointerEvents: 'none' }}>
         {Array.from({ length: 20 }, (_, i) => i * 100).map(x => (
           <g key={`gx${x}`}>
@@ -865,6 +866,7 @@ const ContentLifecycleLoop: Page = () => {
           </g>
         ))}
       </svg>
+      )}
 
       {/* Header */}
       <div style={{ position: 'absolute', top: 56, left: 120, zIndex: 2 }}>
