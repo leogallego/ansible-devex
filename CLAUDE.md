@@ -39,6 +39,10 @@ All reference content lives under `resources/`:
 - `rfc-tiered-image-strategy.md` -- draft RFC for tiered image layering (tracks `ansible-devspaces-cop#1`, related to `ansible/ansible-dev-tools#738`)
 - PDF presentations -- conference and internal slide decks covering the content lifecycle and developer journey
 
+## Slide Deck Notes
+
+The `export const notes` object in `open-slide/slides/ansible-devex/index.tsx` uses numeric keys that **must match the index** of each slide in the `export default [...]` array. When adding, removing, or reordering slides, always update the notes keys to match the new positions. Commented-out keys (e.g., `// 6: ScreenshotLifecycle`) mark slides that have no speaker notes yet.
+
 ## Working With This Content
 
 - Some PDFs contain Red Hat confidential/NDA-only material -- do not extract or redistribute that content

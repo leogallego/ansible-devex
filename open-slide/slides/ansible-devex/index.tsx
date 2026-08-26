@@ -189,6 +189,12 @@ const IconCloud = ({ size, color }: { size?: number; color?: string }) => (
     <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
   </Icon>
 );
+const IconShield = ({ size, color }: { size?: number; color?: string }) => (
+  <Icon size={size} color={color}>
+    <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z" />
+    <path d="M9 12l2 2 4-4" />
+  </Icon>
+);
 
 const Placeholder = ({ label, height = 320 }: { label: string; height?: number }) => (
   <div style={{
@@ -2567,6 +2573,82 @@ const DevSpacesDivider: Page = () => (
   </div>
 );
 
+// ─── 23b. Why Local Dev Doesn't Scale ───────────────────────────────────────
+const WorkaroundCard = ({ name, drawback }: { name: string; drawback: string }) => (
+  <div style={{ background: c.gray, borderRadius: 14, padding: '20px 24px', flex: 1 }}>
+    <div style={{ fontFamily: font.display, fontSize: 22, fontWeight: 700, color: c.redText }}>{name}</div>
+    <div style={{ fontFamily: font.mono, fontSize: 18, color: c.muted, marginTop: 8 }}>{drawback}</div>
+  </div>
+);
+
+const DevSpacesWhy: Page = () => (
+  <div style={{ ...fill, background: c.white, color: c.text }}>
+    <Styles />
+    <PatternBg />
+    <AccentBar />
+    <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
+      <SectionTag light>Module C — Why It Matters</SectionTag>
+      <h2 className="fadeUp" style={{
+        fontFamily: font.display, fontSize: 80, fontWeight: 700,
+        letterSpacing: '-0.035em', margin: '0 0 24px', lineHeight: 1.05,
+      }}>
+        Local Ansible dev doesn't scale
+      </h2>
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 28 }}>
+        <Bullet bold="Linux-only tooling" text="ansible-lint, ansible-navigator, and molecule don't run natively on Windows" />
+        <Bullet bold="Every workaround adds risk" text="remote hosts, WSL, and desktop containers trade one problem for three more" />
+
+        <div className="fadeUp" style={{ display: 'flex', gap: 20, marginLeft: 48, animationDelay: '0.3s' }}>
+          <WorkaroundCard name="Remote SSH" drawback="shared host, capacity issues" />
+          <WorkaroundCard name="WSL2" drawback="admin rights, rarely approved" />
+          <WorkaroundCard name="Docker Desktop" drawback="licensing, usually unpatched" />
+          <WorkaroundCard name="Podman Desktop" drawback="needs WSL, not trusted" />
+        </div>
+
+        <Bullet bold="None of it is centrally managed" text="a different, unpatched setup on every laptop" />
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
+
+const StackCell = ({ label, bg, color = c.text }: { label: string; bg: string; color?: string }) => (
+  <div style={{
+    flex: 1, background: bg, color, borderRadius: 10,
+    display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center',
+    fontFamily: font.display, fontWeight: 700, fontSize: 18, padding: '18px 12px',
+  }}>
+    {label}
+  </div>
+);
+
+const ArchitectureStack = () => (
+  <div className="fadeUp" style={{
+    flex: 1, borderRadius: 16, background: c.gray, padding: 24,
+    display: 'flex', flexDirection: 'column', gap: 12, justifyContent: 'center',
+    animationDelay: '0.4s',
+  }}>
+    <div style={{ display: 'flex', gap: 12 }}>
+      <StackCell label="Ansible Extension" bg={c.white} />
+      <StackCell label="Execution Environment" bg={c.white} />
+      <StackCell label="Content Collections" bg={c.white} />
+    </div>
+    <div style={{ display: 'flex', gap: 12 }}>
+      <StackCell label="VS Code" bg={c.white} />
+      <StackCell label="ADT tools" bg={c.white} />
+      <StackCell label="Ansible deps" bg={c.white} />
+    </div>
+    <div style={{ display: 'flex', gap: 12 }}>
+      <StackCell label="Ansible Automation Platform" bg={c.dark} color={c.white} />
+      <StackCell label="Dev Spaces" bg={c.dark} color={c.white} />
+    </div>
+    <div style={{ display: 'flex' }}>
+      <StackCell label="OpenShift" bg={c.red} color={c.white} />
+    </div>
+  </div>
+);
+
 // ─── 24. Dev Spaces Refresher ───────────────────────────────────────────────
 const DevSpacesRefresher: Page = () => (
   <div style={{ ...fill, background: c.white, color: c.text }}>
@@ -2574,7 +2656,7 @@ const DevSpacesRefresher: Page = () => (
     <PatternBg />
     <AccentBar />
     <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
-      <SectionTag light>Module C — Recap</SectionTag>
+      <SectionTag light>Module C — At a Glance</SectionTag>
       <h2 className="fadeUp" style={{
         fontFamily: font.display, fontSize: 80, fontWeight: 700,
         letterSpacing: '-0.035em', margin: '0 0 24px', lineHeight: 1.05,
@@ -2588,15 +2670,98 @@ const DevSpacesRefresher: Page = () => (
           <Bullet bold="The challenge" text="teams have different needs — network, Windows, AAP Config as Code all require different system packages and Python libraries" />
           <Bullet bold="One image can't fit all" text="a shared image either bloats or satisfies no one — you need a layering strategy" />
         </div>
-        <div className="fadeUp" style={{
-          flex: 1, borderRadius: 16, border: `2px dashed ${c.grayMid}`,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          animationDelay: '0.4s', background: c.gray,
-        }}>
-          <span style={{ fontFamily: font.mono, fontSize: 20, color: c.muted, textAlign: 'center', padding: 32 }}>
-            Screenshot: Dev Spaces dashboard showing running workspaces
-          </span>
+        <ArchitectureStack />
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
+
+// ─── 24b. Power User Capabilities ───────────────────────────────────────────
+const CapabilityCard = ({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) => (
+  <div style={{
+    flex: 1, background: c.gray, borderRadius: 18, padding: '32px 36px',
+    display: 'flex', gap: 24, alignItems: 'flex-start',
+  }}>
+    <div style={{ flexShrink: 0, marginTop: 4 }}>{icon}</div>
+    <div>
+      <div style={{ fontFamily: font.display, fontSize: 30, fontWeight: 700, color: c.text }}>{title}</div>
+      <div style={{ fontFamily: font.sans, fontSize: 24, color: c.muted, marginTop: 10, lineHeight: 1.4 }}>{text}</div>
+    </div>
+  </div>
+);
+
+const PowerUsers: Page = () => (
+  <div style={{ ...fill, background: c.white, color: c.text }}>
+    <Styles />
+    <PatternBg />
+    <AccentBar />
+    <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
+      <SectionTag light>Module C — Power Users</SectionTag>
+      <h2 className="fadeUp" style={{
+        fontFamily: font.display, fontSize: 80, fontWeight: 700,
+        letterSpacing: '-0.035em', margin: '0 0 24px', lineHeight: 1.05,
+      }}>
+        Not just a starter kit
+      </h2>
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 28 }}>
+        <div style={{ display: 'flex', gap: 28 }}>
+          <CapabilityCard icon={<IconShield size={48} />} title="No secrets, anywhere" text="OAuth to your Git provider, plus a gitleaks pre-commit hook — nothing to rotate, nothing to leak" />
+          <CapabilityCard icon={<IconTerminal size={48} />} title="A terminal that's really you" text="oc whoami works — the shell inherits your own OpenShift permissions" />
         </div>
+        <div style={{ display: 'flex', gap: 28 }}>
+          <CapabilityCard icon={<IconContainer size={48} />} title="Real EEs, no workaround" text="Linux user namespaces (OCP 4.20) let ansible-navigator run real EEs" />
+          <CapabilityCard icon={<IconCloud size={48} />} title="One click from any repo" text="a README badge launches a preconfigured workspace, extensions and pre-commit hooks included" />
+        </div>
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
+
+// ─── 24c. Testing in Dev Spaces ─────────────────────────────────────────────
+const InfraCard = ({ name, note }: { name: string; note: string }) => (
+  <div style={{ background: c.gray, borderRadius: 14, padding: '20px 24px', flex: 1 }}>
+    <div style={{ fontFamily: font.display, fontSize: 22, fontWeight: 700, color: c.redText }}>{name}</div>
+    <div style={{ fontFamily: font.mono, fontSize: 17, color: c.muted, marginTop: 8 }}>{note}</div>
+  </div>
+);
+
+const TestingInDevSpaces: Page = () => (
+  <div style={{ ...fill, background: c.white, color: c.text }}>
+    <Styles />
+    <PatternBg />
+    <AccentBar />
+    <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
+      <SectionTag light>Module C — Testing</SectionTag>
+      <h2 className="fadeUp" style={{
+        fontFamily: font.display, fontSize: 80, fontWeight: 700,
+        letterSpacing: '-0.035em', margin: '0 0 24px', lineHeight: 1.05,
+      }}>
+        Testing lives in the cluster too
+      </h2>
+
+      <div style={{ display: 'flex', gap: 48, flex: 1, minHeight: 0, alignItems: 'center' }}>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 28 }}>
+          <Bullet bold="Same two commands" text="cd role && molecule test — lint, create, converge, idempotence, verify" />
+          <Bullet bold="Test infra, not your laptop" text="the delegated driver spins up real target systems in the cluster" />
+
+          <div className="fadeUp" style={{ display: 'flex', flexDirection: 'column', gap: 12, animationDelay: '0.3s' }}>
+            <InfraCard name="OpenShift Containers" note="fastest — covers most scenarios" />
+            <InfraCard name="OpenShift Virtual Machines" note="Windows and network targets" />
+            <InfraCard name="Nested Podman (OCP 4.20)" note="no extra infra to provision" />
+          </div>
+        </div>
+        <Terminal title="terminal — molecule test" lines={[
+          '$ cd roles/backup_file',
+          '$ molecule test',
+          'INFO     Running default > lint',
+          'INFO     Running default > create',
+          'INFO     Running default > converge',
+          'INFO     Running default > idempotence',
+          '✔ Passed with production profile: 0 failure(s)',
+        ]} />
       </div>
     </div>
     <Footer />
@@ -2970,6 +3135,45 @@ const SelfService: Page = () => (
             <span><strong style={{ color: c.text }}>{item.title}</strong> — {item.desc}</span>
           </div>
         ))}
+      </div>
+    </div>
+    <Footer />
+  </div>
+);
+
+// ─── 29b. AAP Self-Service Portal ───────────────────────────────────────────
+const PortalCard = ({ title, text }: { title: string; text: string }) => (
+  <div style={{ background: c.gray, borderRadius: 14, padding: '20px 24px', flex: 1 }}>
+    <div style={{ fontFamily: font.display, fontSize: 22, fontWeight: 700, color: c.redText }}>{title}</div>
+    <div style={{ fontFamily: font.sans, fontSize: 18, color: c.muted, marginTop: 8, lineHeight: 1.4 }}>{text}</div>
+  </div>
+);
+
+const PortalIntegration: Page = () => (
+  <div style={{ ...fill, background: c.white, color: c.text }}>
+    <Styles />
+    <PatternBg />
+    <AccentBar />
+    <div style={{ position: 'absolute', inset: 0, padding: '72px 120px 90px', display: 'flex', flexDirection: 'column' }}>
+      <SectionTag light>Module C — What's Next</SectionTag>
+      <h2 className="fadeUp" style={{
+        fontFamily: font.display, fontSize: 80, fontWeight: 700,
+        letterSpacing: '-0.035em', margin: '0 0 24px', lineHeight: 1.05,
+      }}>
+        Same pattern, one portal
+      </h2>
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 28 }}>
+        <Bullet bold="Same build, two outputs" text="base + domain layer + build produces both execution environments and Dev Spaces images" />
+        <Bullet bold="AAP's self-service portal" text="a Backstage-based developer hub already planned for EE builds" />
+
+        <div className="fadeUp" style={{ display: 'flex', gap: 20, marginLeft: 48, animationDelay: '0.3s' }}>
+          <PortalCard title="Catalog" text="Dev Spaces domain images listed alongside execution environments" />
+          <PortalCard title="Templates" text="a guided form scaffolds a Tier 3 image request as a PR" />
+          <PortalCard title="Golden path" text="one click provisions a Dev Space and its matching EE together" />
+        </div>
+
+        <Bullet bold="Not built yet" text="a convenience layer on top of the git-native workflow, not a replacement for it" />
       </div>
     </div>
     <Footer />
@@ -3466,45 +3670,64 @@ export const meta: SlideMeta = {
   theme: 'redhat',
 };
 
-export const notes = {
+// Keys MUST match the index in the default export array below.
+// When reordering slides, update these keys to match the new positions.
+export const notes: Record<number, string> = {
   0: "Set context: this is about the journey every automation team goes through. Alternative title for technical audiences: 'Inner Loops, Outer Gates: The Complete Ansible Developer Journey'.",
   1: "Adjust these numbers to your customer — regulated industries skew higher, cloud-native shops lower. The point isn't the exact days, it's that none of them are 5 minutes.",
   2: "Pause for effect. This is the thesis of the talk.",
-  3: "ADT bundles 12 tools into one install — adt --version shows all tools with compatible, tested versions. No more dependency conflicts.",
+  3: "ADT bundles all core developer tools into one install — adt --version shows every tool with compatible, tested versions. No more dependency conflicts.",
   4: "Most customers are between Crawl and Walk. The container-based methods are the target. Key: uv/pip is free (upstream). RPM requires AAP subscription + RHEL 9. Dev Container has free community image and supported image. Dev Spaces requires OpenShift + Dev Spaces operator.",
   5: "Two loops: inner loop is daily developer experience (write, lint, molecule test, iterate). Outer loop is what happens on push: PR triggers GitHub Actions with molecule CI + ansible-lint + compliance scanning. On merge, approved content syncs to Automation Controller via GitOps.",
-  6: "Transition: we've shown the tools, now how do you roll them out to 50 or 500 developers?",
-  7: "Sweet spot for most teams starting out. Zero infrastructure investment, immediate consistency. Available as community image (ghcr.io/ansible/community-ansible-dev-tools, free) or supported image (registry.redhat.io, AAP subscription).",
-  8: "Value prop for Dev Spaces is governance + zero desktop requirements. IT loves it because nothing runs locally. Requires OpenShift + Dev Spaces operator. Note: downstream supported Dev Spaces image will be available with AAP 2.7 — currently community-only (ghcr.io/ansible/ansible-devspaces).",
-  9: "Both MCP servers are tech preview. The key insight: AI doesn't replace the developer, it accelerates the content lifecycle by removing manual steps.",
-  10: "This is the engagement model. The assessment is a 1-day whiteboard session. The PoC typically takes 2-4 weeks with a single pilot team.",
-  11: "This module walks through the key tools in the Ansible Development Tools bundle and how they connect across the Create → Test → Deploy lifecycle.",
-  12: "ansible-creator replaces the old 'copy an existing role and rename things' workflow. Run ansible-creator init collection or ansible-creator init role to get started.",
-  13: "The profiles are the key feature — start a team on 'moderate' and ratchet up to 'production' over time. The --fix flag automatically corrects common issues. SARIF output integrates with GitHub Advanced Security for PR annotations.",
-  14: "Molecule creates a container, runs your role, verifies the result, and tears it down. The Podman driver is the default — it works inside dev containers with nested Podman.",
-  15: "pytest-ansible is for testing the Python code inside modules and plugins — not for testing playbooks (that's molecule). tox-ansible generates a test matrix.",
-  16: "Execution Environments are the deployment unit for automation content. Instead of installing collections on every Controller node, you build a container image with everything baked in.",
-  17: "ansible-navigator replaces the traditional ansible-playbook command for EE-based workflows. ansible-sign uses GPG to sign project directories.",
-  18: "This module covers the two MCP servers that connect AI assistants to Ansible tooling. Both are tech preview as of AAP 2.6.",
-  19: "MCP is an open protocol — AI assistants discover available tools and call them with structured input/output. The key point: the AI doesn't replace the developer's judgment, it removes manual steps.",
-  20: "The Devtools MCP server is @ansible/ansible-mcp-server on npm. It wraps the ADT CLI tools so an AI assistant can scaffold a project, lint it, fix violations, and navigate the collection structure.",
-  21: "The AAP MCP server connects to the AAP gateway API (2.6.4+). It lets an AI assistant query inventory, launch job templates, and check system status.",
-  22: "This module covers the tiered image strategy for customizing Dev Spaces environments.",
-  23: "Container immutability is a feature, not a bug — we don't want developers running dnf install in their workspaces because that creates drift.",
-  24: "Tier 1 is managed by the ansible-dev-tools upstream project. Tier 2 is where most organizations focus — it's the standard deployment path.",
-  25: "Tier 2 is where the real value is for enterprise customers. When you hit 5+ domain variants, CEKit pays off — adding a new domain is a YAML file, not a Containerfile.",
-  26: "ImageStream triggers are the key automation mechanism. When the upstream base image updates, OpenShift automatically triggers rebuilds of every Tier 2 image. For rollback, re-tag the ImageStream.",
-  27: "The self-service model keeps the platform team as gatekeepers without making them a bottleneck. Set lifecycle policies to clean up stale personal images after 30/60/90 days.",
-  28: "This module covers the outer loop — what happens when a developer pushes code.",
-  29: "The outer loop is the automated enforcement layer. When a developer opens a PR, GitHub Actions runs ansible-lint with the team's profile and molecule tests.",
-  30: "This is the deployment pipeline for automation content. The EE definition file is versioned in the repo, so the image is always reproducible.",
-  31: "Controller project sync is the GitOps mechanism for Ansible. Every job execution in Controller records the project revision (commit SHA).",
-  32: "Observability closes the feedback loop. Grafana dashboards pull metrics from GitHub Actions, ansible-lint, and Automation Controller.",
-  33: "This module covers the migration path from legacy automation tools to Ansible.",
-  34: "The business case is usually one of three: contract renewal, consolidation, or skills gap.",
-  35: "x2Ansible is not a syntax translator — it's an AI that understands the intent of the source automation and generates idiomatic Ansible.",
-  36: "The workflow is designed to minimize risk. Assessment inventories all legacy automation. Validation is critical: run molecule tests AND compare output side-by-side. Rollout is phased — run Ansible in parallel with legacy.",
-  37: "",
+  // 6: ScreenshotLifecycle
+  7: "Transition: we've shown the tools, now how do you roll them out to 50 or 500 developers?",
+  8: "Sweet spot for most teams starting out. Zero infrastructure investment, immediate consistency. Available as community image (ghcr.io/ansible/community-ansible-dev-tools, free) or supported image (registry.redhat.io, AAP subscription).",
+  9: "Value prop for Dev Spaces is governance + zero desktop requirements. IT loves it because nothing runs locally. Requires OpenShift + Dev Spaces operator. Note: downstream supported Dev Spaces image will be available with AAP 2.7 — currently community-only (ghcr.io/ansible/ansible-devspaces).",
+  // 10: ScreenshotDevSpaces
+  11: "Both MCP servers are tech preview. The key insight: AI doesn't replace the developer, it accelerates the content lifecycle by removing manual steps.",
+  12: "This is the engagement model. The assessment is a 1-day whiteboard session. The PoC typically takes 2-4 weeks with a single pilot team.",
+  13: "This module walks through the key tools in the Ansible Development Tools bundle and how they connect across the Create → Test → Deploy lifecycle.",
+  14: "Quick recap to orient the audience before diving into individual tools. Mention that adt --version is the quickest way to verify the installation.",
+  15: "ansible-creator replaces the old 'copy an existing role and rename things' workflow. It scaffolds collections, roles, playbook projects, and execution environment definitions.",
+  16: "ansible-dev-environment (ade) manages the full dev environment setup — installs collections, resolves dependencies, and validates the environment. Think of it as a declarative environment manager for Ansible projects.",
+  17: "The profiles are the key feature — start a team on 'moderate' and ratchet up to 'production' over time. The --fix flag automatically corrects common issues. SARIF output integrates with GitHub Advanced Security for PR annotations.",
+  18: "Molecule creates a container, runs your role, verifies the result, and tears it down. The Podman driver is the default — it works inside dev containers with nested Podman.",
+  19: "pytest-ansible is for testing the Python code inside modules and plugins — not for testing playbooks (that's molecule). tox-ansible generates a test matrix.",
+  20: "Execution Environments are the deployment unit for automation content. Instead of installing collections on every Controller node, you build a container image with everything baked in.",
+  21: "ansible-navigator replaces the traditional ansible-playbook command for EE-based workflows. It also provides an interactive TUI for inspecting execution environments, browsing collections, and reviewing playbook run details.",
+  // 22: ScreenshotNavigator
+  23: "ansible-sign brings supply chain security to automation content. It uses GPG to sign project directories so that Controller can verify content hasn't been tampered with before execution.",
+  24: "This module covers the two MCP servers that connect AI assistants to Ansible tooling. Both are tech preview as of AAP 2.6.",
+  25: "MCP is an open protocol — AI assistants discover available tools and call them with structured input/output. The key point: the AI doesn't replace the developer's judgment, it removes manual steps.",
+  26: "The three-column comparison shows the evolution: raw API calls are powerful but verbose, modules abstract the API but only work in playbooks, MCP tools bring that same abstraction to AI assistants in a conversational workflow.",
+  27: "Two separate MCP servers, each connecting to different parts of the stack. The Devtools MCP wraps the local CLI tools. The AAP MCP connects to the platform API. Both use the same open protocol.",
+  28: "The Devtools MCP server is @ansible/ansible-mcp-server on npm. It wraps the ADT CLI tools so an AI assistant can scaffold a project, lint it, fix violations, and navigate the collection structure.",
+  29: "The AAP MCP server connects to the AAP gateway API (2.6.4+). It lets an AI assistant query inventory, launch job templates, and check system status.",
+  // 30: ScreenshotMCP
+  31: "This module covers the tiered image strategy for customizing Dev Spaces environments.",
+  32: "Sets up the module without assuming the audience saw the opening onboarding story — Windows-only workstations force SSH/WSL/Docker Desktop workarounds, all unmanaged and unpatched. This is the standalone-safe 'why' if presenting Module C on its own.",
+  33: "What Dev Spaces actually is: the stack diagram shows the Ansible Extension, EE, and collections running on VS Code + ADT + Ansible deps, on top of AAP + Dev Spaces on OpenShift. Then pivot into the tiering challenge — teams need different packages.",
+  34: "This isn't just a starter image — the first card covers secrets end to end: Git OAuth means nothing to rotate on a laptop, and a gitleaks pre-commit hook catches anything that slips through anyway. The terminal inherits real OpenShift RBAC (oc whoami works), and Linux user namespaces (OCP 4.20 GA) let ansible-navigator run real EEs without the old KUBEDOCK workaround.",
+  35: "Reinforces the nested-container point from the power-user slide — molecule's delegated driver can target OpenShift containers, VMs (Windows/network scenarios), or nested Podman, all provisioned in the same cluster. No separate CI runner needed to run a test suite.",
+  36: "Container immutability is a feature, not a bug — we don't want developers running dnf install in their workspaces because that creates drift.",
+  37: "Tier 1 is managed by the ansible-dev-tools upstream project. Tier 2 is where most organizations focus — it's the standard deployment path.",
+  38: "Tier 2 is where the real value is for enterprise customers. When you hit 5+ domain variants, CEKit pays off — adding a new domain is a YAML file, not a Containerfile.",
+  39: "ImageStream triggers are the key automation mechanism. When the upstream base image updates, OpenShift automatically triggers rebuilds of every Tier 2 image. For rollback, re-tag the ImageStream.",
+  40: "The self-service model keeps the platform team as gatekeepers without making them a bottleneck. Set lifecycle policies to clean up stale personal images after 30/60/90 days.",
+  41: "Forward-looking, not shipped — the AAP self-service portal (Backstage-based) is already planned for EE builds. Same pattern applies to Dev Spaces images: catalog, templates, golden path. Frame it as a convenience layer on top of the git workflow, not a replacement — see rfc-tiered-image-strategy.md section 14.",
+  42: "This module covers the outer loop — what happens when a developer pushes code.",
+  43: "Quick recap to frame the CI/CD content. Inner loop is the developer's machine, outer loop is CI automation, and the EE pipeline connects to production.",
+  44: "The outer loop is the automated enforcement layer. When a developer opens a PR, GitHub Actions runs ansible-lint with the team's profile and molecule tests. SARIF output gives inline annotations directly on the PR.",
+  45: "This is the deployment pipeline for automation content. The EE definition file is versioned in the repo, so the image is always reproducible.",
+  46: "Controller project sync is the GitOps mechanism for Ansible. Every job execution in Controller records the project revision (commit SHA).",
+  47: "Observability closes the feedback loop. Grafana dashboards pull metrics from GitHub Actions, ansible-lint, and Automation Controller.",
+  // 48: ScreenshotGrafana
+  49: "This module covers the migration path from legacy automation tools to Ansible.",
+  50: "Quick recap to orient the audience. Emphasize that migration is not just a technical project — it's an opportunity to adopt good practices from the start.",
+  51: "The business case is usually one of three: contract renewal, consolidation, or skills gap.",
+  52: "x2Ansible is not a syntax translator — it's an AI that understands the intent of the source automation and generates idiomatic Ansible.",
+  53: "The workflow is designed to minimize risk. Assessment inventories all legacy automation. Validation is critical: run molecule tests AND compare output side-by-side. Rollout is phased — run Ansible in parallel with legacy.",
+  // 54: ThankYou
 };
 
 // ─── Screenshot Placeholder Slides ──────────────────────────────────────────
@@ -3626,12 +3849,16 @@ export default [
   AAPMCP,
   ScreenshotMCP,
   DevSpacesDivider,
+  DevSpacesWhy,
   DevSpacesRefresher,
+  PowerUsers,
+  TestingInDevSpaces,
   WhyCustomize,
   TieredStrategy,
   Tier2Detail,
   AutoRebuild,
   SelfService,
+  PortalIntegration,
   CICDDivider,
   CICDRefresher,
   PRGates,
